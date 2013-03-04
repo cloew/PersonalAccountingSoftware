@@ -5,13 +5,11 @@ import datetime
 
 def main():
     """ Generate the Database """
-    database = Database()
-
     my_transaction = Transaction(description="Dinner", amount=251.00*100, income=False, date=datetime.datetime.now())
     print my_transaction
     print "ID:", str(my_transaction.id)
 
-    session = database.getSession()
+    session = Database.getSession()
 
     session.add(my_transaction)
     saved_transaction = session.query(Transaction).filter_by(description="Dinner").first()
