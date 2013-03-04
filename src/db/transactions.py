@@ -1,3 +1,4 @@
+from contextlib import contextmanager
 from database import Database
 
 class TransactionsWrapper:
@@ -8,9 +9,8 @@ class TransactionsWrapper:
 
     def add(self, transaction):
         """ Add Transaction to the database """
-        session = Database.getSession()
-        session.add(transaction)
-        session.commit()
+        with self.session() as session:
+            session.add(transaction)
 
     def update(self, transaction):
         """ Update the given transaction """
@@ -18,5 +18,13 @@ class TransactionsWrapper:
 
     def allTransactions(self):
         """ Returns all transactions from the database """
+
+    @contextmanager
+    def session(self):
+        """ Returns the session """ # Need to add Exception handling
+        session = Database.getSession()
+        yield session
+        session.commit()
+        session.close()
 
 Transactions = TransactionsWrapper()

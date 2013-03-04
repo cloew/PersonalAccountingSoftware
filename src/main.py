@@ -19,10 +19,7 @@ def main():
     print "Same?:", saved_transaction is my_transaction
 
     my_transaction.description = "New Description"
-
-    print session.dirty
-
-    session.commit()
+    Transactions.add(my_transaction)
 
     saved_transaction = session.query(Transaction).filter_by(description="New Description").first()
     print saved_transaction
