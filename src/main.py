@@ -27,5 +27,8 @@ def main():
 
     print "Same?:", saved_transaction2 is my_transaction
 
+    print "Transactions"
+    print Transactions.all()
+
 if __name__ == "__main__":
     main()

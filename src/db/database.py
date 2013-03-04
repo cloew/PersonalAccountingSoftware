@@ -7,7 +7,7 @@ class DatabaseWrapper:
 
     def __init__(self):
         """ Initialize the Database """
-        self.engine = create_engine('sqlite:///{0}'.format(self.__database_path__), echo=True)
+        self.engine = create_engine('sqlite:///{0}'.format(self.__database_path__), echo=False)
         self.sessionmaker = sessionmaker(bind=self.engine)
         self.session = None
 

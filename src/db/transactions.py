@@ -26,8 +26,12 @@ class TransactionsWrapper:
             db_transaction_record = session.query(Transaction).filter_by(id=transaction.id).first()
         return db_transaction_record
 
-    def allTransactions(self):
+    def all(self):
         """ Returns all transactions from the database """
+        transactions = None
+        with self.session() as session:
+            transactions = session.query(Transaction).all()
+        return transactions
 
     @contextmanager
     def session(self):
