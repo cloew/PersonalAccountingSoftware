@@ -9,9 +9,12 @@ class DatabaseWrapper:
         """ Initialize the Database """
         self.engine = create_engine('sqlite:///{0}'.format(self.__database_path__), echo=True)
         self.sessionmaker = sessionmaker(bind=self.engine)
+        self.session = None
 
     def getSession(self):
         """ Return a SQLAlchemy Database Session """
-        return self.sessionmaker()
+        if self.session is None:
+            self.session = self.sessionmaker()
+        return self.session
 
 Database = DatabaseWrapper()

@@ -11,21 +11,21 @@ def main():
     print "ID:", str(my_transaction.id)
 
     Transactions.add(my_transaction)
-    session = Database.getSession()
-    saved_transaction = session.query(Transaction).filter_by(description="Dinner").first()
+    saved_transaction = Transactions.find(my_transaction)
     print saved_transaction
     print "ID:", str(saved_transaction.id)
 
     print "Same?:", saved_transaction is my_transaction
 
     my_transaction.description = "New Description"
-    Transactions.add(my_transaction)
+    Transactions.save()
 
-    saved_transaction = session.query(Transaction).filter_by(description="New Description").first()
-    print saved_transaction
-    print "ID:", str(saved_transaction.id)
+    saved_transaction2 = Transactions.find(my_transaction)
+    print saved_transaction2
+    print saved_transaction2.description
+    print "ID:", str(saved_transaction2.id)
 
-    print "Same?:", saved_transaction is my_transaction
+    print "Same?:", saved_transaction2 is my_transaction
 
 if __name__ == "__main__":
     main()
