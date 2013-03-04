@@ -105,8 +105,29 @@ suiteFind = unittest.TestSuite(map(find, testcasesFind))
 
 ##########################################################
 
+class save(unittest.TestCase):
+    """ Test cases of save """
+    
+    def  setUp(self):
+        """ Build the *** for the test """
+        self.transaction = BuildTransaction()
+        
+    def saveTransaction(self):
+        """ Test that a transaction in the database can be found """
+        Transactions.add(self.transaction)
+        assert self.transaction.amount == TransactionHelper.amount, "Amount should be the same"
+        self.transaction.amount = 500
+        Transactions.save()
+        assert self.transaction.amount == 500, "Amount should have changed"
+
+# Collect all test cases in this class
+testcasesSave = ["saveTransaction"]
+suiteSave = unittest.TestSuite(map(save, testcasesSave))
+
+##########################################################
+
 # Collect all test cases in this file
-suites = [suiteAdd, suiteAll, suiteFind]
+suites = [suiteAdd, suiteAll, suiteFind, suiteSave]
 suite = unittest.TestSuite(suites)
 
 if __name__ == "__main__":
