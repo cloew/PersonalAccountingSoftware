@@ -16,7 +16,7 @@ class add(unittest.TestCase):
         self.transaction = Transaction(amount=self.amount, description=self.description, income=self.income, date=self.date)
         
     def addTransaction(self):
-        """ Test that ... """
+        """ Test that adding a transaction adds a new record """
         transactionCountBefore = len(Transactions.all())
         Transactions.add(self.transaction)
         transactionCountAfter = len(Transactions.all())
@@ -37,8 +37,36 @@ suiteAdd = unittest.TestSuite(map(add, testcasesAdd))
 
 ##########################################################
 
+class find(unittest.TestCase):
+    """ Test cases of find """
+    
+    def  setUp(self):
+        """ Build the *** for the test """
+        self.amount = 200
+        self.description = "Some Description"
+        self.income = False
+        self.date = datetime.date(2013, 3, 1)
+        self.transaction = Transaction(amount=self.amount, description=self.description, income=self.income, date=self.date)
+        
+    def findTransaction_Success(self):
+        """ Test that a transaction in the database can be found """
+        Transactions.add(self.transaction)
+        found_transaction = Transactions.find(self.transaction)
+        assert found_transaction is self.transaction, "Should receive the same transaction that was just added"
+
+    def findTransaction_Failure(self):
+        """ Test that when a transaction doesn't exist no record is returned """
+        found_transaction = Transactions.find(self.transaction)
+        assert found_transaction is None, "Should get no transaction"
+
+# Collect all test cases in this class
+testcasesFind = ["findTransaction_Success", "findTransaction_Failure"]
+suiteFind = unittest.TestSuite(map(find, testcasesFind))
+
+##########################################################
+
 # Collect all test cases in this file
-suites = [suiteAdd]
+suites = [suiteAdd, suiteFind]
 suite = unittest.TestSuite(suites)
 
 if __name__ == "__main__":
