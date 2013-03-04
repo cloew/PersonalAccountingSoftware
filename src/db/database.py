@@ -17,4 +17,10 @@ class DatabaseWrapper:
             self.session = self.sessionmaker()
         return self.session
 
+    def clearSession(self):
+        """ Clear the current session """
+        if self.session is not None:
+            self.session.close()
+            self.session = None
+
 Database = DatabaseWrapper()

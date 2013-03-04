@@ -51,26 +51,33 @@ class all(unittest.TestCase):
     def  setUp(self):
         """ Build the *** for the test """
         ResetDatabase()
-        self.amount = 200
-        self.description = "Some Description"
-        self.income = False
-        self.date = datetime.date(2013, 3, 1)
-        self.transaction = Transaction(amount=self.amount, description=self.description, income=self.income, date=self.date)
         
     def findAllTransactions_One(self):
         """ Test that a transaction is returned in all the transactions """
-        Transactions.add(self.transaction)
-        found_transaction = Transactions.find(self.transaction)
-        assert found_transaction is self.transaction, "Should receive the same transaction that was just added"
+        transactions = Transactions.all()
+        assert len(transactions) == 0, "Should have no entries"
+        transaction = BuildTransaction()
+        Transactions.add(transaction)
+        transactions = Transactions.all()
+        assert len(transactions) == 1, "Should have a single entry"
+        assert transactions[0] is transaction, "Should have received the added transaction"
 
-    def findTransaction_Failure(self):
-        """ Test that when a transaction doesn't exist no record is returned """
-        found_transaction = Transactions.find(self.transaction)
-        assert found_transaction is None, "Should get no transaction"
+    def findAllTransactions_Multiple(self):
+        """ Test that multiple transactions are returned in all the transactions """
+        transactions = Transactions.all()
+        assert len(transactions) == 0, "Should have no entries"
+        transaction1 = BuildTransaction()
+        Transactions.add(transaction1)
+        transaction2 = BuildTransaction()
+        Transactions.add(transaction2)
+        transactions = Transactions.all()
+        assert len(transactions) == 2, "Should have a multiple entries"
+        assert transaction1 in transactions, "Should have received the first added transaction"
+        assert transaction2 in transactions, "Should have received the second added transaction"
 
 # Collect all test cases in this class
-#testcasesFind = ["findTransaction_Success", "findTransaction_Failure"]
-#suiteFind = unittest.TestSuite(map(find, testcasesFind))
+testcasesAll = ["findAllTransactions_One", "findAllTransactions_Multiple"]
+suiteAll = unittest.TestSuite(map(all, testcasesAll))
 
 ##########################################################
 
@@ -99,7 +106,7 @@ suiteFind = unittest.TestSuite(map(find, testcasesFind))
 ##########################################################
 
 # Collect all test cases in this file
-suites = [suiteAdd, suiteFind]
+suites = [suiteAdd, suiteAll, suiteFind]
 suite = unittest.TestSuite(suites)
 
 if __name__ == "__main__":
