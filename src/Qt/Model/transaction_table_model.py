@@ -1,6 +1,6 @@
-from PyQt4.QtCore import QAbstractTableModel, QVariant, Qt
-
 from db.transactions import Transactions
+
+from PyQt4.QtCore import QAbstractTableModel, QVariant, Qt
 
 class TransactionTableModel(QAbstractTableModel):
     """ Represnts the Transaction List as a Table """
@@ -31,8 +31,6 @@ class TransactionTableModel(QAbstractTableModel):
 
     def getDataBasedOnRole(self, index, role):
         """ Get Data based on the role given """
-        print "Getting Data Based on Role:", role
-
         if role == Qt.DisplayRole:
             return self.getDisplayRoleData(index)
         elif role == Qt.TextAlignmentRole:
@@ -53,7 +51,9 @@ class TransactionTableModel(QAbstractTableModel):
         transaction = self.getTransactionForRow(index)
         if transaction is not None:
             amount = transaction.amount
-            return QVariant("${0}".format(amount/100.0))
+            cents = amount%100
+            dollars = amount/100
+            return QVariant("${0}.{1:{fill}2}".format(dollars, cents, fill=0))
 
     def getTransactionDescription(self, index):
         """ Return the amount for a particular transaction """

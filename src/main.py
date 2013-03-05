@@ -5,31 +5,15 @@ from Qt.GUI.main_window_controller import MainWindowController
 
 import datetime
 
+def AddTransaction(description="", amount=0, income=False, date=datetime.date.today()):
+    my_transaction = Transaction(description=description, amount=amount*100, income=income, date=date)
+    Transactions.add(my_transaction)
+
 def main():
     """ Generate the Database """
-    my_transaction = Transaction(description="Dinner", amount=251.00*100, income=False, date=datetime.datetime.now())
-    print my_transaction
-    print "ID:", str(my_transaction.id)
-
-    Transactions.add(my_transaction)
-    saved_transaction = Transactions.find(my_transaction)
-    print saved_transaction
-    print "ID:", str(saved_transaction.id)
-
-    print "Same?:", saved_transaction is my_transaction
-
-    my_transaction.description = "New Description"
-    Transactions.save()
-
-    saved_transaction2 = Transactions.find(my_transaction)
-    print saved_transaction2
-    print saved_transaction2.description
-    print "ID:", str(saved_transaction2.id)
-
-    print "Same?:", saved_transaction2 is my_transaction
-
-    print "Transactions"
-    print Transactions.all()
+    AddTransaction(description="Dinner", amount=251.00, income=False, date=datetime.datetime.now())
+    AddTransaction(description="Gas", amount=35.00, income=False, date=datetime.date(2013, 3, 3))
+    AddTransaction(description="Paycheck", amount=1000.00, income=True, date=datetime.date(2013, 3, 4))
 
     controller = MainWindowController()
     controller.run()
