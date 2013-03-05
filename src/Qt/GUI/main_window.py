@@ -17,6 +17,7 @@ class MainWindow(QtGui.QMainWindow):
         self.list_view = TransactionListView()
         self.setCentralWidget(self.list_view)
 
+        self.statusBar()
         self.prepareToolBar()
         self.setWindowTitle("PAS")
         self.setWindowIcon(QtGui.QIcon('resources/vault_small.png'))
