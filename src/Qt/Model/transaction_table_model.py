@@ -19,7 +19,28 @@ class TransactionTableModel(QtCore.QAbstractTableModel):
 
     def data(self, index, role = QtCore.Qt.DisplayRole):
         """ Return the data at the given index """
+        if not index.isValid():
+            return QtCore.QVariant("Some Value")
+        else:
+            return self.getDataBasedonRole(index, role)
+
+    def getDataBasedonRole(self, index, role):
+        """ Get Data based on the role given """
+        print "Getting Data Based on Role:", role
+
+        if role == QtCore.Qt.DisplayRole:
+            return self.getDisplayRoleData(index)
+        elif role == QtCore.Qt.TextAlignmentRole:
+            return self.getTextAlignmentRole(index)
+        return QtCore.QVariant("")
+
+    def getDisplayRoleData(self, index):
+        """ Return Data for the Qt Display Role """
         return QtCore.QVariant("Some Value")
+
+    def getTextAlignmentRole(self, index):
+        """ Return Text Alignment for the given cell """
+        return int(QtCore.Qt.AlignRight|QtCore.Qt.AlignVCenter)
 
     def headerData(self, section, orientation, role = QtCore.Qt.DisplayRole):
         """ Return Header Data """
