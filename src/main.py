@@ -1,6 +1,7 @@
 from db.database import Database
 from db.transactions import Transactions
 from ORM.transaction import Transaction
+from Qt.GUI.main_window_controller import MainWindowController
 
 import datetime
 
@@ -29,6 +30,9 @@ def main():
 
     print "Transactions"
     print Transactions.all()
+
+    controller = MainWindowController()
+    controller.run()
 
 if __name__ == "__main__":
     main()
