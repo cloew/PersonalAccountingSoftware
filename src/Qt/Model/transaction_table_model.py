@@ -91,5 +91,3 @@ class TransactionTableModel(QAbstractTableModel):
             if section < len(self.columns):
                 return QVariant(self.columns[section])    
             return QVariant("Horizontal Header")
-        else:
-            return None #QVariant("Vertical Header")
