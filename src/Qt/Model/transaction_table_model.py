@@ -14,6 +14,7 @@ class TransactionTableModel(QAbstractTableModel):
                            "The Transaction type (Income/Expense).",
                            "The Date the Transaction occured."]
         self.roleResponses = {Qt.DisplayRole:self.getData,
+                              Qt.EditRole:self.getData,
                               Qt.ToolTipRole:self.getTip,
                               Qt.StatusTipRole:self.getTip,
                               Qt.TextAlignmentRole:self.getTextAlignment}
