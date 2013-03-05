@@ -92,9 +92,9 @@ class TransactionTableModel(QAbstractTableModel):
         """ Return the amount for a particular transaction """
         transaction = self.getTransactionForRow(index)
         if transaction is not None:
-            if transaction.income:
+            if transaction.income is True:
                 return QVariant("Income")
-            else:
+            elif transaction.income is False:
                 return QVariant("Expense")
 
     def getTransactionDate(self, index):
