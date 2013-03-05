@@ -43,6 +43,14 @@ class TransactionTableModel(QAbstractTableModel):
         else:
             return self.getDataBasedOnRole(index, role)
 
+    def flags(self, index):
+        """ Return flags for the Transaction Table """
+        return Qt.ItemIsEditable | Qt.ItemIsEnabled | Qt.ItemIsSelectable
+
+    def setData(self, index, value, role = Qt.EditRole):
+        """ Set Data in the Transaction Table """
+        return False
+
     def getDataBasedOnRole(self, index, role):
         """ Get Data based on the role given """
         if role in self.roleResponses:
