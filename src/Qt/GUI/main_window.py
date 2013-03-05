@@ -1,5 +1,9 @@
+from db.transactions import Transactions
+from ORM.transaction import Transaction
 from PyQt4 import QtGui
 from Qt.GUI.transaction_list_view import TransactionListView
+
+import datetime
 
 class MainWindow(QtGui.QMainWindow):
     """ Represents the Main Window of the PAS Application """
@@ -13,5 +17,34 @@ class MainWindow(QtGui.QMainWindow):
         list_view = TransactionListView()
         self.setCentralWidget(list_view)
 
+        self.prepareToolBar()
         self.setWindowTitle("PAS")
         self.showMaximized()
+
+    def prepareToolBar(self):
+        """ Prepares the Tool Bar """
+        self.addNewTransactionButton()
+        self.addExitButton()
+
+    def addNewTransactionButton(self):
+        """ Adds the New Transaction Button to the ToolBar """
+        newTransactionAction = QtGui.QAction(QtGui.QIcon('exit24.png'), 'New Transaction', self)
+        newTransactionAction.setShortcut('Ctrl+N')
+        newTransactionAction.triggered.connect(self.newTransaction)
+        
+        self.toolbar = self.addToolBar('New Transaction')
+        self.toolbar.addAction(newTransactionAction)
+
+    def addExitButton(self):
+        """ Adds the Exit Button to the ToolBar """
+        exitAction = QtGui.QAction(QtGui.QIcon('exit24.png'), 'Exit', self)
+        exitAction.setShortcut('Ctrl+Q')
+        exitAction.triggered.connect(QtGui.qApp.quit)
+        
+        self.toolbar = self.addToolBar('Exit')
+        self.toolbar.addAction(exitAction)
+
+    def newTransaction(self): # Want to move this function out of this view class
+        """ Creates a New Transaction """
+        transaction = Transaction(description="New Description", amount=1234567890, income=False, date=datetime.date.today())
+        Transactions.add(transaction)
