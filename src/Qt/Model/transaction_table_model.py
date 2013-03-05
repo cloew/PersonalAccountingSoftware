@@ -1,5 +1,5 @@
 from db.transactions import Transactions
-
+from decimal import Decimal, InvalidOperation
 from PyQt4.QtCore import QAbstractTableModel, QModelIndex, QVariant, Qt
 
 class TransactionTableModel(QAbstractTableModel):
@@ -115,11 +115,16 @@ class TransactionTableModel(QAbstractTableModel):
     def setTransactionAmount(self, index, value):
         """ Return the amount for a particular transaction """
         transaction = self.getTransactionForRow(index)
-        if transaction is not None and transaction.amount is not None:
-            amount = transaction.amount
-            cents = amount%100
-            dollars = amount/100
-            return QVariant("${0}.{1:{fill}2}".format(dollars, cents, fill=0))
+        if transaction is not None:
+            try:
+                cleanedValue = str(value.toString())
+                if cleanedValue.startswith('$'):
+                    cleanedValue = cleanedValue[1:]
+                newAmount = Decimal(cleanedValue)
+                transaction.amount = int(newAmount*100)
+                return True
+            except InvalidOperation:
+                pass # The cast from the string to a Decimal
 
     def setTransactionDescription(self, index, value):
         """ Return the amount for a particular transaction """
