@@ -14,8 +14,8 @@ class MainWindow(QtGui.QMainWindow):
 
     def initUI(self):
         """ Initialize the User Interface """
-        list_view = TransactionListView()
-        self.setCentralWidget(list_view)
+        self.list_view = TransactionListView()
+        self.setCentralWidget(self.list_view)
 
         self.prepareToolBar()
         self.setWindowTitle("PAS")
@@ -48,3 +48,4 @@ class MainWindow(QtGui.QMainWindow):
         """ Creates a New Transaction """
         transaction = Transaction(description="New Description", amount=1234567890, income=False, date=datetime.date.today())
         Transactions.add(transaction)
+        self.list_view.model.insertRows(0, 1)

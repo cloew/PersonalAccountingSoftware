@@ -1,6 +1,6 @@
 from db.transactions import Transactions
 
-from PyQt4.QtCore import QAbstractTableModel, QVariant, Qt
+from PyQt4.QtCore import QAbstractTableModel, QModelIndex, QVariant, Qt
 
 class TransactionTableModel(QAbstractTableModel):
     """ Represnts the Transaction List as a Table """
@@ -21,6 +21,12 @@ class TransactionTableModel(QAbstractTableModel):
     def columnCount(self, parent):
         """ Returns the number of columns in the table """
         return 4
+
+    def insertRows(self, row, count, parent=QModelIndex()):
+        """ Insert Rows """
+        self.beginInsertRows(parent, row, row+count-1)
+        self.endInsertRows()
+        return True
 
     def data(self, index, role = Qt.DisplayRole):
         """ Return the data at the given index """
