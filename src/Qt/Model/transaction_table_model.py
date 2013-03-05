@@ -56,9 +56,9 @@ class TransactionTableModel(QAbstractTableModel):
         """ Set Data in the Transaction Table """
         column = index.column()
         if column < len(self.columnSetterFunctions):
-            self.columnSetterFunctions[column](index, value)
+            changed = self.columnSetterFunctions[column](index, value)
             self.dataChanged(index, index)
-            return True
+            return changed
         return False
 
     def getDataBasedOnRole(self, index, role):
@@ -126,15 +126,19 @@ class TransactionTableModel(QAbstractTableModel):
         transaction = self.getTransactionForRow(index)
         if transaction is not None:
             transaction.description = str(value.toString())
+            return True
 
     def setTransactionIncome(self, index, value):
         """ Return the amount for a particular transaction """
         transaction = self.getTransactionForRow(index)
         if transaction is not None:
-            if transaction.income is True:
-                return QVariant("Income")
-            elif transaction.income is False:
-                return QVariant("Expense")
+            newIncomeValue = str(value.toString())
+            if "income".startswith(newIncomeValue.lower()):
+                transaction.income = True
+                return True
+            elif "expense".startswith(newIncomeValue.lower()):
+                transaction.income = False
+                return True
 
     def setTransactionDate(self, index, value):
         """ Return the amount for a particular transaction """
