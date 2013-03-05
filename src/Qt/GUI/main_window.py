@@ -9,10 +9,6 @@ class MainWindow(QtGui.QMainWindow):
 
     def initUI(self):
         """ Initialize the User Interface """
-        self.resize(250, 150)
-        #self.center()
-
         self.setWindowTitle("PAS")
-        self.show()
-
-    #def center(self):
+        #self.show()
+        self.showMaximized()
