@@ -74,7 +74,7 @@ class TransactionTableModel(QAbstractTableModel):
         """ Return the amount for a particular transaction """
         transaction = self.getTransactionForRow(index)
         if transaction is not None:
-            return QVariant(str(transaction.date))
+            return QVariant("{0:%m/%d/%Y}".format(transaction.date))
 
     def getTransactionForRow(self, index):
         """ Returns the Transaction in the given row """
