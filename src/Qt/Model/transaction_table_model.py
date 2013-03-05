@@ -36,11 +36,25 @@ class TransactionTableModel(QAbstractTableModel):
 
     def getDisplayRoleData(self, index):
         """ Return Data for the Qt Display Role """
-        return QVariant("Some Value")
+        return self.getTransactionAmount(index)
 
     def getTextAlignmentRole(self, index):
         """ Return Text Alignment for the given cell """
         return int(Qt.AlignLeft|Qt.AlignVCenter)
+
+    def getTransactionAmount(self, index):
+        """ Return the amount for a particular transaction """
+        transaction = self.getTransactionForRow(index)
+        if transaction is not None:
+            amount = transaction.amount
+            return QVariant("${0}".format(amount/100.0))
+
+    def getTransactionForRow(self, index):
+        """ Returns the Transaction in the given row """
+        row = index.row()
+        transactions = Transactions.all()
+        if row < len(transactions):
+            return transactions[row]
 
     def headerData(self, section, orientation, role = Qt.DisplayRole):
         """ Return Header Data """
@@ -51,4 +65,4 @@ class TransactionTableModel(QAbstractTableModel):
                 return QVariant(self.columns[section])    
             return QVariant("Horizontal Header")
         else:
-            return QVariant("Vertical Header")
+            return None #QVariant("Vertical Header")
