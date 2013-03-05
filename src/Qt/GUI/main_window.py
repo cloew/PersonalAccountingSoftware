@@ -32,6 +32,7 @@ class MainWindow(QtGui.QMainWindow):
         """ Adds the New Transaction Button to the ToolBar """
         newTransactionAction = QtGui.QAction(QtGui.QIcon('resources/money.png'), 'New Transaction', self)
         newTransactionAction.setShortcut('Ctrl+N')
+        newTransactionAction.setStatusTip("Create a New Transaction.")
         newTransactionAction.triggered.connect(self.newTransaction)
         
         self.toolbar = self.addToolBar('New Transaction')
@@ -39,8 +40,9 @@ class MainWindow(QtGui.QMainWindow):
 
     def addExitButton(self):
         """ Adds the Exit Button to the ToolBar """
-        exitAction = QtGui.QAction(QtGui.QIcon('resources/exit.png'), 'Exit', self)
+        exitAction = QtGui.QAction(QtGui.QIcon('resources/exit.png'), 'Exit the Application', self)
         exitAction.setShortcut('Ctrl+Q')
+        exitAction.setStatusTip("Exit the Application.")
         exitAction.triggered.connect(QtGui.qApp.quit)
         
         self.toolbar = self.addToolBar('Exit')
