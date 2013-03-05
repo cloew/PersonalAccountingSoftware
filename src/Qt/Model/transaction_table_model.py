@@ -9,6 +9,13 @@ class TransactionTableModel(QAbstractTableModel):
         """ Build the Transactions Table """
         QAbstractTableModel.__init__(self)
         self.columns = ["Amount", "Description", "Type", "Date"]
+        self.statusTips = ["The amount of money in the transaction.",
+                           "Description of the transaction.",
+                           "The Transaction type (Income/Expense).",
+                           "The Date the Transaction occured."]
+        self.roleResponses = {Qt.DisplayRole:self.getDisplayRoleData,
+                              Qt.StatusTipRole:self.getStatusTipRole,
+                              Qt.TextAlignmentRole:self.getTextAlignmentRole}
         self.columnPopulatorFunctions = [self.getTransactionAmount,
                                          self.getTransactionDescription,
                                          self.getTransactionIncome,
@@ -37,16 +44,20 @@ class TransactionTableModel(QAbstractTableModel):
 
     def getDataBasedOnRole(self, index, role):
         """ Get Data based on the role given """
-        if role == Qt.DisplayRole:
-            return self.getDisplayRoleData(index)
-        elif role == Qt.TextAlignmentRole:
-            return self.getTextAlignmentRole(index)
+        if role in self.roleResponses:
+            return self.roleResponses[role](index)
 
     def getDisplayRoleData(self, index):
         """ Return Data for the Qt Display Role """
         column = index.column()
         if column < len(self.columnPopulatorFunctions):
             return self.columnPopulatorFunctions[column](index)
+
+    def getStatusTipRole(self, index):
+        """ Return Data for the Status Tip Role """
+        column = index.column()
+        if column < len(self.statusTips):
+            return self.statusTips[column]
 
     def getTextAlignmentRole(self, index):
         """ Return Text Alignment for the given cell """
