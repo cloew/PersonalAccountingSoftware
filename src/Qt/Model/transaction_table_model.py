@@ -19,4 +19,11 @@ class TransactionTableModel(QtCore.QAbstractTableModel):
 
     def data(self, index, role = QtCore.Qt.DisplayRole):
         """ Return the data at the given index """
-        return "Some Value"
+        return QtCore.QVariant("Some Value")
+
+    def headerData(self, section, orientation, role = QtCore.Qt.DisplayRole):
+        """ Return Header Data """
+        if QtCore.Qt.Horizontal == orientation:
+            return QtCore.QVariant("Horizontal Header")
+        else:
+            return QtCore.QVariant("Vertical Header")

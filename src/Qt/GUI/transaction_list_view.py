@@ -9,3 +9,4 @@ class TransactionListView(QtGui.QTableView): # This will probably really inherit
         QtGui.QWidget.__init__(self)
         self.model = TransactionTableModel()
         self.setModel(self.model)
+        self.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
