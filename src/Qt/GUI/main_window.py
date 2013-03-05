@@ -19,6 +19,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.prepareToolBar()
         self.setWindowTitle("PAS")
+        self.setWindowIcon(QtGui.QIcon('resources/vault.png'))
         self.showMaximized()
 
     def prepareToolBar(self):
@@ -28,7 +29,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def addNewTransactionButton(self):
         """ Adds the New Transaction Button to the ToolBar """
-        newTransactionAction = QtGui.QAction(QtGui.QIcon('exit24.png'), 'New Transaction', self)
+        newTransactionAction = QtGui.QAction(QtGui.QIcon('resources/money.png'), 'New Transaction', self)
         newTransactionAction.setShortcut('Ctrl+N')
         newTransactionAction.triggered.connect(self.newTransaction)
         
@@ -37,7 +38,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def addExitButton(self):
         """ Adds the Exit Button to the ToolBar """
-        exitAction = QtGui.QAction(QtGui.QIcon('exit24.png'), 'Exit', self)
+        exitAction = QtGui.QAction(QtGui.QIcon('resources/exit.png'), 'Exit', self)
         exitAction.setShortcut('Ctrl+Q')
         exitAction.triggered.connect(QtGui.qApp.quit)
         
