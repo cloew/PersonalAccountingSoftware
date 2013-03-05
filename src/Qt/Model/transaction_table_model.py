@@ -9,14 +9,14 @@ class TransactionTableModel(QtCore.QAbstractTableModel):
         """ Build the Transactions Table """
         QtCore.QAbstractTableModel.__init__(self)
 
-    def rowCount(self):
+    def rowCount(self, parent):
         """ Returns the number of rows in the table """
         return len(Transactions.all())
 
-    def columnCount(self):
+    def columnCount(self, parent):
         """ Returns the number of columns in the table """
         return 4
 
-    def data(self, QtCore.QModelIndex index, int role = Qt.DisplayRole):
+    def data(self, index, role = QtCore.Qt.DisplayRole):
         """ Return the data at the given index """
         return "Some Value"
