@@ -8,6 +8,7 @@ class TransactionTableModel(QAbstractTableModel):
     def __init__(self):
         """ Build the Transactions Table """
         QAbstractTableModel.__init__(self)
+        self.columns = ["Amount", "Description", "Type", "Date"]
 
     def rowCount(self, parent):
         """ Returns the number of rows in the table """
@@ -46,6 +47,8 @@ class TransactionTableModel(QAbstractTableModel):
         if role != Qt.DisplayRole:
             return None
         if Qt.Horizontal == orientation:
+            if section < len(self.columns):
+                return QVariant(self.columns[section])    
             return QVariant("Horizontal Header")
         else:
             return QVariant("Vertical Header")
