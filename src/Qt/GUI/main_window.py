@@ -14,5 +14,4 @@ class MainWindow(QtGui.QMainWindow):
         self.setCentralWidget(list_view)
 
         self.setWindowTitle("PAS")
-        #self.show()
         self.showMaximized()
