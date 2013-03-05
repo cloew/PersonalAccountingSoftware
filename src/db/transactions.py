@@ -2,6 +2,8 @@ from contextlib import contextmanager
 from database import Database
 
 from ORM.transaction import Transaction
+from sqlalchemy import desc
+
 
 class TransactionsWrapper:
     """ Class to wrap interaction to the Transactions table in the database """
@@ -30,7 +32,7 @@ class TransactionsWrapper:
         """ Returns all transactions from the database """
         transactions = None
         with self.session() as session:
-            transactions = session.query(Transaction).all()
+            transactions = session.query(Transaction).order_by(desc(Transaction.date)).all()
         return transactions
 
     @contextmanager
