@@ -1,3 +1,4 @@
+from dateutil import parser
 from db.transactions import Transactions
 from decimal import Decimal, InvalidOperation
 from PyQt4.QtCore import QAbstractTableModel, QModelIndex, QVariant, Qt
@@ -149,7 +150,8 @@ class TransactionTableModel(QAbstractTableModel):
         """ Return the amount for a particular transaction """
         transaction = self.getTransactionForRow(index)
         if transaction is not None:
-            return QVariant("{0:%m/%d/%Y}".format(transaction.date))
+            transaction.date = parser.parse(str(value.toString()))
+            return True
 
     def getTransactionForRow(self, index):
         """ Returns the Transaction in the given row """
