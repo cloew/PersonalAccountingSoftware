@@ -55,7 +55,7 @@ class TransactionTableModel(QAbstractTableModel):
     def getTransactionAmount(self, index):
         """ Return the amount for a particular transaction """
         transaction = self.getTransactionForRow(index)
-        if transaction is not None:
+        if transaction is not None and transaction.amount is not None:
             amount = transaction.amount
             cents = amount%100
             dollars = amount/100

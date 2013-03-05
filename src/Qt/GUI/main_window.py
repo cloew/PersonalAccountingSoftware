@@ -19,7 +19,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.prepareToolBar()
         self.setWindowTitle("PAS")
-        self.setWindowIcon(QtGui.QIcon('resources/vault.png'))
+        self.setWindowIcon(QtGui.QIcon('resources/vault_small.png'))
         self.showMaximized()
 
     def prepareToolBar(self):
@@ -47,6 +47,6 @@ class MainWindow(QtGui.QMainWindow):
 
     def newTransaction(self): # Want to move this function out of this view class
         """ Creates a New Transaction """
-        transaction = Transaction(description="New Description", amount=1234567890, income=False, date=datetime.date.today())
+        transaction = Transaction(date=datetime.date.today())
         Transactions.add(transaction)
         self.list_view.model.insertRows(0, 1)
