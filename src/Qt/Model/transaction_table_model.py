@@ -43,6 +43,8 @@ class TransactionTableModel(QAbstractTableModel):
 
     def headerData(self, section, orientation, role = Qt.DisplayRole):
         """ Return Header Data """
+        if role != Qt.DisplayRole:
+            return None
         if Qt.Horizontal == orientation:
             return QVariant("Horizontal Header")
         else:
