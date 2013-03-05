@@ -13,9 +13,10 @@ class TransactionTableModel(QAbstractTableModel):
                            "Description of the transaction.",
                            "The Transaction type (Income/Expense).",
                            "The Date the Transaction occured."]
-        self.roleResponses = {Qt.DisplayRole:self.getDisplayRoleData,
-                              Qt.StatusTipRole:self.getStatusTipRole,
-                              Qt.TextAlignmentRole:self.getTextAlignmentRole}
+        self.roleResponses = {Qt.DisplayRole:self.getData,
+                              Qt.ToolTipRole:self.getTip,
+                              Qt.StatusTipRole:self.getTip,
+                              Qt.TextAlignmentRole:self.getTextAlignment}
         self.columnPopulatorFunctions = [self.getTransactionAmount,
                                          self.getTransactionDescription,
                                          self.getTransactionIncome,
@@ -47,19 +48,19 @@ class TransactionTableModel(QAbstractTableModel):
         if role in self.roleResponses:
             return self.roleResponses[role](index)
 
-    def getDisplayRoleData(self, index):
-        """ Return Data for the Qt Display Role """
+    def getData(self, index):
+        """ Return the actual Data """
         column = index.column()
         if column < len(self.columnPopulatorFunctions):
             return self.columnPopulatorFunctions[column](index)
 
-    def getStatusTipRole(self, index):
-        """ Return Data for the Status Tip Role """
+    def getTip(self, index):
+        """ Return Data for a Status or Tool Tip """
         column = index.column()
         if column < len(self.statusTips):
             return self.statusTips[column]
 
-    def getTextAlignmentRole(self, index):
+    def getTextAlignment(self, index):
         """ Return Text Alignment for the given cell """
         return int(Qt.AlignLeft|Qt.AlignVCenter)
 
