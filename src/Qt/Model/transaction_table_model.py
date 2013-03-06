@@ -29,7 +29,7 @@ class TransactionTableModel(QAbstractTableModel):
 
     def columnCount(self, parent):
         """ Returns the number of columns in the table """
-        return 4
+        return len(self.columns)
 
     def insertRows(self, row, count, parent=QModelIndex()):
         """ Insert Rows """
@@ -53,7 +53,7 @@ class TransactionTableModel(QAbstractTableModel):
         column = index.column()
         if column < len(self.columns):
             changed = self.columns[column].setData(index.row(), value)
-            self.dataChanged(index, index)
+            #self.dataChanged(index, index)
             return changed
         return False
 
