@@ -8,12 +8,16 @@ class DateColumn(TransactionColumn):
 
     def getDataForTransaction(self, transaction):
         """ Return data for the provided transaction """
-        return QVariant("{0:%m/%d/%Y}".format(transaction.date))
+        if transaction.date is not None:
+            return QVariant("{0:%m/%d/%Y}".format(transaction.date))
 
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """
-        transaction.date = parser.parse(str(value.toString()))
-        return True
+        try:
+            transaction.date = parser.parse(str(value.toString()))
+            return True
+        except ValueError:
+            pass # Expect it to happen if user enters a bad String for the date
 
     def getTip(self, row):
         """ Return the Status/Tool Tip for the given row """
