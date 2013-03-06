@@ -1,2 +1,8 @@
 Personal Accounting Software
 - A Personal Accounting Software developed in Python
+
+
+Requires Python Packages
+- dateutil      -- Download tar from https://pypi.python.org/pypi/python-dateutil. Extract via tar -xf. python install setup.py.
+- PyQt4         -- apt-get install python-qt4
+- SQLAlchemy    -- pip install SQLAlchemy
