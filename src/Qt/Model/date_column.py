@@ -1,4 +1,5 @@
 from dateutil import parser
+from PyQt4.QtCore import QVariant
 from Qt.Model.transaction_column import TransactionColumn
 
 class DateColumn(TransactionColumn):
@@ -7,13 +8,13 @@ class DateColumn(TransactionColumn):
 
     def getData(self, row):
         """ Return data for the provided row """
-        transaction = self.getTransactionForRow(index)
+        transaction = self.getTransactionForRow(row)
         if transaction is not None:
             return QVariant("{0:%m/%d/%Y}".format(transaction.date))
 
     def setData(self, row, value):
         """ Set data for the provided row """
-        transaction = self.getTransactionForRow(index)
+        transaction = self.getTransactionForRow(row)
         if transaction is not None:
             transaction.date = parser.parse(str(value.toString()))
             return True

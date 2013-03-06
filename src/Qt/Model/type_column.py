@@ -1,3 +1,4 @@
+from PyQt4.QtCore import QVariant
 from Qt.Model.transaction_column import TransactionColumn
 
 class TypeColumn(TransactionColumn):
@@ -6,7 +7,7 @@ class TypeColumn(TransactionColumn):
 
     def getData(self, row):
         """ Return data for the provided row """
-        transaction = self.getTransactionForRow(index)
+        transaction = self.getTransactionForRow(row)
         if transaction is not None:
             if transaction.income is True:
                 return QVariant("Income")
@@ -15,7 +16,7 @@ class TypeColumn(TransactionColumn):
 
     def setData(self, row, value):
         """ Set data for the provided row """
-        transaction = self.getTransactionForRow(index)
+        transaction = self.getTransactionForRow(row)
         if transaction is not None:
             newIncomeValue = str(value.toString())
             if "income".startswith(newIncomeValue.lower()):

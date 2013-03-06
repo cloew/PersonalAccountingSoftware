@@ -1,3 +1,4 @@
+from PyQt4.QtCore import QVariant
 from Qt.Model.transaction_column import TransactionColumn
 
 class DescriptionColumn(TransactionColumn):
@@ -12,7 +13,7 @@ class DescriptionColumn(TransactionColumn):
 
     def setData(self, row, value):
         """ Set data for the provided row """
-        transaction = self.getTransactionForRow(index)
+        transaction = self.getTransactionForRow(row)
         if transaction is not None:
             transaction.description = str(value.toString())
             return True
