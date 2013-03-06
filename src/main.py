@@ -11,9 +11,9 @@ def AddTransaction(description="", amount=0, income=False, date=datetime.date.to
 
 def main():
     """ Generate the Database """
-    AddTransaction(description="Dinner", amount=251.00, income=False, date=datetime.datetime.now())
-    AddTransaction(description="Gas", amount=35.00, income=False, date=datetime.date(2013, 3, 3))
-    AddTransaction(description="Paycheck", amount=1000.00, income=True, date=datetime.date(2013, 3, 4))
+    # AddTransaction(description="Dinner", amount=251.00, income=False, date=datetime.datetime.now())
+    # AddTransaction(description="Gas", amount=35.00, income=False, date=datetime.date(2013, 3, 3))
+    # AddTransaction(description="Paycheck", amount=1000.00, income=True, date=datetime.date(2013, 3, 4))
 
     controller = MainWindowController()
     controller.run()
