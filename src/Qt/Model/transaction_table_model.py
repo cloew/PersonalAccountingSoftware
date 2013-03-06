@@ -53,7 +53,6 @@ class TransactionTableModel(QAbstractTableModel):
         column = index.column()
         if column < len(self.columns):
             changed = self.columns[column].setData(index.row(), value)
-            #self.dataChanged(index, index)
             return changed
         return False
 
