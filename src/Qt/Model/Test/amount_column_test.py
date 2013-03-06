@@ -1,4 +1,5 @@
 from ORM.transaction import Transaction
+from PyQt4.QtCore import QVariant
 from Qt.Model.amount_column import AmountColumn
 
 import unittest
@@ -30,8 +31,44 @@ suiteGetDataForTransaction = unittest.TestSuite(map(getDataForTransaction, testc
 
 ##########################################################
 
+class setDataForTransaction(unittest.TestCase):
+    """ Test cases of setDataForTransaction """
+    
+    def  setUp(self):
+        """ Build the *** for the test """
+        self.transaction = Transaction()
+        self.transaction.amount = None
+        self.amountColumn = AmountColumn()
+        
+    def badString(self):
+        """ Test that setDataForTransaction properly handles a bad string """
+        value = QVariant("abcd")
+        dataSet = self.amountColumn.setDataForTransaction(self.transaction, value)
+        assert dataSet is None, "Should get not have data Set when the value is a bad string"
+        assert self.transaction.amount is None, "Should not have the Transaction Amount set"
+
+    def stringOfDollars(self):
+        """ Test that setDataForTransaction properly handles when there is an amount """
+        value = QVariant("$12.34")
+        dataSet = self.amountColumn.setDataForTransaction(self.transaction, value)
+        assert dataSet, "Should have data set"
+        assert self.transaction.amount == 1234, "Should have the Transaction Amount in cents"
+
+    def decimalString(self):
+        """ Test that setDataForTransaction properly handles when there is an amount """
+        value = QVariant("12.34")
+        dataSet = self.amountColumn.setDataForTransaction(self.transaction, value)
+        assert dataSet, "Should have data set"
+        assert self.transaction.amount == 1234, "Should have the Transaction Amount in cents"
+
+# Collect all test cases in this class
+testcasesSetDataForTransaction = ["badString", "stringOfDollars", "decimalString"]
+suiteSetDataForTransaction = unittest.TestSuite(map(setDataForTransaction, testcasesSetDataForTransaction))
+
+##########################################################
+
 # Collect all test cases in this file
-suites = [suiteGetDataForTransaction]
+suites = [suiteGetDataForTransaction, suiteSetDataForTransaction]
 suite = unittest.TestSuite(suites)
 
 if __name__ == "__main__":
