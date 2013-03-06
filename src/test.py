@@ -1,10 +1,11 @@
 from reset_db import ResetDatabase
 
 from db.Test.suite import suite as db_suite
+from Qt.Test.suite import suite as qt_suite
 import unittest
 
 # Collect all the test suites
-suites = [db_suite]
+suites = [db_suite, qt_suite]
 alltests = unittest.TestSuite(suites)
 
 # Run all the tests
