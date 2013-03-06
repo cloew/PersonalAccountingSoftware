@@ -12,17 +12,15 @@ class TypeColumn(TransactionColumn):
         elif transaction.income is False:
             return QVariant("Expense")
 
-    def setData(self, row, value):
-        """ Set data for the provided row """
-        transaction = self.getTransactionForRow(row)
-        if transaction is not None:
-            newIncomeValue = str(value.toString())
-            if "income".startswith(newIncomeValue.lower()):
-                transaction.income = True
-                return True
-            elif "expense".startswith(newIncomeValue.lower()):
-                transaction.income = False
-                return True
+    def setDataForTransaction(self, transaction, value):
+        """ Set data for the provided transaction """
+        newIncomeValue = str(value.toString())
+        if "income".startswith(newIncomeValue.lower()):
+            transaction.income = True
+            return True
+        elif "expense".startswith(newIncomeValue.lower()):
+            transaction.income = False
+            return True
 
     def getTip(self, row):
         """ Return the Status/Tool Tip for the given row """

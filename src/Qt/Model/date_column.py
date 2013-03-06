@@ -10,12 +10,10 @@ class DateColumn(TransactionColumn):
         """ Return data for the provided transaction """
         return QVariant("{0:%m/%d/%Y}".format(transaction.date))
 
-    def setData(self, row, value):
-        """ Set data for the provided row """
-        transaction = self.getTransactionForRow(row)
-        if transaction is not None:
-            transaction.date = parser.parse(str(value.toString()))
-            return True
+    def setDataForTransaction(self, transaction, value):
+        """ Set data for the provided transaction """
+        transaction.date = parser.parse(str(value.toString()))
+        return True
 
     def getTip(self, row):
         """ Return the Status/Tool Tip for the given row """

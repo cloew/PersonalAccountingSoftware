@@ -20,7 +20,13 @@ class TransactionColumn:
             Should be overridden in sub class """
 
     def setData(self, row, value):
-        """ Set data for the provided row.
+        """ Set the data in this column of the given transaction """
+        transaction = self.getTransactionForRow(row)
+        if transaction is not None:
+            return self.setDataForTransaction(transaction, value)
+
+    def setDataForTransaction(self, transaction, value):
+        """ Set data for the provided transaction.
             Return whether the entry was set.
             Should be overridden in sub class. """
 

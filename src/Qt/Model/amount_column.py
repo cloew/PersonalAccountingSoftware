@@ -14,19 +14,17 @@ class AmountColumn(TransactionColumn):
             dollars = amount/100
             return QVariant("${0}.{1:{fill}2}".format(dollars, cents, fill=0))
 
-    def setData(self, row, value):
-        """ Set data for the provided row """
-        transaction = self.getTransactionForRow(row)
-        if transaction is not None:
-            try:
-                cleanedValue = str(value.toString())
-                if cleanedValue.startswith('$'):
-                    cleanedValue = cleanedValue[1:]
-                newAmount = Decimal(cleanedValue)
-                transaction.amount = int(newAmount*100)
-                return True
-            except InvalidOperation:
-                pass # The cast from the string to a Decimal
+    def setDataForTransaction(self, transaction, value):
+        """ Set data for the provided transaction """
+        try:
+            cleanedValue = str(value.toString())
+            if cleanedValue.startswith('$'):
+                cleanedValue = cleanedValue[1:]
+            newAmount = Decimal(cleanedValue)
+            transaction.amount = int(newAmount*100)
+            return True
+        except InvalidOperation:
+            pass # The cast from the string to a Decimal
 
     def getTip(self, row):
         """ Return the Status/Tool Tip for the given row """

@@ -9,12 +9,10 @@ class DescriptionColumn(TransactionColumn):
         """ Return data for the provided transaction """
         return QVariant(transaction.description)
 
-    def setData(self, row, value):
-        """ Set data for the provided row """
-        transaction = self.getTransactionForRow(row)
-        if transaction is not None:
-            transaction.description = str(value.toString())
-            return True
+    def setDataForTransaction(self, transaction, value):
+        """ Set data for the provided transaction """
+        transaction.description = str(value.toString())
+        return True
 
     def getTip(self, row):
         """ Return the Status/Tool Tip for the given row """
