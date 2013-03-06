@@ -10,7 +10,13 @@ class TransactionColumn:
         return QVariant(self.header_name)
 
     def getData(self, row):
-        """ Return data for the provided row.
+        """ Return data for the transaction in the given row """
+        transaction = self.getTransactionForRow(row)
+        if transaction is not None:
+            return self.getDataForTransaction(transaction)
+
+    def getDataForTransaction(self, transaction):
+        """ Return data for the provided transaction.
             Should be overridden in sub class """
 
     def setData(self, row, value):

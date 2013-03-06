@@ -6,10 +6,9 @@ class AmountColumn(TransactionColumn):
     """ Represents the Transaction Amount Column """
     header_name = "Amount"
 
-    def getData(self, row):
-        """ Return data for the provided row """
-        transaction = self.getTransactionForRow(row)
-        if transaction is not None and transaction.amount is not None:
+    def getDataForTransaction(self, transaction):
+        """ Return data for the provided transaction """
+        if transaction.amount is not None:
             amount = transaction.amount
             cents = amount%100
             dollars = amount/100

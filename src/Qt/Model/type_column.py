@@ -5,14 +5,12 @@ class TypeColumn(TransactionColumn):
     """ Represents the Transaction Type Column """
     header_name = "Type"
 
-    def getData(self, row):
-        """ Return data for the provided row """
-        transaction = self.getTransactionForRow(row)
-        if transaction is not None:
-            if transaction.income is True:
-                return QVariant("Income")
-            elif transaction.income is False:
-                return QVariant("Expense")
+    def getDataForTransaction(self, transaction):
+        """ Return data for the provided transaction """
+        if transaction.income is True:
+            return QVariant("Income")
+        elif transaction.income is False:
+            return QVariant("Expense")
 
     def setData(self, row, value):
         """ Set data for the provided row """
