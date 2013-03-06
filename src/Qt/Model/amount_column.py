@@ -1,3 +1,4 @@
+from decimal import Decimal, InvalidOperation
 from Qt.Model.transaction_column import TransactionColumn
 
 class AmountColumn(TransactionColumn):
