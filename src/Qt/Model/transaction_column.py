@@ -22,9 +22,8 @@ class TransactionColumn:
         """ Return the Status/Tool Tip for the given row.
             Should be overridden in sub class. """
 
-    def getTransactionForRow(self, index):
+    def getTransactionForRow(self, row):
         """ Returns the Transaction in the given row """
-        row = index.row()
         transactions = Transactions.all()
         if row < len(transactions):
             return transactions[row]
