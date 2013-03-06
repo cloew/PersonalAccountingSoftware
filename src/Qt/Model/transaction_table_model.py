@@ -17,24 +17,11 @@ class TransactionTableModel(QAbstractTableModel):
                         TypeColumn(),
                         DateColumn()]
 
-        # self.columns = ["Amount", "Description", "Type", "Date"]
-        # self.statusTips = ["The amount of money in the transaction.",
-        #                    "Description of the transaction.",
-        #                    "The Transaction type (Income/Expense).",
-        #                    "The Date the Transaction occured."]
         self.roleResponses = {Qt.DisplayRole:self.getData,
                               Qt.EditRole:self.getData,
                               Qt.ToolTipRole:self.getTip,
                               Qt.StatusTipRole:self.getTip,
                               Qt.TextAlignmentRole:self.getTextAlignment}
-        # self.columnSetterFunctions = [self.setTransactionAmount,
-        #                               self.setTransactionDescription,
-        #                               self.setTransactionIncome,
-        #                               self.setTransactionDate]
-        # self.columnPopulatorFunctions = [self.getTransactionAmount,
-        #                                  self.getTransactionDescription,
-        #                                  self.getTransactionIncome,
-        #                                  self.getTransactionDate]
 
     def rowCount(self, parent):
         """ Returns the number of rows in the table """
@@ -90,83 +77,6 @@ class TransactionTableModel(QAbstractTableModel):
     def getTextAlignment(self, index):
         """ Return Text Alignment for the given cell """
         return int(Qt.AlignLeft|Qt.AlignVCenter)
-
-    # def getTransactionAmount(self, index):
-    #     """ Return the amount for a particular transaction """
-    #     transaction = self.getTransactionForRow(index)
-    #     if transaction is not None and transaction.amount is not None:
-    #         amount = transaction.amount
-    #         cents = amount%100
-    #         dollars = amount/100
-    #         return QVariant("${0}.{1:{fill}2}".format(dollars, cents, fill=0))
-
-    # def getTransactionDescription(self, index):
-    #     """ Return the amount for a particular transaction """
-    #     transaction = self.getTransactionForRow(index)
-    #     if transaction is not None:
-    #         return QVariant(transaction.description)
-
-    # def getTransactionIncome(self, index):
-    #     """ Return the amount for a particular transaction """
-    #     transaction = self.getTransactionForRow(index)
-    #     if transaction is not None:
-    #         if transaction.income is True:
-    #             return QVariant("Income")
-    #         elif transaction.income is False:
-    #             return QVariant("Expense")
-
-    # def getTransactionDate(self, index):
-    #     """ Return the amount for a particular transaction """
-    #     transaction = self.getTransactionForRow(index)
-    #     if transaction is not None:
-    #         return QVariant("{0:%m/%d/%Y}".format(transaction.date))
-
-    # def setTransactionAmount(self, index, value):
-    #     """ Return the amount for a particular transaction """
-    #     transaction = self.getTransactionForRow(index)
-    #     if transaction is not None:
-    #         try:
-    #             cleanedValue = str(value.toString())
-    #             if cleanedValue.startswith('$'):
-    #                 cleanedValue = cleanedValue[1:]
-    #             newAmount = Decimal(cleanedValue)
-    #             transaction.amount = int(newAmount*100)
-    #             return True
-    #         except InvalidOperation:
-    #             pass # The cast from the string to a Decimal
-
-    # def setTransactionDescription(self, index, value):
-    #     """ Return the amount for a particular transaction """
-    #     transaction = self.getTransactionForRow(index)
-    #     if transaction is not None:
-    #         transaction.description = str(value.toString())
-    #         return True
-
-    # def setTransactionIncome(self, index, value):
-    #     """ Return the amount for a particular transaction """
-    #     transaction = self.getTransactionForRow(index)
-    #     if transaction is not None:
-    #         newIncomeValue = str(value.toString())
-    #         if "income".startswith(newIncomeValue.lower()):
-    #             transaction.income = True
-    #             return True
-    #         elif "expense".startswith(newIncomeValue.lower()):
-    #             transaction.income = False
-    #             return True
-
-    # def setTransactionDate(self, index, value):
-    #     """ Return the amount for a particular transaction """
-    #     transaction = self.getTransactionForRow(index)
-    #     if transaction is not None:
-    #         transaction.date = parser.parse(str(value.toString()))
-    #         return True
-
-    # def getTransactionForRow(self, index):
-    #     """ Returns the Transaction in the given row """
-    #     row = index.row()
-    #     transactions = Transactions.all()
-    #     if row < len(transactions):
-    #         return transactions[row]
 
     def headerData(self, section, orientation, role = Qt.DisplayRole):
         """ Return Header Data """
