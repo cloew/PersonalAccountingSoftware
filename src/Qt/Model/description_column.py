@@ -7,7 +7,8 @@ class DescriptionColumn(TransactionColumn):
 
     def getDataForTransaction(self, transaction):
         """ Return data for the provided transaction """
-        return QVariant(transaction.description)
+        if transaction.description is not None:
+            return QVariant(transaction.description)
 
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """
