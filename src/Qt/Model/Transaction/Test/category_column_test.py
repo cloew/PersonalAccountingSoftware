@@ -2,7 +2,7 @@ from db.categories import Categories
 from ORM.category import Category
 from ORM.transaction import Transaction
 from PyQt4.QtCore import QVariant
-from Qt.Model.category_column import CategoryColumn
+from Qt.Model.Transaction.category_column import CategoryColumn
 
 import unittest
 

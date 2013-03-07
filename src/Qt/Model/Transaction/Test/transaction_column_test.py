@@ -1,5 +1,5 @@
 from db.transactions import Transactions
-from Qt.Model.transaction_column import TransactionColumn
+from Qt.Model.Transaction.transaction_column import TransactionColumn
 
 import unittest
 

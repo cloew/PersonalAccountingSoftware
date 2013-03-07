@@ -2,7 +2,7 @@ from datetime import date, datetime
 from dateutil import parser
 from ORM.transaction import Transaction
 from PyQt4.QtCore import QVariant
-from Qt.Model.date_column import DateColumn
+from Qt.Model.Transaction.date_column import DateColumn
 
 import unittest
 

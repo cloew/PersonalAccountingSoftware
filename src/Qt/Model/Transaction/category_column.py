@@ -1,6 +1,6 @@
 from db.categories import Categories
 from PyQt4.QtCore import QVariant
-from Qt.Model.transaction_column import TransactionColumn
+from Qt.Model.Transaction.transaction_column import TransactionColumn
 
 class CategoryColumn(TransactionColumn):
     """ Represents the Transaction Category Column """

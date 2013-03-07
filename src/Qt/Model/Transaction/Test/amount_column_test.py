@@ -1,6 +1,6 @@
 from ORM.transaction import Transaction
 from PyQt4.QtCore import QVariant
-from Qt.Model.amount_column import AmountColumn
+from Qt.Model.Transaction.amount_column import AmountColumn
 
 import unittest
 

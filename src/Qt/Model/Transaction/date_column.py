@@ -1,6 +1,6 @@
 from dateutil import parser
 from PyQt4.QtCore import QVariant
-from Qt.Model.transaction_column import TransactionColumn
+from Qt.Model.Transaction.transaction_column import TransactionColumn
 
 class DateColumn(TransactionColumn):
     """ Represents the Transaction Date Column """
