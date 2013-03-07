@@ -1,45 +1,19 @@
 from contextlib import contextmanager
 from database import Database
-
+from table_wrapper import TableWrapper
 from ORM.transaction import Transaction
 from sqlalchemy import desc
 
 
-class TransactionsWrapper:
+class TransactionsWrapper(TableWrapper):
     """ Class to wrap interaction to the Transactions table in the database """
+    table_class = Transaction
 
-    def __init__(self):
-        """ Initialize the Transactions Wrapper """
-
-    def add(self, transaction):
-        """ Add Transaction to the database """
-        with self.session() as session:
-            session.add(transaction)
-
-    def save(self):
-        """ Update the given transaction """
-        with self.session() as session:
-            pass
-
-    def find(self, transaction):
-        """ Returns the matching entry in the database """
-        db_transaction_record = None
-        with self.session() as session:
-            db_transaction_record = session.query(Transaction).filter_by(id=transaction.id).first()
-        return db_transaction_record
-
-    def all(self):
+    def all(self, order=None):
         """ Returns all transactions from the database """
-        transactions = None
-        with self.session() as session:
-            transactions = session.query(Transaction).order_by(desc(Transaction.date)).all()
-        return transactions
-
-    @contextmanager
-    def session(self):
-        """ Returns the session """ # Need to add Exception handling
-        session = Database.getSession()
-        yield session
-        session.commit()
+        if order is None:
+            return TableWrapper.all(self, order=desc(Transaction.date))
+        else:
+            return TableWrapper.all(self, order=order)
 
 Transactions = TransactionsWrapper()
