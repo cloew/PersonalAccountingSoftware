@@ -1,4 +1,5 @@
 from amount_column import AmountColumn
+from category_column import CategoryColumn
 from date_column import DateColumn
 from description_column import DescriptionColumn
 from type_column import TypeColumn
@@ -15,6 +16,7 @@ class TransactionTableModel(QAbstractTableModel):
         self.columns = [AmountColumn(),
                         DescriptionColumn(),
                         TypeColumn(),
+                        CategoryColumn(),
                         DateColumn()]
 
         self.roleResponses = {Qt.DisplayRole:self.getData,
