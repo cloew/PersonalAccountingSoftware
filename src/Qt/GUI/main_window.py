@@ -15,8 +15,11 @@ class MainWindow(QtGui.QMainWindow):
 
     def initUI(self):
         """ Initialize the User Interface """
+        self.tabView = QtGui.QTabWidget()
+
         self.list_view = TransactionListView()
-        self.setCentralWidget(self.list_view)
+        self.tabView.addTab(self.list_view, "Transactions")
+        self.setCentralWidget(self.tabView)
 
         self.statusBar()
         self.prepareToolBar()
@@ -53,4 +56,4 @@ class MainWindow(QtGui.QMainWindow):
         """ Creates a New Transaction """
         transaction = Transaction(date=datetime.date.today())
         Transactions.add(transaction)
-        self.list_view.model.insertRows(0, 1)
+        self.list_view.table_model.insertRows(0, 1)
