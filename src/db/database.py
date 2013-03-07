@@ -1,9 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+import resources.resource_manager as resource_manager
+
 class DatabaseWrapper:
     """ Handles all interaction to the database """
-    __database_path__ = "db/pas.db"
+    __database_path__ = resource_manager.GetResourceFilePath("pas.db")
 
     def __init__(self):
         """ Initialize the Database """

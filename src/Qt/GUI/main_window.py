@@ -4,6 +4,7 @@ from PyQt4 import QtGui
 from Qt.GUI.transaction_list_view import TransactionListView
 
 import datetime
+import resources.resource_manager as resource_manager
 
 class MainWindow(QtGui.QMainWindow):
     """ Represents the Main Window of the PAS Application """
@@ -20,7 +21,7 @@ class MainWindow(QtGui.QMainWindow):
         self.statusBar()
         self.prepareToolBar()
         self.setWindowTitle("PAS")
-        self.setWindowIcon(QtGui.QIcon('resources/vault_small.png'))
+        self.setWindowIcon(QtGui.QIcon(resource_manager.GetResourceFilePath('vault_small.png')))
         self.showMaximized()
 
     def prepareToolBar(self):
@@ -30,7 +31,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def addNewTransactionButton(self):
         """ Adds the New Transaction Button to the ToolBar """
-        newTransactionAction = QtGui.QAction(QtGui.QIcon('resources/money.png'), 'New Transaction', self)
+        newTransactionAction = QtGui.QAction(QtGui.QIcon(resource_manager.GetResourceFilePath('money.png')), 'New Transaction', self)
         newTransactionAction.setShortcut('Ctrl+N')
         newTransactionAction.setStatusTip("Create a New Transaction.")
         newTransactionAction.triggered.connect(self.newTransaction)
@@ -40,7 +41,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def addExitButton(self):
         """ Adds the Exit Button to the ToolBar """
-        exitAction = QtGui.QAction(QtGui.QIcon('resources/exit.png'), 'Exit the Application', self)
+        exitAction = QtGui.QAction(QtGui.QIcon(resource_manager.GetResourceFilePath('exit.png')), 'Exit the Application', self)
         exitAction.setShortcut('Ctrl+Q')
         exitAction.setStatusTip("Exit the Application.")
         exitAction.triggered.connect(QtGui.qApp.quit)
