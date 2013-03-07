@@ -1,7 +1,7 @@
 from db.transactions import Transactions
 from ORM.transaction import Transaction
 from PyQt4 import QtGui
-from Qt.GUI.transaction_list_view import TransactionListView
+from Qt.GUI.Transaction.transaction_list_view import TransactionListView
 
 import datetime
 import resources.resource_manager as resource_manager

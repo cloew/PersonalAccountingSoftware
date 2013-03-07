@@ -1,7 +1,7 @@
 from PyQt4 import QtGui, QtCore
-from Qt.Model.category_column import CategoryColumn
-from Qt.Model.type_column import TypeColumn
-from Qt.Model.transaction_table_model import TransactionTableModel
+from Qt.Model.Transaction.category_column import CategoryColumn
+from Qt.Model.Transaction.type_column import TypeColumn
+from Qt.Model.Transaction.transaction_table_model import TransactionTableModel
 
 from transaction_category_delegate import TransactionCategoryDelegate
 from transaction_type_delegate import TransactionTypeDelegate
