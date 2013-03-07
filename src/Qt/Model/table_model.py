@@ -16,7 +16,7 @@ class TableModel(QAbstractTableModel):
 
     def getColumns(self):
         """ Get the Columns for the table.
-            Should be overridden in the base class """
+            Should be overridden in the sub classes """
 
     def indexForColumnClass(self, column_class):
         """ Returns the index that has a column of the given class """
@@ -25,8 +25,8 @@ class TableModel(QAbstractTableModel):
                 return self.columns.index(column)
 
     def rowCount(self, parent):
-        """ Returns the number of rows in the table """
-        return len(Transactions.all())
+        """ Returns the number of rows in the table.
+            Should be overridden in sub classes """
 
     def columnCount(self, parent):
         """ Returns the number of columns in the table """
