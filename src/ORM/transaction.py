@@ -19,4 +19,4 @@ class Transaction(Base):
                     backref="transactions")
 
     def __repr__(self):
-        return "<Transaction('{0}', '${1}.{2}', '{3}')>".format(self.description, self.amount/100.0, self.amount%100, self.date)
+        return "<Transaction('{0}', '${1}.{2}', '{3}', '{4}')>".format(self.description, self.amount/100.0, self.amount%100, self.date, self.categories, )
