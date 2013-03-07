@@ -1,6 +1,7 @@
 from db.transactions import Transactions
 from ORM.transaction import Transaction
 from PyQt4 import QtGui
+from Qt.GUI.Category.category_list_view import CategoryListView
 from Qt.GUI.Transaction.transaction_list_view import TransactionListView
 
 import datetime
@@ -16,16 +17,26 @@ class MainWindow(QtGui.QMainWindow):
     def initUI(self):
         """ Initialize the User Interface """
         self.tabView = QtGui.QTabWidget()
-
-        self.list_view = TransactionListView()
-        self.tabView.addTab(self.list_view, "Transactions")
         self.setCentralWidget(self.tabView)
+
+        self.addTransactionTab()
+        self.addCategoriesTab()
 
         self.statusBar()
         self.prepareToolBar()
         self.setWindowTitle("PAS")
         self.setWindowIcon(QtGui.QIcon(resource_manager.GetResourceFilePath('vault_small.png')))
         self.showMaximized()
+
+    def addTransactionTab(self):
+        """ Add the Transaction Tab """
+        self.transaction_list_view = TransactionListView()
+        self.tabView.addTab(self.transaction_list_view, "Transactions")
+
+    def addCategoriesTab(self):
+        """ Add the Categories Tab """
+        self.category_list_view = CategoryListView()
+        self.tabView.addTab(self.category_list_view, "Categories")
 
     def prepareToolBar(self):
         """ Prepares the Tool Bar """
@@ -56,4 +67,4 @@ class MainWindow(QtGui.QMainWindow):
         """ Creates a New Transaction """
         transaction = Transaction(date=datetime.date.today())
         Transactions.add(transaction)
-        self.list_view.table_model.insertRows(0, 1)
+        self.transaction_list_view.table_model.insertRows(0, 1)
