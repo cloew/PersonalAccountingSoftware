@@ -1,4 +1,6 @@
-from PyQt4 import QtGui
+from transaction_type_delegate import TransactionTypeDelegate
+
+from PyQt4 import QtGui, QtCore
 from Qt.Model.transaction_table_model import TransactionTableModel
 
 class TransactionListView(QtGui.QTableView): # This will probably really inherit from something else
@@ -10,3 +12,9 @@ class TransactionListView(QtGui.QTableView): # This will probably really inherit
         self.model = TransactionTableModel()
         self.setModel(self.model)
         self.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+
+        self.initUI()
+
+    def initUI(self):
+        """ Initialize the UI """
+        self.setItemDelegateForColumn(2, TransactionTypeDelegate())
