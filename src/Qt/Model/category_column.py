@@ -1,3 +1,4 @@
+from db.categories import Categories
 from PyQt4.QtCore import QVariant
 from Qt.Model.transaction_column import TransactionColumn
 
@@ -12,8 +13,10 @@ class CategoryColumn(TransactionColumn):
 
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """
-        #transaction.description = str(value.toString())
-        #return True
+        category = Categories.findByName(str(value.toString()))
+        if category is not None:
+            transaction.category = category
+            return True
 
     def getTip(self, row):
         """ Return the Status/Tool Tip for the given row """
