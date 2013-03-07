@@ -43,14 +43,18 @@ class setDataForTransaction(unittest.TestCase):
         self.transaction.category = None
         self.categoryColumn = CategoryColumn()
 
+        if len(Categories.all()) == 0:
+            self.category = Category(name="Some Category")
+            Categories.add(self.category)
+
     def categoryString(self):
         """ Test that setDataForTransaction properly handles when there is a category """
-        name = Categories.all()[0]
-        category = "Some Category"
-        value = QVariant(name)
+        category = Categories.all()[0]
+        value = QVariant(category.name)
         dataSet = self.categoryColumn.setDataForTransaction(self.transaction, value)
         assert dataSet, "Should have data set"
-        assert self.transaction.category.name == name, "Should have the Transaction Category"
+        assert self.transaction.category == category, "Should have the Transaction Category"
+        assert self.transaction.category.name == category.name, "Should have the Transaction Category Name"
 
 # Collect all test cases in this class
 testcasesSetDataForTransaction = ["categoryString"]
