@@ -21,11 +21,12 @@ class TransactionListView(QtGui.QTableView): # This will probably really inherit
 
     def setTransactionTypeDelegate(self):
         """ Set the Transaction Type Column View Delegate """
+        self.typeDelegate = TransactionTypeDelegate()
         index = self.table_model.indexForColumnClass(TypeColumn)
-        self.setItemDelegateForColumn(index, TransactionTypeDelegate())
+        self.setItemDelegateForColumn(index, self.typeDelegate)
 
     def setTransactionCategoryDelegate(self):
         """ Set the Transaction Category Column View Delegate """
+        self.categoryDelegate = TransactionCategoryDelegate()
         index = self.table_model.indexForColumnClass(CategoryColumn)
-        self.setItemDelegateForColumn(index, TransactionCategoryDelegate())
-        print self.itemDelegateForColumn(index)
+        self.setItemDelegateForColumn(index, self.categoryDelegate)
