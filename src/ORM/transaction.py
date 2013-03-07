@@ -1,8 +1,8 @@
 from category import Category
 from orm_base import Base
-from sqlalchemy import Boolean, Column, Date, Integer, String
+from sqlalchemy import Boolean, Column, Date, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, backref
-from transaction_category_join_table import association_table as join_table
+# from transaction_category_join_table import association_table as join_table
 
 class Transaction(Base):
     """ Represents a Financial Transaction. """
@@ -14,9 +14,11 @@ class Transaction(Base):
     description = Column(String)
     income = Column(Boolean)
     date = Column(Date)
-    categories = relationship("Category",
-                    secondary=join_table,
-                    backref="transactions")
+    category_id = Column(Integer, ForeignKey('categories.id'))
+    category = relationship("Category", backref=backref('transactions'))
+    # categories = relationship("Category",
+    #                 secondary=join_table,
+    #                 backref="transactions")
 
     def __repr__(self):
-        return "<Transaction('{0}', '${1}.{2}', '{3}', '{4}')>".format(self.description, self.amount/100.0, self.amount%100, self.date, self.categories, )
+        return "<Transaction('{0}', '${1}.{2}', '{3}', '{4}')>".format(self.description, self.amount/100.0, self.amount%100, self.date, self.category, )

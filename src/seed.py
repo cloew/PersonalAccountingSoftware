@@ -26,9 +26,9 @@ def main():
     transaction = AddTransaction(description="Gas", amount=35.00, income=False, date=datetime.date(2013, 3, 3))
     AddTransaction(description="Paycheck", amount=1000.00, income=True, date=datetime.date(2013, 3, 4))
 
-    transaction.categories.append(category)
+    transaction.category = category
     Transactions.save()
-    print transaction.categories
+    print transaction.category
 
     print "\nCategories"
     print Categories.all()
