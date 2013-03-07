@@ -25,6 +25,12 @@ class TransactionTableModel(QAbstractTableModel):
                               Qt.StatusTipRole:self.getTip,
                               Qt.TextAlignmentRole:self.getTextAlignment}
 
+    def indexForColumnClass(self, column_class):
+        """ Returns the index that has a column of the given class """
+        for column in self.columns:
+            if isinstance(column, column_class):
+                return self.columns.index(column)
+
     def rowCount(self, parent):
         """ Returns the number of rows in the table """
         return len(Transactions.all())
