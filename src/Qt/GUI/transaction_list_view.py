@@ -9,8 +9,8 @@ class TransactionListView(QtGui.QTableView): # This will probably really inherit
     def __init__(self):
         """ Initialize the Transaction List View """
         QtGui.QWidget.__init__(self)
-        self.model = TransactionTableModel()
-        self.setModel(self.model)
+        self.table_model = TransactionTableModel()
+        self.setModel(self.table_model)
         self.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
 
         self.initUI()

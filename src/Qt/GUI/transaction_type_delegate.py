@@ -11,6 +11,12 @@ class TransactionTypeDelegate(QStyledItemDelegate):
         comboBox.insertItems(0, QStringList(self.__type_strings__))
         return comboBox
 
+    def setEditorData (self, editor, index):
+        """ Set the current data in the editor """
+        data = index.model().data(index)
+        if data is not None:
+            editor.setCurrentIndex(self.__type_strings__.index(str(data.toString())))
+
     def setModelData(self, editor, model, index):
         """ Set the appropriate data in the model """
         model.setData(index, QVariant(editor.currentText()))
