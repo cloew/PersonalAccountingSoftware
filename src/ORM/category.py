@@ -1,5 +1,5 @@
 from orm_base import Base
-from sqlalchemy import Column, String
+from sqlalchemy import Column, Integer, String
 
 class Category(Base):
     """ Represents a Financial Transaction. """
