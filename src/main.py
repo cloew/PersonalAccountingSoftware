@@ -17,6 +17,7 @@ def main():
 
     controller = MainWindowController()
     controller.run()
+    Database.clearSession()
 
 if __name__ == "__main__":
     main()
