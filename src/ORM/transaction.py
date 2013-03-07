@@ -1,5 +1,5 @@
 from orm_base import Base
-from sqlalchemy import Boolean,Column, Date, Integer, String
+from sqlalchemy import Boolean, Column, Date, Integer, String
 
 class Transaction(Base):
     """ Represents a Financial Transaction. """
@@ -13,4 +13,4 @@ class Transaction(Base):
     date = Column(Date)
 
     def __repr__(self):
-        return "<Transaction('{0}', '{1}', '{2}')>".format(self.description, self.amount/100.0, self.date)
+        return "<Transaction('{0}', '${1}.{2}', '{3}')>".format(self.description, self.amount/100.0, self.amount%100, self.date)
