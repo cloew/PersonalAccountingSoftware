@@ -14,4 +14,8 @@ class TransactionsWrapper(TableWrapper):
         else:
             return TableWrapper.all(self, order=order)
 
+    def allExpenseTransactionsForCategory(self, category):
+        """ Returns all Expense Transactions with a given category """
+        return session.query(self.table_class).filter_by(income=False, category=category)
+
 Transactions = TransactionsWrapper()
