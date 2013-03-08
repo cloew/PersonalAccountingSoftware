@@ -28,3 +28,7 @@ class TabToolBar(QToolBar):
     def getQIcon(self, resource_file):
         """ Return QIcon for the resource file given """
         return QIcon(resource_manager.GetResourceFilePath(resource_file ))
+
+    def addEntryToTable(self):
+        """ Adds an entry to table """
+        self.table_view.table_model.insertRows(0, 1)

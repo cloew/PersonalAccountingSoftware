@@ -22,8 +22,8 @@ class TransactionToolBar(TabToolBar):
         
         self.addAction(newTransactionAction)
 
-    def newTransaction(self): # Want to move this function out of this view class
+    def newTransaction(self):
         """ Creates a New Transaction """
         transaction = Transaction(date=datetime.date.today())
         Transactions.add(transaction)
-        self.table_view.table_model.insertRows(0, 1)
+        self.addEntryToTable()

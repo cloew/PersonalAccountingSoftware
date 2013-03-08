@@ -1,9 +1,12 @@
 from db.transactions import Transactions
 from ORM.transaction import Transaction
 from PyQt4 import QtGui
+
 from Qt.GUI.Category.category_list_view import CategoryListView
-from Qt.GUI.Transaction.transaction_toolbar import TransactionToolBar
+from Qt.GUI.Category.category_toolbar import CategoryToolBar
+
 from Qt.GUI.Transaction.transaction_list_view import TransactionListView
+from Qt.GUI.Transaction.transaction_toolbar import TransactionToolBar
 
 import datetime
 import resources.resource_manager as resource_manager
@@ -39,7 +42,7 @@ class MainWindow(QtGui.QMainWindow):
     def addCategoriesTab(self):
         """ Add the Categories Tab """
         self.category_list_view = CategoryListView()
-        self.category_list_view.toolbar = TransactionToolBar
+        self.category_list_view.toolbar = CategoryToolBar
         self.tabView.addTab(self.category_list_view, "Categories")
 
     def setToolBar(self, index):
