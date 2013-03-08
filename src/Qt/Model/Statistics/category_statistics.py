@@ -1,6 +1,5 @@
 from db.categories import Categories
 from db.transactions import Transactions
-import matplotlib.pyplot as pyplot
 
 class CategoryStatistics:
     """ Represents the Pie Chart of the Category Values """
