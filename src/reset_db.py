@@ -6,6 +6,7 @@ import resources.resource_manager as resource_manager
 
 def ResetDatabase():
     """ Reset the Database """
+    Database.clearSession()
     os.remove(Database.__database_path__)
     GenerateDatabase()
     Database.clearSession()
