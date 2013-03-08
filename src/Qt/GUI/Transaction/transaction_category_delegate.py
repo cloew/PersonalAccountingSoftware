@@ -20,5 +20,6 @@ class TransactionCategoryDelegate(QStyledItemDelegate):
         """ Set Completer Data to use Category data """
         categoryNames = []
         for category in Categories.all():
-            categoryNames.append(category.name)
+            if category.name is not None:
+                categoryNames.append(category.name)
         model.setStringList(categoryNames)

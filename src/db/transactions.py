@@ -16,6 +16,9 @@ class TransactionsWrapper(TableWrapper):
 
     def allExpenseTransactionsForCategory(self, category):
         """ Returns all Expense Transactions with a given category """
-        return session.query(self.table_class).filter_by(income=False, category=category)
+        expenseTransactions = []
+        with self.session() as session:
+            expenseTransactions = session.query(self.table_class).filter_by(income=False, category=category).all()
+        return expenseTransactions
 
 Transactions = TransactionsWrapper()

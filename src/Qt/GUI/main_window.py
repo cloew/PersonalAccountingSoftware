@@ -5,6 +5,8 @@ from PyQt4 import QtGui
 from Qt.GUI.Category.category_list_view import CategoryListView
 from Qt.GUI.Category.category_toolbar import CategoryToolBar
 
+from Qt.GUI.Statistics.category_pie_chart import CategoryPieChart
+
 from Qt.GUI.Transaction.transaction_list_view import TransactionListView
 from Qt.GUI.Transaction.transaction_toolbar import TransactionToolBar
 
@@ -27,6 +29,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.addTransactionTab()
         self.addCategoriesTab()
+        self.addStatisticsTab()
 
         self.statusBar()
         self.setWindowTitle("PAS")
@@ -44,6 +47,12 @@ class MainWindow(QtGui.QMainWindow):
         self.category_list_view = CategoryListView()
         self.category_list_view.toolbar = CategoryToolBar
         self.tabView.addTab(self.category_list_view, "Categories")
+
+    def addStatisticsTab(self):
+        """ Add the Statistics Tab """
+        self.statistics_view = CategoryPieChart()
+        self.statistics_view.toolbar = CategoryToolBar
+        self.tabView.addTab(self.statistics_view, "Statistics")
 
     def setToolBar(self, index):
         """ Set the Tool Bar to be the tool bar for the tab's widget """
