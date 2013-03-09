@@ -43,7 +43,7 @@ class CategoryStatistics:
         """ Return a list of percentages """
         percentages = []
         for category in self.totalForCategory:
-            percentages.append(self.totalForCategory[category]/self.total)
+            percentages.append(float(self.totalForCategory[category])/self.total)
         return percentages
 
     def getExpenseTransactionsForCategory(self, category):
