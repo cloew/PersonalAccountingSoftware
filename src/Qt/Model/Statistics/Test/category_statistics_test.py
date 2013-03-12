@@ -1,7 +1,53 @@
+from db.categories import Categories
 from ORM.category import Category
 from Qt.Model.Statistics.category_statistics import CategoryStatistics
 
+from reset_db import ResetDatabase
+from seed import AddCategory, AddTransaction
+
 import unittest
+
+class getCategoriesAndTransactions(unittest.TestCase):
+    """ Test cases of getCategoriesAndTransactions """
+    
+    def  setUp(self):
+        """ Build the *** for the test """
+        ResetDatabase()
+        self.names = ["QWERTY", "ASDF", "ZXCV", "POIU"]
+        self.transactionAmounts = {self.names[0]:[100],
+                                   self.names[1]:[200],
+                                   self.names[2]:[300],
+                                   self.names[3]:[100, 300]}
+        self.categoryStatistics = CategoryStatistics()
+        self.categoryStatistics.categoryTransactions = {}
+        self.categories = []
+        for name in self.names:
+            category = AddCategory(name=name)
+            self.categories.append(category)
+            for amount in self.transactionAmounts[name]:
+                transaction = AddTransaction(amount=amount)
+                transaction.category = category
+        
+    def hasCategories(self):
+        """ Test that the list of labels has all the needed labels """
+        self.categoryStatistics.getCategoriesAndTransactions()
+        assert len(self.categories) == len(self.categoryStatistics.categoryTransactions.keys()), "Should have a Category for each entry in the Catgeories list"
+        for category in self.categoryStatistics.categoryTransactions:
+            assert category in self.categories, "The Category should be in the categories list"
+
+    def hasTransactions(self):
+        """ Test that the proper number of transactions are received """
+        self.categoryStatistics.getCategoriesAndTransactions()
+        for category in self.categoryStatistics.categoryTransactions:
+            assert category.name in self.transactionAmounts, "Should have transactions stored for the Category"
+            assert len(self.transactionAmounts[category.name]) == len(self.categoryStatistics.categoryTransactions[category]), \
+                "Should have the same number of transactions for both the Transaction Amounts and the Transactions per Category """
+
+# Collect all test cases in this class
+testcasesGetCategoriesAndTransactions = ["hasCategories", "hasTransactions"]
+suiteGetCategoriesAndTransactions = unittest.TestSuite(map(getCategoriesAndTransactions, testcasesGetCategoriesAndTransactions))
+
+##########################################################
 
 class getLabels(unittest.TestCase):
     """ Test cases of getLabels """
@@ -59,7 +105,7 @@ suiteGetPercentages = unittest.TestSuite(map(getPercentages, testcasesGetPercent
 ##########################################################
 
 # Collect all test cases in this file
-suites = [suiteGetLabels, suiteGetPercentages]
+suites = [suiteGetCategoriesAndTransactions, suiteGetLabels, suiteGetPercentages]
 suite = unittest.TestSuite(suites)
 
 if __name__ == "__main__":
