@@ -1,5 +1,4 @@
 from db.transactions import Transactions
-#from PySide.QtCore import QAbstractTableModel, QModelIndex, QVariant, Qt
 from PySide.QtCore import QAbstractTableModel, QModelIndex, Qt
 
 class TransactionColumn:
@@ -8,7 +7,6 @@ class TransactionColumn:
 
     def getHorizontalHeader(self):
         """ Return Header Data """
-        #return QVariant(self.header_name)
         return self.header_name
 
     def getData(self, row):

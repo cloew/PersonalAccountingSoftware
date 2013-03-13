@@ -1,5 +1,4 @@
 from db.categories import Categories
-#from PySide.QtCore import QVariant
 from Qt.Model.Transaction.transaction_column import TransactionColumn
 
 class CategoryColumn(TransactionColumn):
@@ -9,7 +8,6 @@ class CategoryColumn(TransactionColumn):
     def getDataForTransaction(self, transaction):
         """ Return data for the provided transaction """
         if transaction.category is not None and transaction.category.name is not None:
-            #return QVariant(transaction.category.name)
             return transaction.category.name
 
     def setDataForTransaction(self, transaction, value):

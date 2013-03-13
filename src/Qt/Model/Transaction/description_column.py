@@ -1,4 +1,3 @@
-#from PySide.QtCore import QVariant
 from Qt.Model.Transaction.transaction_column import TransactionColumn
 
 class DescriptionColumn(TransactionColumn):
@@ -8,7 +7,6 @@ class DescriptionColumn(TransactionColumn):
     def getDataForTransaction(self, transaction):
         """ Return data for the provided transaction """
         if transaction.description is not None:
-            #return QVariant(transaction.description)
             return transaction.description
 
     def setDataForTransaction(self, transaction, value):

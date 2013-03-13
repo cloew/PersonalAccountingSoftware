@@ -1,5 +1,3 @@
-#from PySide.QtCore import QVariant
-
 from category_column import CategoryColumn
 
 class NameColumn(CategoryColumn):
@@ -9,7 +7,6 @@ class NameColumn(CategoryColumn):
     def getDataForCategory(self, category):
         """ Return data for the provided category """
         if category.name is not None:
-            #return QVariant(category.name)
             return category.name
 
     def setDataForCategory(self, category, value):

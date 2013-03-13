@@ -1,8 +1,7 @@
-#from PySide.QtCore import QAbstractTableModel, QModelIndex, QVariant, Qt
 from PySide.QtCore import QAbstractTableModel, QModelIndex, Qt
 
 class TableModel(QAbstractTableModel):
-    """ Represnts the a Table Model """
+    """ Represents the a Table Model """
 
     def __init__(self):
         """ Build the Transactions Table """
@@ -85,7 +84,5 @@ class TableModel(QAbstractTableModel):
             return None
         if Qt.Horizontal == orientation:
             if section < len(self.columns):
-                #return QVariant(self.columns[section].getHorizontalHeader())
                 return self.columns[section].getHorizontalHeader()
-            #return QVariant("Horizontal Header")
             return "Horizontal Header"

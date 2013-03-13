@@ -1,4 +1,4 @@
-from PySide.QtGui import QAction, qApp, QIcon,QToolBar
+from PySide.QtGui import QAction, QIcon,QToolBar
 from PySide import QtCore
 
 import resources.resource_manager as resource_manager   

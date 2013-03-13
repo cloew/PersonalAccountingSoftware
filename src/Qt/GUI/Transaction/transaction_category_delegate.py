@@ -1,6 +1,4 @@
 from db.categories import Categories
-
-#from PySide.QtCore import QStringList, QVariant
 from PySide.QtGui import QComboBox, QCompleter, QLineEdit, QStringListModel, QStyledItemDelegate
 
 class TransactionCategoryDelegate(QStyledItemDelegate):

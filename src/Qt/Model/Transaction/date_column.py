@@ -1,5 +1,4 @@
 from dateutil import parser
-#from PySide.QtCore import QVariant
 from Qt.Model.Transaction.transaction_column import TransactionColumn
 
 class DateColumn(TransactionColumn):
@@ -9,7 +8,6 @@ class DateColumn(TransactionColumn):
     def getDataForTransaction(self, transaction):
         """ Return data for the provided transaction """
         if transaction.date is not None:
-            #return QVariant("{0:%m/%d/%Y}".format(transaction.date))
             return "{0:%m/%d/%Y}".format(transaction.date)
 
     def setDataForTransaction(self, transaction, value):

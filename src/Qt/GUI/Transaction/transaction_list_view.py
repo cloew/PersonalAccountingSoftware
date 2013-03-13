@@ -6,7 +6,7 @@ from Qt.Model.Transaction.transaction_table_model import TransactionTableModel
 from transaction_category_delegate import TransactionCategoryDelegate
 from transaction_type_delegate import TransactionTypeDelegate
 
-class TransactionListView(QtGui.QTableView): # This will probably really inherit from something else
+class TransactionListView(QtGui.QTableView):
     """ View that lists all the Transactions """
 
     def __init__(self):

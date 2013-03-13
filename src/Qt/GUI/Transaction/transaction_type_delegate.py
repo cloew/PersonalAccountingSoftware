@@ -1,4 +1,3 @@
-#from PySide.QtCore import QStringList, QVariant
 from PySide.QtGui import QComboBox, QStyledItemDelegate
 
 class TransactionTypeDelegate(QStyledItemDelegate):
@@ -8,7 +7,6 @@ class TransactionTypeDelegate(QStyledItemDelegate):
     def createEditor(self, parent, option, index):
         """ Should return a combo box with Income or Expense """
         comboBox = QComboBox(parent)
-        #comboBox.insertItems(0, QStringList(self.__type_strings__))
         comboBox.insertItems(0, self.__type_strings__)
         return comboBox
 
@@ -20,5 +18,4 @@ class TransactionTypeDelegate(QStyledItemDelegate):
 
     def setModelData(self, editor, model, index):
         """ Set the appropriate data in the model """
-        #model.setData(index, QVariant(editor.currentText()))
         model.setData(index, editor.currentText())
