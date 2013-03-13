@@ -14,6 +14,7 @@ class CategoryList(QWidget):
         self.verticalLayout = QVBoxLayout()
         
         self.addHeader()
+        self.addCategoryExpenses()
         self.addTotalExpenses()
 
         self.verticalLayout.addStretch()
@@ -23,6 +24,11 @@ class CategoryList(QWidget):
         """ Add the Header to the Panel """
         label = QLabel("<b>Expenses by Category</b>")
         self.verticalLayout.addWidget(label)
+
+    def addCategoryExpenses(self):
+        """ Add Category Expenses """
+        for category in self.categoryStatistics.totalForCategory:
+            self.addHorizontalBar(category.name, self.categoryStatistics.totalForCategory[category])
 
     def addTotalExpenses(self):
         """ Add Total Expenses to the Panel """
