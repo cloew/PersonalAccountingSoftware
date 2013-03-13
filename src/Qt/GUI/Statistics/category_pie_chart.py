@@ -11,13 +11,12 @@ class CategoryPieChart(FigureCanvas):
         self.categoryStatistics = CategoryStatistics()
 
         self.figure = pyplot.figure(1, figsize=(4,4))
-        self.figure.add_subplot(111)
+        self.figure.add_subplot(111, aspect='equal')
 
         self.createPlot()
         FigureCanvas.__init__(self, self.figure)
 
     def createPlot(self):
         """ Create the Pie Chart Plot """
-        #explode=(0, 0.05, 0, 0)
         labels, percentages = self.categoryStatistics.getLabelsAndPercentages()
         pyplot.pie(percentages, labels=labels, autopct='%1.1f%%', shadow=True)

@@ -2,15 +2,16 @@ from db.transactions import Transactions
 from ORM.transaction import Transaction
 from PyQt4 import QtGui
 
+from Qt.GUI.tab_toolbar import TabToolBar
+
 from Qt.GUI.Category.category_list_view import CategoryListView
 from Qt.GUI.Category.category_toolbar import CategoryToolBar
 
-from Qt.GUI.Statistics.category_pie_chart import CategoryPieChart
+from Qt.GUI.Statistics.statistics_panel import StatisticsPanel
 
 from Qt.GUI.Transaction.transaction_list_view import TransactionListView
 from Qt.GUI.Transaction.transaction_toolbar import TransactionToolBar
 
-import datetime
 import resources.resource_manager as resource_manager
 
 class MainWindow(QtGui.QMainWindow):
@@ -50,8 +51,8 @@ class MainWindow(QtGui.QMainWindow):
 
     def addStatisticsTab(self):
         """ Add the Statistics Tab """
-        self.statistics_view = CategoryPieChart()
-        self.statistics_view.toolbar = CategoryToolBar
+        self.statistics_view = StatisticsPanel()
+        self.statistics_view.toolbar = TabToolBar
         self.tabView.addTab(self.statistics_view, "Statistics")
 
     def setToolBar(self, index):
