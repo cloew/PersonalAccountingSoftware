@@ -39,7 +39,7 @@ class CategoryStatistics:
     def getLabels(self):
         """ Return a list of the labels for the Categories """
         labels = []
-        for category in self.categoryTransactions:
+        for category in self.totalForCategory:
             labels.append(category.name)
         return labels
 

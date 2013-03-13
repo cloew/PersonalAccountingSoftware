@@ -8,6 +8,44 @@ from seed import AddCategory, AddTransaction
 
 import unittest
 
+class getLabelsAndPercentages(unittest.TestCase):
+    """ Test cases of getLabelsAndPercentages """
+    
+    def  setUp(self):
+        """ Build the *** for the test """
+        ResetDatabase()
+        self.names = ["QWERTY", "ASDF", "ZXCV", "POIU"]
+        self.transactionAmounts = {self.names[0]:[100],
+                                   self.names[1]:[200],
+                                   self.names[2]:[300],
+                                   self.names[3]:[100, 300]}
+        self.categoryStatistics = CategoryStatistics()
+        self.categoryStatistics.categoryTransactions = {}
+        self.categories = []
+        for name in self.names:
+            category = AddCategory(name=name)
+            self.categories.append(category)
+            for amount in self.transactionAmounts[name]:
+                transaction = AddTransaction(amount=amount)
+                transaction.category = category
+        
+    def hasLabelsAndPercentages(self):
+        """ Test that the Labels and Percentages are properly returned """
+        labels, percentages = self.categoryStatistics.getLabelsAndPercentages()
+        assert len(labels) == len(self.names), "Should have a Label for each entry in the Catgeories list"
+        for i in range(len(labels)):
+            label = labels[i]
+            percentage = percentages[i]
+            total = self.categoryStatistics.total/100.0
+            calculatedPercentage = sum(self.transactionAmounts[label])/total
+            assert percentage == calculatedPercentage, "Percentage for label should be the calculated Percentage"
+
+# Collect all test cases in this class
+testcasesGetLabelsAndPercentages = ["hasLabelsAndPercentages"]
+suiteGetLabelsAndPercentages = unittest.TestSuite(map(getLabelsAndPercentages, testcasesGetLabelsAndPercentages))
+
+##########################################################
+
 class getCategoriesAndTransactions(unittest.TestCase):
     """ Test cases of getCategoriesAndTransactions """
     
@@ -106,10 +144,10 @@ class getLabels(unittest.TestCase):
         """ Build the *** for the test """
         self.names = ["QWERTY", "ASDF", "ZXCV"]
         self.categoryStatistics = CategoryStatistics()
-        self.categoryStatistics.categoryTransactions = {}
+        self.categoryStatistics.totalForCategory = {}
         for name in self.names:
             category = Category(name=name)
-            self.categoryStatistics.categoryTransactions[category] = []
+            self.categoryStatistics.totalForCategory[category] = []
         
     def hasLabels(self):
         """ Test that the list of labels has all the needed labels """
@@ -155,7 +193,11 @@ suiteGetPercentages = unittest.TestSuite(map(getPercentages, testcasesGetPercent
 ##########################################################
 
 # Collect all test cases in this file
-suites = [suiteGetCategoriesAndTransactions, suiteGetTotalExpenses, suiteGetLabels, suiteGetPercentages]
+suites = [suiteGetLabelsAndPercentages,
+          suiteGetCategoriesAndTransactions,
+          suiteGetTotalExpenses, 
+          suiteGetLabels, 
+          suiteGetPercentages]
 suite = unittest.TestSuite(suites)
 
 if __name__ == "__main__":
