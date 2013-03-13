@@ -26,5 +26,14 @@ class CategoryList(QWidget):
 
     def addTotalExpenses(self):
         """ Add Total Expenses to the Panel """
-        totalLabel = QLabel("<b>Total Expenses</b>")
-        self.verticalLayout.addWidget(totalLabel)
+        self.addHorizontalBar("Total Expenses", 1234.56)
+
+    def addHorizontalBar(self, label, amount):
+        """ Add a Horizontal Bar to the UI """
+        horizontalLayout = QHBoxLayout()
+        textLabel = QLabel("<b>{0}</b>:".format(label))
+        amountLabel = QLabel("<b>{0}</b>".format(amount))
+        horizontalLayout.addWidget(textLabel)
+        horizontalLayout.addWidget(amountLabel)
+        horizontalLayout.addStretch()
+        self.verticalLayout.addLayout(horizontalLayout)
