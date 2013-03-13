@@ -4,5 +4,8 @@ Personal Accounting Software
 
 Requires Python Packages
 - dateutil      -- Download tar from https://pypi.python.org/pypi/python-dateutil. Extract via tar -xf. python install setup.py.
-- PyQt4         -- apt-get install python-qt4
+- PyQt4         -- Linux    - apt-get install python-qt4
+- PySide        -- Windows  - Windows Installer available at: http://www.lfd.uci.edu/~gohlke/pythonlibs/
 - SQLAlchemy    -- pip install SQLAlchemy
+- matplotlib    -- Linux    - apt-get install python-matplotlib
+                -- Windows  - WIndows Installer available at: http://sourceforge.net/projects/matplotlib/files/matplotlib/matplotlib-1.1.0/
