@@ -39,15 +39,21 @@ class setDataForCategory(unittest.TestCase):
         self.category.name = None
         self.nameColumn = NameColumn()
 
+    def none(self):
+        """ Test that setDataForCategory properly handles when there is no name """
+        dataSet = self.nameColumn.setDataForCategory(self.category, None)
+        assert dataSet, "Should have data set"
+        assert self.category.name == None, "Should have no Category Name"
+
     def nameString(self):
-        """ Test that setDataForCategory properly handles when there is a description """
+        """ Test that setDataForCategory properly handles when there is a name """
         value = "Some Name"
         dataSet = self.nameColumn.setDataForCategory(self.category, value)
         assert dataSet, "Should have data set"
-        assert self.category.name == value, "Should have the Transaction Description"
+        assert self.category.name == value, "Should have the Category Name"
 
 # Collect all test cases in this class
-testcasesSetDataForCategory = ["nameString"]
+testcasesSetDataForCategory = ["none", "nameString"]
 suiteSetDataForCategory = unittest.TestSuite(map(setDataForCategory, testcasesSetDataForCategory))
 
 ##########################################################
