@@ -11,9 +11,9 @@ import matplotlib.pyplot as pyplot
 class CategoryPieChart(FigureCanvas):
     """ Represents the Pie Chart of the Category Values """
 
-    def __init__(self):
+    def __init__(self, categoryStatistics):
         """ Initialize the Plot """
-        self.categoryStatistics = CategoryStatistics()
+        self.categoryStatistics = categoryStatistics
 
         self.figure = pyplot.figure(1, figsize=(4,4))
         self.figure.add_subplot(111, aspect='equal')

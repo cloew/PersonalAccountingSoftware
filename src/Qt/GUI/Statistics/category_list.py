@@ -3,9 +3,10 @@ from PySide.QtGui import QHBoxLayout, QLabel, QWidget, QVBoxLayout
 class CategoryList(QWidget):
     """ Represents the List of Categories and their total expenses that are shown """
 
-    def __init__(self):
+    def __init__(self, categoryStatistics):
         """ Initialize the Category List """
         QWidget.__init__(self)
+        self.categoryStatistics = categoryStatistics
         self.initUI()
 
     def initUI(self):
