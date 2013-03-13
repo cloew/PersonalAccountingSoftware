@@ -1,5 +1,4 @@
 from ORM.transaction import Transaction
-from PyQt4.QtCore import QVariant
 from Qt.Model.Transaction.description_column import DescriptionColumn
 
 import unittest
@@ -23,7 +22,7 @@ class getDataForTransaction(unittest.TestCase):
         description = "Some Description"
         self.transaction.description = description
         data = self.descriptionColumn.getDataForTransaction(self.transaction)
-        assert str(data.toString()) == description, "Should get the same description as a string"
+        assert str(data) == description, "Should get the same description as a string"
 
 # Collect all test cases in this class
 testcasesGetDataForTransaction = ["noDescription", "aDescription"]
@@ -42,11 +41,10 @@ class setDataForTransaction(unittest.TestCase):
 
     def descriptionString(self):
         """ Test that setDataForTransaction properly handles when there is a description """
-        description = "Some Description"
-        value = QVariant(description)
+        value = "Some Description"
         dataSet = self.descriptionColumn.setDataForTransaction(self.transaction, value)
         assert dataSet, "Should have data set"
-        assert self.transaction.description == description, "Should have the Transaction Description"
+        assert self.transaction.description == value, "Should have the Transaction Description"
 
 # Collect all test cases in this class
 testcasesSetDataForTransaction = ["descriptionString"]

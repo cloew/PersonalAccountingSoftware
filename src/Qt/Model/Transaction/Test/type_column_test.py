@@ -1,5 +1,4 @@
 from ORM.transaction import Transaction
-from PyQt4.QtCore import QVariant
 from Qt.Model.Transaction.type_column import TypeColumn
 
 import unittest
@@ -23,14 +22,14 @@ class getDataForTransaction(unittest.TestCase):
         income = True
         self.transaction.income = income
         data = self.typeColumn.getDataForTransaction(self.transaction)
-        assert str(data.toString()) == "Income", "Should get the Income string"
+        assert str(data) == "Income", "Should get the Income string"
 
     def expense(self):
         """ Test that getDataForTransaction properly handles when there is an expense type """
         income = False
         self.transaction.income = income
         data = self.typeColumn.getDataForTransaction(self.transaction)
-        assert str(data.toString()) == "Expense", "Should get the Expense string"
+        assert str(data) == "Expense", "Should get the Expense string"
 
 # Collect all test cases in this class
 testcasesGetDataForTransaction = ["noType", "income", "expense"]
@@ -49,56 +48,49 @@ class setDataForTransaction(unittest.TestCase):
 
     def badString(self):
         """ Test that setDataForTransaction properly handles when there is a bad String """
-        typeString = "q2w3e4r5ty"
-        value = QVariant(typeString)
+        value = "q2w3e4r5ty"
         dataSet = self.typeColumn.setDataForTransaction(self.transaction, value)
         assert not dataSet, "Should have data set"
         assert self.transaction.income == None, "Should have no type"
 
     def fullIncomeString(self):
         """ Test that setDataForTransaction properly handles when there is a full Income String """
-        typeString = "Income"
-        value = QVariant(typeString)
+        value = "Income"
         dataSet = self.typeColumn.setDataForTransaction(self.transaction, value)
         assert dataSet, "Should have data set"
         assert self.transaction.income == True, "Should be Income"
 
     def partialIncomeString(self):
         """ Test that setDataForTransaction properly handles when there is a partial Income String """
-        typeString = "I"
-        value = QVariant(typeString)
+        value = "I"
         dataSet = self.typeColumn.setDataForTransaction(self.transaction, value)
         assert dataSet, "Should have data set"
         assert self.transaction.income == True, "Should be Income"
 
     def lowerIncomeString(self):
         """ Test that setDataForTransaction properly handles when there is a partial Income String """
-        typeString = "i"
-        value = QVariant(typeString)
+        value = "i"
         dataSet = self.typeColumn.setDataForTransaction(self.transaction, value)
         assert dataSet, "Should have data set"
         assert self.transaction.income == True, "Should be Income"
 
     def fullExpenseString(self):
         """ Test that setDataForTransaction properly handles when there is a full Expense String """
-        typeString = "Expense"
-        value = QVariant(typeString)
+        value = "Expense"
         dataSet = self.typeColumn.setDataForTransaction(self.transaction, value)
         assert dataSet, "Should have data set"
         assert self.transaction.income == False, "Should be Expense"
 
     def partialExpenseString(self):
         """ Test that setDataForTransaction properly handles when there is a partial Expense String """
-        typeString = "E"
-        value = QVariant(typeString)
+        value = "E"
         dataSet = self.typeColumn.setDataForTransaction(self.transaction, value)
         assert dataSet, "Should have data set"
         assert self.transaction.income == False, "Should be Expense"
 
     def lowerExpenseString(self):
         """ Test that setDataForTransaction properly handles when there is a partial Expense String """
-        typeString = "e"
-        value = QVariant(typeString)
+        value = "e"
         dataSet = self.typeColumn.setDataForTransaction(self.transaction, value)
         assert dataSet, "Should have data set"
         assert self.transaction.income == False, "Should be Expense"

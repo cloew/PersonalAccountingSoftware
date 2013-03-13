@@ -13,7 +13,7 @@ class DateColumn(TransactionColumn):
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """
         try:
-            transaction.date = parser.parse(str(value.toString()))
+            transaction.date = parser.parse(str(value))
             return True
         except ValueError:
             pass # Expect it to happen if user enters a bad String for the date

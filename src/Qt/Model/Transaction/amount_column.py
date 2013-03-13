@@ -16,7 +16,7 @@ class AmountColumn(TransactionColumn):
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """
         try:
-            cleanedValue = str(value.toString())
+            cleanedValue = value
             if cleanedValue.startswith('$'):
                 cleanedValue = cleanedValue[1:]
             newAmount = Decimal(cleanedValue)

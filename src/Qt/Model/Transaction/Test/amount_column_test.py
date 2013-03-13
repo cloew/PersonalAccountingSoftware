@@ -1,5 +1,4 @@
 from ORM.transaction import Transaction
-from PyQt4.QtCore import QVariant
 from Qt.Model.Transaction.amount_column import AmountColumn
 
 import unittest
@@ -23,7 +22,7 @@ class getDataForTransaction(unittest.TestCase):
         amount = 1234
         self.transaction.amount = amount
         data = self.amountColumn.getDataForTransaction(self.transaction)
-        assert data.toString() == "$12.34", "Should get the amount data formatted as a number in dollars"
+        assert data == "$12.34", "Should get the amount data formatted as a number in dollars"
 
 # Collect all test cases in this class
 testcasesGetDataForTransaction = ["noAmount", "anAmount"]
@@ -42,21 +41,21 @@ class setDataForTransaction(unittest.TestCase):
         
     def badString(self):
         """ Test that setDataForTransaction properly handles a bad string """
-        value = QVariant("abcd")
+        value = "abcd"
         dataSet = self.amountColumn.setDataForTransaction(self.transaction, value)
         assert dataSet is None, "Should get not have data Set when the value is a bad string"
         assert self.transaction.amount is None, "Should not have the Transaction Amount set"
 
     def stringOfDollars(self):
         """ Test that setDataForTransaction properly handles when there is an amount """
-        value = QVariant("$12.34")
+        value = "$12.34"
         dataSet = self.amountColumn.setDataForTransaction(self.transaction, value)
         assert dataSet, "Should have data set"
         assert self.transaction.amount == 1234, "Should have the Transaction Amount in cents"
 
     def decimalString(self):
         """ Test that setDataForTransaction properly handles when there is an amount """
-        value = QVariant("12.34")
+        value = "12.34"
         dataSet = self.amountColumn.setDataForTransaction(self.transaction, value)
         assert dataSet, "Should have data set"
         assert self.transaction.amount == 1234, "Should have the Transaction Amount in cents"

@@ -1,7 +1,6 @@
 from db.categories import Categories
 from ORM.category import Category
 from ORM.transaction import Transaction
-from PyQt4.QtCore import QVariant
 from Qt.Model.Transaction.category_column import CategoryColumn
 
 import unittest
@@ -26,7 +25,7 @@ class getDataForTransaction(unittest.TestCase):
         """ Test that getDataForTransaction properly handles when there is a category """
         self.transaction.category = self.category
         data = self.categoryColumn.getDataForTransaction(self.transaction)
-        assert str(data.toString()) == self.name, "Should get the category name as the data"
+        assert str(data) == self.name, "Should get the category name as the data"
 
 # Collect all test cases in this class
 testcasesGetDataForTransaction = ["noCategory", "aCategory"]
@@ -50,7 +49,7 @@ class setDataForTransaction(unittest.TestCase):
     def categoryString(self):
         """ Test that setDataForTransaction properly handles when there is a category """
         category = Categories.all()[0]
-        value = QVariant(category.name)
+        value = category.name
         dataSet = self.categoryColumn.setDataForTransaction(self.transaction, value)
         assert dataSet, "Should have data set"
         assert self.transaction.category == category, "Should have the Transaction Category"
