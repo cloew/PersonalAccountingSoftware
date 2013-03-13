@@ -1,5 +1,6 @@
 from PySide.QtGui import QHBoxLayout, QPushButton, QWidget
 
+from category_list import CategoryList
 from category_pie_chart import CategoryPieChart
 
 class StatisticsPanel(QWidget):
@@ -14,7 +15,8 @@ class StatisticsPanel(QWidget):
         """ Setup the Layout on the Statistics Panel """
         layout = QHBoxLayout()
         pieChart = CategoryPieChart()
+        categoryList = CategoryList()
         
         layout.addWidget(pieChart)
-        layout.addWidget(QPushButton("Some Button"))
+        layout.addWidget(categoryList)
         self.setLayout(layout)
