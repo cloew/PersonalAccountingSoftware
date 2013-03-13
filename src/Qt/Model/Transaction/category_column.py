@@ -12,7 +12,7 @@ class CategoryColumn(TransactionColumn):
 
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """
-        category = Categories.findByName(str(value))
+        category = Categories.findByName(value)
         if category is not None:
             transaction.category = category
             return True

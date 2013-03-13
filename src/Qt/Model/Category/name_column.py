@@ -11,7 +11,7 @@ class NameColumn(CategoryColumn):
 
     def setDataForCategory(self, category, value):
         """ Set data for the provided category """
-        category.name = str(value)
+        category.name = value
         return True
 
     def getTip(self, row):

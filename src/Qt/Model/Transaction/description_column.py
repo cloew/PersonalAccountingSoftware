@@ -11,7 +11,7 @@ class DescriptionColumn(TransactionColumn):
 
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """
-        transaction.description = str(value)
+        transaction.description = value
         return True
 
     def getTip(self, row):

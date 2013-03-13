@@ -25,7 +25,7 @@ class getDataForTransaction(unittest.TestCase):
         """ Test that getDataForTransaction properly handles when there is a category """
         self.transaction.category = self.category
         data = self.categoryColumn.getDataForTransaction(self.transaction)
-        assert str(data) == self.name, "Should get the category name as the data"
+        assert data == self.name, "Should get the category name as the data"
 
 # Collect all test cases in this class
 testcasesGetDataForTransaction = ["noCategory", "aCategory"]

@@ -13,11 +13,10 @@ class TypeColumn(TransactionColumn):
 
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """
-        newIncomeValue = str(value)
-        if "income".startswith(newIncomeValue.lower()):
+        if "income".startswith(value.lower()):
             transaction.income = True
             return True
-        elif "expense".startswith(newIncomeValue.lower()):
+        elif "expense".startswith(value.lower()):
             transaction.income = False
             return True
 

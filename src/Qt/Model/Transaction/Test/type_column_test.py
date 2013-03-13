@@ -22,14 +22,14 @@ class getDataForTransaction(unittest.TestCase):
         income = True
         self.transaction.income = income
         data = self.typeColumn.getDataForTransaction(self.transaction)
-        assert str(data) == "Income", "Should get the Income string"
+        assert data == "Income", "Should get the Income string"
 
     def expense(self):
         """ Test that getDataForTransaction properly handles when there is an expense type """
         income = False
         self.transaction.income = income
         data = self.typeColumn.getDataForTransaction(self.transaction)
-        assert str(data) == "Expense", "Should get the Expense string"
+        assert data == "Expense", "Should get the Expense string"
 
 # Collect all test cases in this class
 testcasesGetDataForTransaction = ["noType", "income", "expense"]

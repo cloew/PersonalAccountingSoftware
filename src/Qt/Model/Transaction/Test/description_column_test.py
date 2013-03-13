@@ -22,7 +22,7 @@ class getDataForTransaction(unittest.TestCase):
         description = "Some Description"
         self.transaction.description = description
         data = self.descriptionColumn.getDataForTransaction(self.transaction)
-        assert str(data) == description, "Should get the same description as a string"
+        assert data == description, "Should get the same description as a string"
 
 # Collect all test cases in this class
 testcasesGetDataForTransaction = ["noDescription", "aDescription"]

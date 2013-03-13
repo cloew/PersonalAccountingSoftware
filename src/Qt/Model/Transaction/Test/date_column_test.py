@@ -24,7 +24,7 @@ class getDataForTransaction(unittest.TestCase):
         today = date.today()
         self.transaction.date = today
         data = self.dateColumn.getDataForTransaction(self.transaction)
-        assert parser.parse(str(data)) == datetime(today.year, today.month, today.day), "Should get the same date as a string"
+        assert parser.parse(data) == datetime(today.year, today.month, today.day), "Should get the same date as a string"
 
 # Collect all test cases in this class
 testcasesGetDataForTransaction = ["noDate", "aDate"]
