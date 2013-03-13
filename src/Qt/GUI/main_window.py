@@ -1,6 +1,6 @@
 from db.transactions import Transactions
 from ORM.transaction import Transaction
-from PyQt4 import QtGui
+from PySide import QtGui
 
 from Qt.GUI.tab_toolbar import TabToolBar
 

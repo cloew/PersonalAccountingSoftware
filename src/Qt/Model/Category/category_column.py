@@ -1,5 +1,6 @@
 from db.categories import Categories
-from PyQt4.QtCore import QAbstractTableModel, QModelIndex, QVariant, Qt
+#from PySide.QtCore import QAbstractTableModel, QModelIndex, QVariant, Qt
+from PySide.QtCore import QAbstractTableModel, QModelIndex, Qt
 
 class CategoryColumn:
     """ Represents a column in the Categories Table """
@@ -7,7 +8,8 @@ class CategoryColumn:
 
     def getHorizontalHeader(self):
         """ Return Header Data """
-        return QVariant(self.header_name)
+        #return QVariant(self.header_name)
+        return self.header_name
 
     def getData(self, row):
         """ Return data for the category in the given row """

@@ -1,4 +1,4 @@
-from PyQt4.QtCore import QVariant
+#from PySide.QtCore import QVariant
 
 from category_column import CategoryColumn
 
@@ -9,11 +9,12 @@ class NameColumn(CategoryColumn):
     def getDataForCategory(self, category):
         """ Return data for the provided category """
         if category.name is not None:
-            return QVariant(category.name)
+            #return QVariant(category.name)
+            return category.name
 
     def setDataForCategory(self, category, value):
         """ Set data for the provided category """
-        category.name = str(value.toString())
+        category.name = str(value)
         return True
 
     def getTip(self, row):

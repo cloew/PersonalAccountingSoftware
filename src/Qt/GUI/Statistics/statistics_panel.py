@@ -1,4 +1,4 @@
-from PyQt4.QtGui import QHBoxLayout, QPushButton, QWidget
+from PySide.QtGui import QHBoxLayout, QPushButton, QWidget
 
 from category_pie_chart import CategoryPieChart
 

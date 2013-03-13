@@ -1,4 +1,5 @@
-from PyQt4.QtGui import QAction, qApp, QIcon,QToolBar
+from PySide.QtGui import QAction, qApp, QIcon,QToolBar
+from PySide import QtCore
 
 import resources.resource_manager as resource_manager   
 
@@ -21,7 +22,7 @@ class TabToolBar(QToolBar):
         exitAction = QAction(self.getQIcon('exit.png'), 'Exit the Application', self)
         exitAction.setShortcut('Ctrl+Q')
         exitAction.setStatusTip("Exit the Application.")
-        exitAction.triggered.connect(qApp.quit)
+        exitAction.triggered.connect(QtCore.QCoreApplication.instance().quit)
         
         self.addAction(exitAction)
 

@@ -1,6 +1,6 @@
 from db.categories import Categories
 from ORM.category import Category
-from PyQt4.QtGui import QAction
+from PySide.QtGui import QAction
 from Qt.GUI.tab_toolbar import TabToolBar
 
 class CategoryToolBar(TabToolBar):

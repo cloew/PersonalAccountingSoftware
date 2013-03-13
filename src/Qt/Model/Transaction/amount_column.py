@@ -1,5 +1,5 @@
 from decimal import Decimal, InvalidOperation
-from PyQt4.QtCore import QVariant
+#from PySide.QtCore import QVariant
 from Qt.Model.Transaction.transaction_column import TransactionColumn
 
 class AmountColumn(TransactionColumn):
@@ -12,7 +12,8 @@ class AmountColumn(TransactionColumn):
             amount = transaction.amount
             cents = amount%100
             dollars = amount/100
-            return QVariant("${0}.{1:{fill}2}".format(dollars, cents, fill=0))
+            #return QVariant("${0}.{1:{fill}2}".format(dollars, cents, fill=0))
+            return "${0}.{1:{fill}2}".format(dollars, cents, fill=0)
 
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """

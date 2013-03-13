@@ -1,7 +1,7 @@
 from db.categories import Categories
 
-from PyQt4.QtCore import QStringList, QVariant
-from PyQt4.QtGui import QComboBox, QCompleter, QLineEdit, QStringListModel, QStyledItemDelegate
+#from PySide.QtCore import QStringList, QVariant
+from PySide.QtGui import QComboBox, QCompleter, QLineEdit, QStringListModel, QStyledItemDelegate
 
 class TransactionCategoryDelegate(QStyledItemDelegate):
     """ Transaction Category View Delegate """

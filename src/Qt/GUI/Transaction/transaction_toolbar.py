@@ -1,6 +1,6 @@
 from db.transactions import Transactions
 from ORM.transaction import Transaction
-from PyQt4.QtGui import QAction
+from PySide.QtGui import QAction
 from Qt.GUI.tab_toolbar import TabToolBar
 
 import datetime
