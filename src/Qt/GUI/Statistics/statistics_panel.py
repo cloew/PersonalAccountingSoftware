@@ -22,3 +22,7 @@ class StatisticsPanel(QWidget):
         layout.addWidget(pieChart)
         layout.addWidget(categoryList)
         self.setLayout(layout)
+
+    def tabSelected(self):
+        """ Called when the tab is selected """
+        print "Calling Tab Selected"

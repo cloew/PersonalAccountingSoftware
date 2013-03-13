@@ -30,3 +30,6 @@ class TransactionListView(QtGui.QTableView):
         self.categoryDelegate = TransactionCategoryDelegate()
         index = self.table_model.indexForColumnClass(CategoryColumn)
         self.setItemDelegateForColumn(index, self.categoryDelegate)
+
+    def tabSelected(self):
+        """ Called when the tab is selected """

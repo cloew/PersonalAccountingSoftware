@@ -10,3 +10,6 @@ class CategoryListView(QtGui.QTableView): # This will probably really inherit fr
         self.table_model = CategoryTableModel()
         self.setModel(self.table_model)
         self.horizontalHeader().setResizeMode(QtGui.QHeaderView.Stretch)
+
+    def tabSelected(self):
+        """ Called when the tab is selected """

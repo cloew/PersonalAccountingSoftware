@@ -63,3 +63,4 @@ class MainWindow(QtGui.QMainWindow):
         widget = self.tabView.widget(index)
         self.toolbar = widget.toolbar(widget)
         self.addToolBar(self.toolbar)
+        widget.tabSelected()
