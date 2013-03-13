@@ -1,4 +1,5 @@
-from PySide.QtGui import QHBoxLayout, QLabel, QWidget, QVBoxLayout
+from PySide.QtCore import QCoreApplication 
+from PySide.QtGui import QLabel, QWidget, QVBoxLayout
 
 class CategoryList(QWidget):
     """ Represents the List of Categories and their total expenses that are shown """
@@ -7,15 +8,21 @@ class CategoryList(QWidget):
         """ Initialize the Category List """
         QWidget.__init__(self)
         self.categoryStatistics = categoryStatistics
+        self.verticalLayout = None
+        self.number = 0
         self.initUI()
 
     def initUI(self):
         """ Initialize the UI """
         self.verticalLayout = QVBoxLayout()
-        
         self.addHeader()
-        self.addCategoryExpenses()
+
+        self.categoryLabels = {}
+        self.totalLabel = None
+
         self.addTotalExpenses()
+        self.addCategoryExpenses()
+        
 
         self.verticalLayout.addStretch()
         self.setLayout(self.verticalLayout)
@@ -28,13 +35,30 @@ class CategoryList(QWidget):
     def addCategoryExpenses(self):
         """ Add Category Expenses """
         for category in self.categoryStatistics.totalForCategory:
-            self.addHorizontalBar(category.name, self.categoryStatistics.totalForCategory[category])
+            if category not in self.categoryLabels:
+                self.categoryLabels[category] = self.addHorizontalBar(category.name, self.categoryStatistics.totalForCategory[category])
+            else:
+                labelText = self.getLabelText(category.name, self.categoryStatistics.totalForCategory[category])
+                self.categoryLabels[category].setText(labelText)
 
     def addTotalExpenses(self):
         """ Add Total Expenses to the Panel """
-        self.addHorizontalBar("Total Expenses", self.categoryStatistics.total)
+        if self.totalLabel is None:
+            self.totalLabel = self.addHorizontalBar("Total Expenses", self.categoryStatistics.total)
+        else:
+            labelText = self.getLabelText("Total Expenses", self.categoryStatistics.total)
+            self.totalLabel.setText(labelText)
 
     def addHorizontalBar(self, text, amount):
         """ Add a Horizontal Bar to the UI """
-        label = QLabel("<b>{0}: ${1}</b>".format(text, amount/100.0))
-        self.verticalLayout.addWidget(label)
+        label = QLabel(self.getLabelText(text, amount), self)
+        self.verticalLayout.insertWidget(1, label)
+        return label
+
+    def getLabelText(self, text, amount):
+        """ Returns the text for the label formatted properly """
+        return "<b>{0}: ${1}</b>".format(text, amount/100.0)
+
+    def updateUI(self):
+        self.addCategoryExpenses()
+        self.addTotalExpenses()

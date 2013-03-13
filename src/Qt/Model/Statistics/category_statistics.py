@@ -6,12 +6,16 @@ class CategoryStatistics:
 
     def getLabelsAndPercentages(self):
         """ Returns the labels and percentages for the Category Statistics """
-        self.getCategoriesAndTransactions()
-        self.getTotalExpenses()
+        self.prepareStatistics()
 
         labels = self.getLabels()
         percentages = self.getPercentages()
         return labels, percentages
+
+    def prepareStatistics(self):
+        """ Prepare the Statistics """
+        self.getCategoriesAndTransactions()
+        self.getTotalExpenses()
 
     def getCategoriesAndTransactions(self):
         """ Gets the categories and their associated Expense Transactions """

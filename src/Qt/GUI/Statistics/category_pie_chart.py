@@ -14,7 +14,10 @@ class CategoryPieChart(FigureCanvas):
     def __init__(self, categoryStatistics):
         """ Initialize the Plot """
         self.categoryStatistics = categoryStatistics
+        self.addFigure()
 
+    def addFigure(self):
+        """  """    
         self.figure = pyplot.figure(1, figsize=(4,4))
         self.figure.add_subplot(111, aspect='equal')
 

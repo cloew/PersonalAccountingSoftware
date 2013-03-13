@@ -1,4 +1,4 @@
-from PySide.QtGui import QHBoxLayout, QPushButton, QWidget
+from PySide.QtGui import QApplication, QHBoxLayout, QPushButton, QWidget
 from Qt.Model.Statistics.category_statistics import CategoryStatistics
 
 from category_list import CategoryList
@@ -11,18 +11,22 @@ class StatisticsPanel(QWidget):
         """  """
         QWidget.__init__(self)
         self.categoryStatistics = CategoryStatistics()
+
+        self.pieChart = None
+        self.categoryList = None
         self.setupLayout()
 
     def setupLayout(self):
         """ Setup the Layout on the Statistics Panel """
         layout = QHBoxLayout()
-        pieChart = CategoryPieChart(self.categoryStatistics)
-        categoryList = CategoryList(self.categoryStatistics)
-        
-        layout.addWidget(pieChart)
-        layout.addWidget(categoryList)
+        self.pieChart = CategoryPieChart(self.categoryStatistics)
+        self.categoryList = CategoryList(self.categoryStatistics)
+
+        layout.addWidget(self.pieChart)
+        layout.addWidget(self.categoryList)
         self.setLayout(layout)
 
     def tabSelected(self):
         """ Called when the tab is selected """
-        print "Calling Tab Selected"
+        self.categoryStatistics.prepareStatistics()
+        self.categoryList.updateUI()
