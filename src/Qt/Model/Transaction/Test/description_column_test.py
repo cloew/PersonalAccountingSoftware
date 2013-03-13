@@ -7,7 +7,7 @@ class getDataForTransaction(unittest.TestCase):
     """ Test cases of getDataForTransaction """
     
     def  setUp(self):
-        """ Build the *** for the test """
+        """ Build the Transaction and Column for the test """
         self.transaction = Transaction()
         self.descriptionColumn = DescriptionColumn()
         
