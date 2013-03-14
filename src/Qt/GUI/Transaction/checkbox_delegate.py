@@ -1,5 +1,5 @@
-from PySide.QtCore import QEvent
-from PySide.QtGui import QApplication, QStyle, QStyledItemDelegate, QStyleOptionButton
+from PySide.QtCore import QEvent, Qt
+from PySide.QtGui import QApplication, QCheckBox, QStyle, QStyledItemDelegate, QStyleOptionButton
 
 class CheckBoxDelegate(QStyledItemDelegate):
     """ Check Box View Delegate """
@@ -16,6 +16,9 @@ class CheckBoxDelegate(QStyledItemDelegate):
         """ Paint the Item """
         buttonOptions = QStyleOptionButton()
         buttonOptions.rect = option.rect
+        checkBox = QCheckBox()
+
+        buttonOptions.rect = QStyle.alignedRect(Qt.LeftToRight, Qt.AlignHCenter | Qt.AlignVCenter, checkBox.sizeHint(), option.rect)
 
         if index.data():
             buttonOptions.state = QStyle.State_Enabled | QStyle.State_On
