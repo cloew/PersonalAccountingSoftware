@@ -1,5 +1,7 @@
 from category_column import CategoryColumn
 
+from PySide.QtCore import Qt
+
 class DeleteColumn(CategoryColumn):
     """ Represents the Category Delete Column """
     header_name = None

@@ -1,5 +1,5 @@
-from PySide.QtCore import QEvent, Qt
-from PySide.QtGui import QApplication, QPushButton, QStyle, QStyledItemDelegate, QStyleOptionButton
+from PySide.QtCore import QEvent, QSize, Qt
+from PySide.QtGui import QApplication, QIcon, QPushButton, QStyle, QStyledItemDelegate, QStyleOptionButton
 
 import resources.resource_manager as resource_manager
 
@@ -14,5 +14,7 @@ class DeleteCategoryDelegate(QStyledItemDelegate):
         button = QPushButton()
         buttonOptions.rect = QStyle.alignedRect(Qt.LeftToRight, Qt.AlignHCenter | Qt.AlignVCenter, button.sizeHint(), option.rect)
         buttonOptions.state = QStyle.State_Enabled
+        buttonOptions.icon = QIcon(resource_manager.GetResourceFilePath("erase.png"))
+        buttonOptions.iconSize = QSize(24, 24)
         
         QApplication.style().drawControl(QStyle.CE_PushButton, buttonOptions, painter)
