@@ -1,8 +1,13 @@
+from PySide.QtCore import Qt
 from Qt.Model.Transaction.transaction_column import TransactionColumn
 
 class ClearedColumn(TransactionColumn):
     """ Represents the Transaction Cleared Column """
     header_name = "Cleared"
+
+    def flags(self, row):
+        """ Return flags for the Column's Row """
+        return Qt.ItemIsEnabled
 
     def getDataForTransaction(self, transaction):
         """ Return data for the provided transaction """

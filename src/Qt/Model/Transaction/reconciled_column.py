@@ -1,8 +1,13 @@
+from PySide.QtCore import Qt
 from Qt.Model.Transaction.transaction_column import TransactionColumn
 
 class ReconciledColumn(TransactionColumn):
     """ Represents the Transaction Reconciled Column """
     header_name = "Reconciled"
+
+    def flags(self, row):
+        """ Return flags for the Column's Row """
+        return Qt.ItemIsEnabled
 
     def getDataForTransaction(self, transaction):
         """ Return data for the provided transaction """
