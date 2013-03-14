@@ -14,6 +14,7 @@ class Transaction(Base):
     description = Column(String)
     income = Column(Boolean)
     cleared = Column(Boolean)
+    reconciled = Column(Boolean)
     date = Column(Date)
     category_id = Column(Integer, ForeignKey('categories.id'))
     category = relationship("Category", backref=backref('transactions'))
