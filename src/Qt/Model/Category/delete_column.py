@@ -1,5 +1,6 @@
 from category_column import CategoryColumn
 
+from db.categories import Categories
 from PySide.QtCore import Qt
 
 class DeleteColumn(CategoryColumn):
@@ -16,6 +17,8 @@ class DeleteColumn(CategoryColumn):
 
     def setDataForCategory(self, category, value):
         """ Set data for the provided category """
+        if value:
+            Categories.delete(category)
         return False
 
     def getTip(self, row):

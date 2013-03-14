@@ -6,6 +6,15 @@ import resources.resource_manager as resource_manager
 class DeleteCategoryDelegate(QStyledItemDelegate):
     """ Delete Category Delegate """
 
+    def editorEvent(self, event, model, option, index):
+        """ Handle Editor Events """
+        if event.type() == QEvent.MouseButtonRelease:
+            index.model().setData(index, True)
+            print "Removing Row", index.row()
+            index.model().removeRow(index.row())
+            return True
+        return False
+
     def paint(self, painter, option, index):
         """ Paint the Item """
         buttonOptions = QStyleOptionButton()

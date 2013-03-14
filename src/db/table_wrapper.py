@@ -26,6 +26,11 @@ class TableWrapper:
             db_record = session.query(self.table_class).filter_by(id=record.id).first()
         return db_record
 
+    def delete(self, record):
+        """ Remove the provided record """
+        with self.session() as session:
+            session.delete(record)
+
     def all(self, order=None):
         """ Returns all records from the database """
         records = None

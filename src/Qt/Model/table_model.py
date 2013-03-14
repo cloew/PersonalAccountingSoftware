@@ -38,6 +38,12 @@ class TableModel(QAbstractTableModel):
         self.endInsertRows()
         return True
 
+    def removeRows(self, row, count, parent=QModelIndex()):
+        """ Remove the given row """
+        self.beginRemoveRows(parent, row, row+count-1)
+        self.endRemoveRows()
+        return True
+
     def data(self, index, role = Qt.DisplayRole):
         """ Return the data at the given index """
         if not index.isValid():
