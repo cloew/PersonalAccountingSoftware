@@ -12,9 +12,9 @@ class TransactionTypeDelegate(QStyledItemDelegate):
 
     def setEditorData (self, editor, index):
         """ Set the current data in the editor """
-        data = index.model().data(index)
+        data = index.data()
         if data is not None:
-            editor.setCurrentIndex(self.__type_strings__.index(str(data.toString())))
+            editor.setCurrentIndex(self.__type_strings__.index(data))
 
     def setModelData(self, editor, model, index):
         """ Set the appropriate data in the model """
