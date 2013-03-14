@@ -22,7 +22,7 @@ class getDataForTransaction(unittest.TestCase):
         cleared = True
         self.transaction.cleared = cleared
         data = self.clearedColumn.getDataForTransaction(self.transaction)
-        assert data == str(cleared), "Should get the same cleared as a string"
+        assert data == cleared, "Should get the same cleared as a string"
 
 # Collect all test cases in this class
 testcasesGetDataForTransaction = ["noClearedValue", "aClearedValue"]

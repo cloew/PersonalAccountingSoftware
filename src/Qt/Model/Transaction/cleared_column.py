@@ -7,7 +7,7 @@ class ClearedColumn(TransactionColumn):
     def getDataForTransaction(self, transaction):
         """ Return data for the provided transaction """
         if transaction.cleared is not None:
-            return str(transaction.cleared)
+            return transaction.cleared
 
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """
