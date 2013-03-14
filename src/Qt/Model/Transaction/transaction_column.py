@@ -1,13 +1,10 @@
 from db.transactions import Transactions
 from PySide.QtCore import QAbstractTableModel, QModelIndex, Qt
+from Qt.Model.table_column import TableColumn
 
-class TransactionColumn:
+class TransactionColumn(TableColumn):
     """ Represents a column in the Transaction Table """
     header_name = "TODO: Replace with real name" # Should be overridden in Sub Class
-
-    def getHorizontalHeader(self):
-        """ Return Header Data """
-        return self.header_name
 
     def getData(self, row):
         """ Return data for the transaction in the given row """

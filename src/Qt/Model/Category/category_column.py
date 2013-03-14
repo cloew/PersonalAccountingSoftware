@@ -1,13 +1,10 @@
 from db.categories import Categories
 from PySide.QtCore import QAbstractTableModel, QModelIndex, Qt
+from Qt.Model.table_column import TableColumn
 
-class CategoryColumn:
+class CategoryColumn(TableColumn):
     """ Represents a column in the Categories Table """
     header_name = "TODO: Replace with real name" # Should be overridden in Sub Class
-
-    def getHorizontalHeader(self):
-        """ Return Header Data """
-        return self.header_name
 
     def getData(self, row):
         """ Return data for the category in the given row """
