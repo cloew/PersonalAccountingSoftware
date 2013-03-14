@@ -10,7 +10,6 @@ class DeleteCategoryDelegate(QStyledItemDelegate):
         """ Handle Editor Events """
         if event.type() == QEvent.MouseButtonRelease:
             index.model().setData(index, True)
-            print "Removing Row", index.row()
             index.model().removeRow(index.row())
             return True
         return False
