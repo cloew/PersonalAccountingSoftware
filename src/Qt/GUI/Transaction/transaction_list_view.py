@@ -22,7 +22,6 @@ class TransactionListView(QtGui.QTableView):
         self.setTransactionTypeDelegate()
         self.setTransactionCategoryDelegate()
         self.setTransactionClearedDelegate()
-        print "Here..."
         self.setTransactionReconciledDelegate()
 
     def setTransactionTypeDelegate(self):
@@ -42,13 +41,12 @@ class TransactionListView(QtGui.QTableView):
         
     def setTransactionReconciledDelegate(self):
         """ Set the Transaction Cleared Column View Delegate """
-        print "Setting Reconciled"
         self.reconciledDelegate = CheckBoxDelegate()
         self.setDelegateForColumn(self.reconciledDelegate, ReconciledColumn)
         
     def setDelegateForColumn(self, delegate, columnClass):
         """ Set the delegate for the column """
-        index = self.table_model.indexForColumnClass(ClearedColumn)
+        index = self.table_model.indexForColumnClass(columnClass)
         self.setItemDelegateForColumn(index, delegate)
 
     def tabSelected(self):

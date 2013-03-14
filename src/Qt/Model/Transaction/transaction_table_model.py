@@ -3,7 +3,7 @@ from category_column import CategoryColumn
 from cleared_column import ClearedColumn
 from date_column import DateColumn
 from description_column import DescriptionColumn
-from Qt.Model.Transaction.reconciled_column import ReconciledColumn
+from reconciled_column import ReconciledColumn
 from type_column import TypeColumn
 
 from db.transactions import Transactions
