@@ -1,11 +1,12 @@
 from PySide import QtGui, QtCore
 from Qt.Model.Transaction.category_column import CategoryColumn
 from Qt.Model.Transaction.cleared_column import ClearedColumn
+from Qt.Model.Transaction.reconciled_column import ReconciledColumn
 from Qt.Model.Transaction.type_column import TypeColumn
 from Qt.Model.Transaction.transaction_table_model import TransactionTableModel
 
 from transaction_category_delegate import TransactionCategoryDelegate
-from transaction_cleared_delegate import TransactionClearedDelegate
+from checkbox_delegate import CheckBoxDelegate
 from transaction_type_delegate import TransactionTypeDelegate
 
 class TransactionListView(QtGui.QTableView):
@@ -21,24 +22,34 @@ class TransactionListView(QtGui.QTableView):
         self.setTransactionTypeDelegate()
         self.setTransactionCategoryDelegate()
         self.setTransactionClearedDelegate()
+        print "Here..."
+        self.setTransactionReconciledDelegate()
 
     def setTransactionTypeDelegate(self):
         """ Set the Transaction Type Column View Delegate """
         self.typeDelegate = TransactionTypeDelegate()
-        index = self.table_model.indexForColumnClass(TypeColumn)
-        self.setItemDelegateForColumn(index, self.typeDelegate)
+        self.setDelegateForColumn(self.typeDelegate, TypeColumn)
 
     def setTransactionCategoryDelegate(self):
         """ Set the Transaction Category Column View Delegate """
         self.categoryDelegate = TransactionCategoryDelegate()
-        index = self.table_model.indexForColumnClass(CategoryColumn)
-        self.setItemDelegateForColumn(index, self.categoryDelegate)
+        self.setDelegateForColumn(self.categoryDelegate, CategoryColumn)
 
     def setTransactionClearedDelegate(self):
         """ Set the Transaction Cleared Column View Delegate """
-        self.clearedDelegate = TransactionClearedDelegate()
+        self.clearedDelegate = CheckBoxDelegate()
+        self.setDelegateForColumn(self.clearedDelegate, ClearedColumn)
+        
+    def setTransactionReconciledDelegate(self):
+        """ Set the Transaction Cleared Column View Delegate """
+        print "Setting Reconciled"
+        self.reconciledDelegate = CheckBoxDelegate()
+        self.setDelegateForColumn(self.reconciledDelegate, ReconciledColumn)
+        
+    def setDelegateForColumn(self, delegate, columnClass):
+        """ Set the delegate for the column """
         index = self.table_model.indexForColumnClass(ClearedColumn)
-        self.setItemDelegateForColumn(index, self.clearedDelegate)
+        self.setItemDelegateForColumn(index, delegate)
 
     def tabSelected(self):
         """ Called when the tab is selected """

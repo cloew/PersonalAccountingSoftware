@@ -1,8 +1,8 @@
-from PySide.QtCore import QEvent, Qt
-from PySide.QtGui import QApplication, QCheckBox, QStyle, QStyledItemDelegate, QStyleOptionButton
+from PySide.QtCore import QEvent
+from PySide.QtGui import QApplication, QStyle, QStyledItemDelegate, QStyleOptionButton
 
-class TransactionClearedDelegate(QStyledItemDelegate):
-    """ Transaction Cleared View Delegate """
+class CheckBoxDelegate(QStyledItemDelegate):
+    """ Check Box View Delegate """
 
     def editorEvent(self, event, model, option, index):
         """ Handle Editor Events """
