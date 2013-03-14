@@ -9,6 +9,10 @@ class TableColumn:
         """ Return Header Data """
         return self.header_name
 
+    def flags(self, row):
+        """ Return flags for the Column's Row """
+        return Qt.ItemIsEditable | Qt.ItemIsEnabled # | Qt.ItemIsSelectable
+
     def getData(self, row):
         """ Return data for the transaction in the given row.
             Should be overridden in sub class. """
