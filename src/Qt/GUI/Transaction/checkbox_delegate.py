@@ -16,8 +16,8 @@ class CheckBoxDelegate(QStyledItemDelegate):
         """ Paint the Item """
         buttonOptions = QStyleOptionButton()
         buttonOptions.rect = option.rect
+        
         checkBox = QCheckBox()
-
         buttonOptions.rect = QStyle.alignedRect(Qt.LeftToRight, Qt.AlignHCenter | Qt.AlignVCenter, checkBox.sizeHint(), option.rect)
 
         if index.data():
