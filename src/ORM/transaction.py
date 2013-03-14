@@ -13,6 +13,7 @@ class Transaction(Base):
     amount = Column(Integer) # In cents
     description = Column(String)
     income = Column(Boolean)
+    cleared = Column(Boolean)
     date = Column(Date)
     category_id = Column(Integer, ForeignKey('categories.id'))
     category = relationship("Category", backref=backref('transactions'))
@@ -21,4 +22,4 @@ class Transaction(Base):
     #                 backref="transactions")
 
     def __repr__(self):
-        return "<Transaction('{0}', '${1}.{2}', '{3}', '{4}')>".format(self.description, self.amount/100.0, self.amount%100, self.date, self.category, )
+        return "<Transaction('{0}', '${1}.{2}', '{3}', '{4}', '{5}')>".format(self.description, self.amount/100.0, self.amount%100, self.date, self.category, self.cleared)
