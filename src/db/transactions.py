@@ -24,6 +24,16 @@ class TransactionsWrapper(TableWrapper):
             unclearedTransactions = unionOfUnclearedTransactions.order_by(desc(Transaction.date)).all()
         return unclearedTransactions
 
+    def allUnreconciledTransactions(self):
+        """ Returns all Unreconciled Transactions """
+        unreconciledTransactions = []
+        with self.session() as session:
+            unreconciledTransactions_False = session.query(self.table_class).filter_by(reconciled=False)
+            unreconciledTransactions_None = session.query(self.table_class).filter_by(reconciled=None)
+            unionOfUnreconciledTransactions = unreconciledTransactions_False.union(unreconciledTransactions_None)
+            unreconciledTransactions = unionOfUnreconciledTransactions.order_by(desc(Transaction.date)).all()
+        return unreconciledTransactions
+
     def allExpenseTransactionsForCategory(self, category):
         """ Returns all Expense Transactions with a given category """
         expenseTransactions = []

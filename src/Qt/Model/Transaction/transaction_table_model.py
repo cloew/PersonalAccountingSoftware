@@ -13,8 +13,9 @@ from Qt.Model.table_model import TableModel
 class TransactionTableModel(TableModel):
     """ Reprsents the Transaction List as a Table """
     transaction_retrievers = {"All":Transactions.all,
-                              "Uncleared":Transactions.allUnclearedTransactions}
-    default_retriever = transaction_retrievers["Uncleared"]
+                              "Uncleared":Transactions.allUnclearedTransactions,
+                              "Unreconciled":Transactions.allUnreconciledTransactions,}
+    default_retriever = transaction_retrievers["Unreconciled"]
 
     def __init__(self):
         """ Initialize the Table Model """
