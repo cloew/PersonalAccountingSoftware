@@ -43,6 +43,7 @@ class TransactionToolBar(TabToolBar):
         self.addWidget(label)
         comboBox = QComboBox(self)
         comboBox.addItems(__filter_order__)
+        comboBox.currentIndexChanged.connect(self.setTransactionFilter)
         self.addWidget(comboBox)
 
     def newTransaction(self):
@@ -50,3 +51,10 @@ class TransactionToolBar(TabToolBar):
         transaction = Transaction(date=datetime.date.today())
         Transactions.add(transaction)
         self.table_view.table_model.checkCount()
+
+    def setTransactionFilter(self, index):
+        """ Set the Transaction Filter """
+        text = __filter_order__[index]
+        
+        if text in __transaction_filters__:
+            self.table_view.table_model.setTransactionRetriever(__transaction_filters__[text])
