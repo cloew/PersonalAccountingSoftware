@@ -15,7 +15,7 @@ class TransactionTableModel(TableModel):
     transaction_retrievers = {"All":Transactions.all,
                               "Uncleared":Transactions.allUnclearedTransactions,
                               "Unreconciled":Transactions.allUnreconciledTransactions,}
-    default_retriever = transaction_retrievers["Unreconciled"]
+    default_retriever = transaction_retrievers["All"]
 
     def __init__(self):
         """ Initialize the Table Model """
