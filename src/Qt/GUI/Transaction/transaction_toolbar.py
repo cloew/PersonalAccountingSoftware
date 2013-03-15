@@ -4,6 +4,18 @@ from PySide.QtGui import QAction, QComboBox, QLabel
 from Qt.GUI.tab_toolbar import TabToolBar
 
 import datetime
+import db.transaction_filters as TransactionFilters
+
+__all__ = "All"
+__uncleared__ = "Uncleared"
+__unreconciled__ = "Unreconciled"
+
+__filter_order__ = [__all__, 
+                    __uncleared__,
+                    __unreconciled__]
+__transaction_filters__ = {__all__: TransactionFilters.All,
+                           __uncleared__: TransactionFilters.Uncleared,
+                           __unreconciled__: TransactionFilters.Unreconciled}
 
 class TransactionToolBar(TabToolBar):
     """ Represents the Transaction Tool Bar """
@@ -30,7 +42,7 @@ class TransactionToolBar(TabToolBar):
         label = QLabel("Filter", self)
         self.addWidget(label)
         comboBox = QComboBox(self)
-        comboBox.addItems(["All", "Uncleared", "Unreconciled"])
+        comboBox.addItems(__filter_order__)
         self.addWidget(comboBox)
 
     def newTransaction(self):

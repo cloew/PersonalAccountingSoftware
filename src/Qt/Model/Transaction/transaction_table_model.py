@@ -10,10 +10,7 @@ from db.transactions import Transactions
 from PySide.QtCore import Qt
 from Qt.Model.table_model import TableModel
 
-class TransactionFilters:
-    All = 0
-    Uncleared = 1
-    Unreconciled = 2
+import db.transaction_filters as TransactionFilters
 
 class TransactionTableModel(TableModel):
     """ Reprsents the Transaction List as a Table """
