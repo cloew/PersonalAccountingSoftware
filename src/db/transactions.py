@@ -18,7 +18,10 @@ class TransactionsWrapper(TableWrapper):
         """ Returns all Uncleared Transactions """
         unclearedTransactions = []
         with self.session() as session:
-            unclearedTransactions = session.query(self.table_class).filter_by(cleared=False).order_by(desc(Transaction.date)).all()
+            unclearedTransactions_False = session.query(self.table_class).filter_by(cleared=False)
+            unclearedTransactions_None = session.query(self.table_class).filter_by(cleared=None)
+            unionOfUnclearedTransactions = unclearedTransactions_False.union(unclearedTransactions_None)
+            unclearedTransactions = unionOfUnclearedTransactions.order_by(desc(Transaction.date)).all()
         return unclearedTransactions
 
     def allExpenseTransactionsForCategory(self, category):
