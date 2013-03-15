@@ -37,4 +37,4 @@ class TransactionToolBar(TabToolBar):
         """ Creates a New Transaction """
         transaction = Transaction(date=datetime.date.today())
         Transactions.add(transaction)
-        self.addEntryToTable()
+        self.table_view.table_model.checkCount()
