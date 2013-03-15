@@ -6,6 +6,10 @@ class TransactionColumn(TableColumn):
     """ Represents a column in the Transaction Table """
     header_name = "TODO: Replace with real name" # Should be overridden in Sub Class
 
+    def __init__(self, transactionRetriever):
+        """  """
+        self.transactionRetriever = transactionRetriever
+
     def getData(self, row):
         """ Return data for the transaction in the given row """
         transaction = self.getTransactionForRow(row)
@@ -33,6 +37,6 @@ class TransactionColumn(TableColumn):
 
     def getTransactionForRow(self, row):
         """ Returns the Transaction in the given row """
-        transactions = Transactions.all()
+        transactions = self.transactionRetriever()
         if row < len(transactions):
             return transactions[row]
