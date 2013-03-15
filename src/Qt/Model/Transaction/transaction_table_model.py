@@ -12,13 +12,14 @@ from Qt.Model.table_model import TableModel
 
 class TransactionTableModel(TableModel):
     """ Reprsents the Transaction List as a Table """
-    transaction_retrievers = {"All":Transactions.all}
-    default_retriever = transaction_retrievers["All"]
+    transaction_retrievers = {"All":Transactions.all,
+                              "Uncleared":Transactions.allUnclearedTransactions}
+    default_retriever = transaction_retrievers["Uncleared"]
 
     def __init__(self):
         """ Initialize the Table Model """
         self.retriever = self.default_retriever
-        self.last_count = -1
+        self.last_count = self.rowCount(self)
         TableModel.__init__(self)
 
     def getColumns(self):
@@ -56,8 +57,8 @@ class TransactionTableModel(TableModel):
         count = self.rowCount(self)
         if self.last_count != -1:
             if count < self.last_count:
-                self.removeRows(count-1, self.last_count-count)
+                self.removeRows(count, self.last_count-count)
             elif count > self.last_count:
-                self.insertRows(self.last_count-1, count-self.last_count)
+                self.insertRows(self.last_count, count-self.last_count)
         self.last_count = count
         return count

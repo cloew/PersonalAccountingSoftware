@@ -11,8 +11,8 @@ def AddCategory(name=""):
     Categories.add(my_category)
     return my_category
 
-def AddTransaction(description="", amount=0, income=False, date=datetime.date.today()):
-    my_transaction = Transaction(description=description, amount=amount*100, income=income, date=date)
+def AddTransaction(description="", amount=0, income=False, date=datetime.date.today(), cleared=False):
+    my_transaction = Transaction(description=description, amount=amount*100, income=income, date=date, cleared=cleared)
     Transactions.add(my_transaction)
     return my_transaction
 

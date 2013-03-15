@@ -14,6 +14,13 @@ class TransactionsWrapper(TableWrapper):
         else:
             return TableWrapper.all(self, order=order)
 
+    def allUnclearedTransactions(self):
+        """ Returns all Uncleared Transactions """
+        unclearedTransactions = []
+        with self.session() as session:
+            unclearedTransactions = session.query(self.table_class).filter_by(cleared=False).order_by(desc(Transaction.date)).all()
+        return unclearedTransactions
+
     def allExpenseTransactionsForCategory(self, category):
         """ Returns all Expense Transactions with a given category """
         expenseTransactions = []
