@@ -10,12 +10,17 @@ from db.transactions import Transactions
 from PySide.QtCore import Qt
 from Qt.Model.table_model import TableModel
 
+class TransactionFilters:
+    All = 0
+    Uncleared = 1
+    Unreconciled = 2
+
 class TransactionTableModel(TableModel):
     """ Reprsents the Transaction List as a Table """
-    transaction_retrievers = {"All":Transactions.all,
-                              "Uncleared":Transactions.allUnclearedTransactions,
-                              "Unreconciled":Transactions.allUnreconciledTransactions,}
-    default_retriever = transaction_retrievers["All"]
+    transaction_retrievers = {TransactionFilters.All:Transactions.all,
+                              TransactionFilters.Uncleared:Transactions.allUnclearedTransactions,
+                              TransactionFilters.Unreconciled:Transactions.allUnreconciledTransactions}
+    default_retriever = transaction_retrievers[TransactionFilters.All]
 
     def __init__(self):
         """ Initialize the Table Model """
