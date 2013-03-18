@@ -1,5 +1,6 @@
 from db.database import Database
 
+import ORM.account
 import ORM.category
 import ORM.transaction
 from ORM.orm_base import Base
