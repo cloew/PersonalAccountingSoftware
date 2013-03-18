@@ -5,6 +5,7 @@ from PySide import QtGui
 from Qt.GUI.tab_toolbar import TabToolBar
 
 from Qt.GUI.Account.account_list_view import AccountListView
+from Qt.GUI.Account.account_toolbar import AccountToolBar
 
 from Qt.GUI.Category.category_list_view import CategoryListView
 from Qt.GUI.Category.category_toolbar import CategoryToolBar
@@ -55,7 +56,7 @@ class MainWindow(QtGui.QMainWindow):
     def addAccountsTab(self):
         """ Add the Accounts Tab """
         self.account_list_view = AccountListView()
-        self.account_list_view.toolbar = CategoryToolBar
+        self.account_list_view.toolbar = AccountToolBar
         self.tabView.addTab(self.account_list_view, "Accounts")
 
     def addStatisticsTab(self):
