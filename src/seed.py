@@ -1,10 +1,17 @@
+from db.accounts import Accounts
 from db.categories import Categories
 from db.transactions import Transactions
 
+from ORM.account import Account
 from ORM.category import Category
 from ORM.transaction import Transaction
 
 import datetime
+
+def AddAccount(name="", balance=0):
+    my_account = Account(name=name, starting_balance=int(balance*100))
+    Accounts.add(my_account)
+    return my_account
 
 def AddCategory(name=""):
     my_category = Category(name=name)
@@ -17,6 +24,8 @@ def AddTransaction(description="", amount=0, income=False, date=datetime.date.to
     return my_transaction
 
 def main():
+    AddAccount(name="Checking Account", balance=10000)
+
     category = AddCategory(name="Gas")
     AddCategory(name="Groceries")
     AddCategory(name="Rent")
