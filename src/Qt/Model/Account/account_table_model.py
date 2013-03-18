@@ -10,8 +10,8 @@ class AccountTableModel(TableModel):
 
     def getColumns(self):
         """ Get the Columns for the table """
-        return [StartingBalanceColumn(),
-                NameColumn()]
+        return [NameColumn(),
+                StartingBalanceColumn()]
 
     def rowCount(self, parent):
         """ Returns the number of rows in the table """

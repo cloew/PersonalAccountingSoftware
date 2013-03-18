@@ -1,8 +1,8 @@
 from Qt.Model.Account.account_column import AccountColumn
 
 class NameColumn(AccountColumn):
-    """ Represents the Account Description Column """
-    header_name = "Description"
+    """ Represents the Account Name Column """
+    header_name = "Name"
 
     def getDataForAccount(self, account):
         """ Return data for the provided account """
