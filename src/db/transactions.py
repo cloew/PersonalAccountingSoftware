@@ -12,23 +12,34 @@ class TransactionsWrapper(TableWrapper):
             return TableWrapper.all(self, order=desc(Transaction.date))
         else:
             return TableWrapper.all(self, order=order)
+            
+    def allForAccount(self, account, order=None):
+        """ Returns all transactions from the database """
+        transactions = []
+        with self.session() as session:
+            transactions = session.query(self.table_class).filter_by(account=account).all()
+            if order is None:
+                transactions = session.query(self.table_class).filter_by(account=account).order_by(desc(Transaction.date)).all()
+            else:
+                transactions = session.query(self.table_class).filter_by(account=account).order_by(order).all()
+        return transactions
 
-    def allUnclearedTransactions(self):
+    def allUnclearedTransactionsForAccount(self, account):
         """ Returns all Uncleared Transactions """
         unclearedTransactions = []
         with self.session() as session:
-            unclearedTransactions_False = session.query(self.table_class).filter_by(cleared=False)
-            unclearedTransactions_None = session.query(self.table_class).filter_by(cleared=None)
+            unclearedTransactions_False = session.query(self.table_class).filter_by(cleared=False, account=account)
+            unclearedTransactions_None = session.query(self.table_class).filter_by(cleared=None, account=account)
             unionOfUnclearedTransactions = unclearedTransactions_False.union(unclearedTransactions_None)
             unclearedTransactions = unionOfUnclearedTransactions.order_by(desc(Transaction.date)).all()
         return unclearedTransactions
 
-    def allUnreconciledTransactions(self):
+    def allUnreconciledTransactionsForAccount(self, account):
         """ Returns all Unreconciled Transactions """
         unreconciledTransactions = []
         with self.session() as session:
-            unreconciledTransactions_False = session.query(self.table_class).filter_by(reconciled=False)
-            unreconciledTransactions_None = session.query(self.table_class).filter_by(reconciled=None)
+            unreconciledTransactions_False = session.query(self.table_class).filter_by(reconciled=False, account=account)
+            unreconciledTransactions_None = session.query(self.table_class).filter_by(reconciled=None, account=account)
             unionOfUnreconciledTransactions = unreconciledTransactions_False.union(unreconciledTransactions_None)
             unreconciledTransactions = unionOfUnreconciledTransactions.order_by(desc(Transaction.date)).all()
         return unreconciledTransactions

@@ -16,32 +16,32 @@ import db.transaction_filters as TransactionFilters
 
 class TransactionTableModel(TableModel):
     """ Reprsents the Transaction List as a Table """
-    transaction_retrievers = {TransactionFilters.All:Transactions.all,
-                              TransactionFilters.Uncleared:Transactions.allUnclearedTransactions,
-                              TransactionFilters.Unreconciled:Transactions.allUnreconciledTransactions}
+    transaction_retrievers = {TransactionFilters.All:Transactions.allForAccount,
+                              TransactionFilters.Uncleared:Transactions.allUnclearedTransactionsForAccount,
+                              TransactionFilters.Unreconciled:Transactions.allUnreconciledTransactionsForAccount}
     default_retriever = transaction_retrievers[TransactionFilters.All]
 
     def __init__(self):
         """ Initialize the Table Model """
+        self.account = Accounts.all()[0]
         self.retriever = self.default_retriever
         self.last_count = self.rowCount(self)
-        self.account = Accounts.all()[0]
         TableModel.__init__(self)
 
     def getColumns(self):
         """ Get the Columns for the table """
-        return [AmountColumn(self.retriever),
-                DescriptionColumn(self.retriever),
-                TypeColumn(self.retriever),
-                CategoryColumn(self.retriever),
-                DateColumn(self.retriever),
-                BalanceColumn(self.retriever),
-                ClearedColumn(self.retriever),
-                ReconciledColumn(self.retriever)]
+        return [AmountColumn(self.account, self.retriever),
+                DescriptionColumn(self.account, self.retriever),
+                TypeColumn(self.account, self.retriever),
+                CategoryColumn(self.account, self.retriever),
+                DateColumn(self.account, self.retriever),
+                BalanceColumn(self.account, self.retriever),
+                ClearedColumn(self.account, self.retriever),
+                ReconciledColumn(self.account, self.retriever)]
 
     def rowCount(self, parent):
         """ Returns the number of rows in the table """
-        return len(self.retriever())
+        return len(self.retriever(self.account))
 
     def setData(self, index, value, role = Qt.EditRole):
         """ Set Data in the Transaction Table """
@@ -57,6 +57,14 @@ class TransactionTableModel(TableModel):
 
             for column in self.columns:
                 column.transactionRetriever = self.retriever
+            self.checkCount()
+            
+    def setAccount(self, account):
+        """ Set the Transaction Account """
+        self.account = account
+        if account is not None:
+            for column in self.columns:
+                column.account = self.account
             self.checkCount()
 
     def checkCount(self):
