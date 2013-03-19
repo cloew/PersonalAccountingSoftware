@@ -17,6 +17,7 @@ class DatabaseWrapper:
         self.session = None
         
         if not os.path.exists(self.__database_path__):
+            print "{0} does not exist.".format(self.__database_path__)
             GenerateDatabase(self.engine)
 
     def getSession(self):
