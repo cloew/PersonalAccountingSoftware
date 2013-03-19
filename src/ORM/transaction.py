@@ -1,3 +1,4 @@
+from account import Account
 from category import Category
 from orm_base import Base
 from sqlalchemy import Boolean, Column, Date, ForeignKey, Integer, String
@@ -16,6 +17,8 @@ class Transaction(Base):
     cleared = Column(Boolean)
     reconciled = Column(Boolean)
     date = Column(Date)
+    account_id = Column(Integer, ForeignKey('accounts.id'))
+    account = relationship("Account", backref=backref('transactions'))
     category_id = Column(Integer, ForeignKey('categories.id'))
     category = relationship("Category", backref=backref('transactions'))
     # categories = relationship("Category",
