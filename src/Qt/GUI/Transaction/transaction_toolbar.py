@@ -1,3 +1,4 @@
+from db.accounts import Accounts
 from db.transactions import Transactions
 from ORM.transaction import Transaction
 from PySide.QtGui import QAction, QComboBox, QLabel
@@ -26,7 +27,9 @@ class TransactionToolBar(TabToolBar):
         self.addSeparator()
         self.addFilter()
         self.addSeparator()
-
+        self.addAccount()
+        self.addSeparator()
+        
     def addNewTransactionButton(self):
         """ Adds the New Transaction Button to the ToolBar """
         newIcon = self.getQIcon('money.png')
@@ -45,6 +48,17 @@ class TransactionToolBar(TabToolBar):
         comboBox.addItems(__filter_order__)
         comboBox.currentIndexChanged.connect(self.setTransactionFilter)
         self.addWidget(comboBox)
+        
+    def addAccount(self):
+        """ Add Account Label and Combo Box to the UI """
+        label = QLabel("Account", self)
+        self.addWidget(label)
+        comboBox = QComboBox(self)
+        
+        names = self.getAccountNames()
+        comboBox.addItems(names)
+        comboBox.currentIndexChanged.connect(self.setAccount)
+        self.addWidget(comboBox)
 
     def newTransaction(self):
         """ Creates a New Transaction """
@@ -59,3 +73,16 @@ class TransactionToolBar(TabToolBar):
         
         if text in __transaction_filters__:
             self.table_view.table_model.setTransactionRetriever(__transaction_filters__[text])
+            
+    def setAccount(self, index):
+        """ Set the Transaction Account to view """
+        account = Accounts.all()[index]
+        self.table_view.table_model.account = account
+            
+    def getAccountNames(self):
+        """ Return Account Names """
+        names = []
+        for account in Accounts.all():
+            if account.name is not None:
+                names.append(account.name)
+        return names
