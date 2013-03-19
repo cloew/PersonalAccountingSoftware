@@ -2,7 +2,6 @@ from table_wrapper import TableWrapper
 from ORM.transaction import Transaction
 from sqlalchemy import desc
 
-
 class TransactionsWrapper(TableWrapper):
     """ Class to wrap interaction to the Transactions table in the database """
     table_class = Transaction

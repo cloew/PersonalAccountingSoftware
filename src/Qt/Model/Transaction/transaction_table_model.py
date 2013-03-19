@@ -1,4 +1,5 @@
 from amount_column import AmountColumn
+from balance_column import BalanceColumn
 from category_column import CategoryColumn
 from cleared_column import ClearedColumn
 from date_column import DateColumn
@@ -32,6 +33,7 @@ class TransactionTableModel(TableModel):
                 TypeColumn(self.retriever),
                 CategoryColumn(self.retriever),
                 DateColumn(self.retriever),
+                BalanceColumn(self.retriever),
                 ClearedColumn(self.retriever),
                 ReconciledColumn(self.retriever)]
 
