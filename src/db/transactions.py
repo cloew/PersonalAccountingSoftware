@@ -17,9 +17,9 @@ class TransactionsWrapper(TableWrapper):
         """ Returns all transactions from the database """
         transactions = []
         with self.session() as session:
-            transactions = session.query(self.table_class).filter_by(account=account).all()
             if order is None:
-                transactions = session.query(self.table_class).filter_by(account=account).order_by(desc(Transaction.date)).all()
+                transactions = session.query(self.table_class).filter_by(account=account).order_by(Transaction.date).all()
+                transactions.reverse()
             else:
                 transactions = session.query(self.table_class).filter_by(account=account).order_by(order).all()
         return transactions
