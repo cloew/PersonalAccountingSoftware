@@ -1,6 +1,9 @@
+from generate_db import GenerateDatabase
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+import os
 import resources.resource_manager as resource_manager
 
 class DatabaseWrapper:
@@ -12,6 +15,9 @@ class DatabaseWrapper:
         self.engine = create_engine('sqlite:///{0}'.format(self.__database_path__), echo=False)
         self.sessionmaker = sessionmaker(bind=self.engine)
         self.session = None
+        
+        if not os.path.exists(self.__database_path__):
+            GenerateDatabase(self.engine)
 
     def getSession(self):
         """ Return a SQLAlchemy Database Session """
