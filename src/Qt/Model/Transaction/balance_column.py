@@ -14,7 +14,7 @@ class BalanceColumn(TransactionColumn):
 
     def getDataForTransaction(self, transaction):
         """ Return data for the provided transaction """
-        transactions = Transactions.all(order=Transaction.date)
+        transactions = Transactions.allForAccount(self.account, order=Transaction.date)
         balance = transaction.account.starting_balance
         for loopTransaction in transactions:
             if loopTransaction.amount is not None:
