@@ -7,6 +7,7 @@ from description_column import DescriptionColumn
 from reconciled_column import ReconciledColumn
 from type_column import TypeColumn
 
+from db.accounts import Accounts
 from db.transactions import Transactions
 from PySide.QtCore import Qt
 from Qt.Model.table_model import TableModel
@@ -24,6 +25,7 @@ class TransactionTableModel(TableModel):
         """ Initialize the Table Model """
         self.retriever = self.default_retriever
         self.last_count = self.rowCount(self)
+        self.account = Accounts.all()[0]
         TableModel.__init__(self)
 
     def getColumns(self):

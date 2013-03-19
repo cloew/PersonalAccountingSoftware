@@ -17,10 +17,11 @@ class BalanceColumn(TransactionColumn):
         transactions = Transactions.all(order=Transaction.date)
         balance = transaction.account.starting_balance
         for loopTransaction in transactions:
-            if loopTransaction.income:
-                balance += loopTransaction.amount
-            else:
-                balance -= loopTransaction.amount
+            if loopTransaction.amount is not None:
+                if loopTransaction.income:
+                    balance += loopTransaction.amount
+                else:
+                    balance -= loopTransaction.amount
             if transaction is loopTransaction:
                 break
         
