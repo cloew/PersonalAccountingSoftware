@@ -5,7 +5,6 @@ from ORM.orm_base import Base
 
 def GenerateDatabase(engine):
     """ Generate the Database """
-    print "Generating Database"
     Base.metadata.create_all(engine)
 
 if __name__ == "__main__":
