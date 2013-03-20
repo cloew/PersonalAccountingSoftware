@@ -1,5 +1,6 @@
-from decimal import Decimal, InvalidOperation
+from decimal import InvalidOperation
 from Qt.Model.Transaction.transaction_column import TransactionColumn
+from Utilities.dollar_amount_helper import GetDollarString, GetCentsFromDollarString
 
 class AmountColumn(TransactionColumn):
     """ Represents the Transaction Amount Column """
@@ -9,18 +10,12 @@ class AmountColumn(TransactionColumn):
         """ Return data for the provided transaction """
         if transaction.amount is not None:
             amount = transaction.amount
-            cents = amount%100
-            dollars = amount/100
-            return "${0:,}.{1:{fill}2}".format(dollars, cents, fill=0)
+            return GetDollarString(transaction.amount)
 
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """
         try:
-            cleanedValue = value
-            if cleanedValue.startswith('$'):
-                cleanedValue = cleanedValue[1:]
-            newAmount = Decimal(cleanedValue)
-            transaction.amount = int(newAmount*100)
+            transaction.amount = GetCentsFromDollarString(value)
             return True
         except InvalidOperation:
             pass # The cast from the string to a Decimal

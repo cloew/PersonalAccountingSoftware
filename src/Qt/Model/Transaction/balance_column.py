@@ -1,8 +1,8 @@
-from decimal import Decimal, InvalidOperation
 from db.transactions import Transactions
 from ORM.transaction import Transaction
 from PySide.QtCore import Qt
 from Qt.Model.Transaction.transaction_column import TransactionColumn
+from Utilities.dollar_amount_helper import GetDollarString
 
 class BalanceColumn(TransactionColumn):
     """ Represents the Transaction Balance Column """
@@ -25,9 +25,7 @@ class BalanceColumn(TransactionColumn):
             if transaction is loopTransaction:
                 break
         
-        cents = balance%100
-        dollars = balance/100
-        return "${0:,}.{1:{fill}2}".format(dollars, cents, fill=0)
+        return GetDollarString(balance)
 
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """
