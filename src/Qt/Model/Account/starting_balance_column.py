@@ -11,7 +11,7 @@ class StartingBalanceColumn(AccountColumn):
             starting_balance = account.starting_balance
             cents = starting_balance%100
             dollars = starting_balance/100
-            return "${0}.{1:{fill}2}".format(dollars, cents, fill=0)
+            return "${0:,}.{1:{fill}2}".format(dollars, cents, fill=0)
 
     def setDataForAccount(self, account, value):
         """ Set data for the provided account """

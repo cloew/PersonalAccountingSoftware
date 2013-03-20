@@ -11,7 +11,7 @@ class AmountColumn(TransactionColumn):
             amount = transaction.amount
             cents = amount%100
             dollars = amount/100
-            return "${0}.{1:{fill}2}".format(dollars, cents, fill=0)
+            return "${0:,}.{1:{fill}2}".format(dollars, cents, fill=0)
 
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """

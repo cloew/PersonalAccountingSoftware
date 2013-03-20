@@ -27,7 +27,7 @@ class BalanceColumn(TransactionColumn):
         
         cents = balance%100
         dollars = balance/100
-        return "${0}.{1:{fill}2}".format(dollars, cents, fill=0)
+        return "${0:,}.{1:{fill}2}".format(dollars, cents, fill=0)
 
     def setDataForTransaction(self, transaction, value):
         """ Set data for the provided transaction """
