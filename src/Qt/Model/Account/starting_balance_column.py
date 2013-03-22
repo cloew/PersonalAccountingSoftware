@@ -1,5 +1,6 @@
-from decimal import Decimal, InvalidOperation
+from decimal import InvalidOperation
 from Qt.Model.Account.account_column import AccountColumn
+from Utilities.dollar_amount_helper import GetDollarString, GetCentsFromDollarString
 
 class StartingBalanceColumn(AccountColumn):
     """ Represents the Account StartingBalance Column """
@@ -9,18 +10,12 @@ class StartingBalanceColumn(AccountColumn):
         """ Return data for the provided account """
         if account.starting_balance is not None:
             starting_balance = account.starting_balance
-            cents = starting_balance%100
-            dollars = starting_balance/100
-            return "${0:,}.{1:{fill}2}".format(dollars, cents, fill=0)
+            return GetDollarString(account.starting_balance)
 
     def setDataForAccount(self, account, value):
         """ Set data for the provided account """
         try:
-            cleanedValue = value
-            if cleanedValue.startswith('$'):
-                cleanedValue = cleanedValue[1:]
-            newStartingBalance = Decimal(cleanedValue)
-            account.starting_balance = int(newStartingBalance*100)
+            account.starting_balance = GetCentsFromDollarString(value)
             return True
         except InvalidOperation:
             pass # The cast from the string to a Decimal

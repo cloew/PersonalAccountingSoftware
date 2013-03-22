@@ -10,9 +10,7 @@ def GetResourceFilePath(resource_file):
 def GetResourceDirectory():
     """ Returns the proper Resource Directory """
     resourceDirectory = os.path.dirname(__file__)
-    print "Resource Directory", resourceDirectory
     if not os.path.isdir(resourceDirectory):
-        print "Resource Directory does not exist"
         resourceDirectory = FindFirstRealDirectory(resourceDirectory)
     return resourceDirectory
     
@@ -24,6 +22,5 @@ def FindFirstRealDirectory(resourceDirectory):
     resourceDirectory = os.path.join(resourceParentDirectory, "resources")
     
     if not os.path.isdir(resourceDirectory):
-        print resourceDirectory, "does not exist" 
         os.mkdir(resourceDirectory)
     return resourceDirectory
