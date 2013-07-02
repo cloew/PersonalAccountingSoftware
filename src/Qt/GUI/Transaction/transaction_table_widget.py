@@ -21,3 +21,6 @@ class TransactionTableWidget(QTableWidget):
                 item = QTableWidgetItem(str(row*len(columns)+column))
                 self.setItem(row, column, item)
         
+        
+    def tabSelected(self):
+        """ Do Nothing when this tab is selected """
