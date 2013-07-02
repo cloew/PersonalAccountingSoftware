@@ -21,6 +21,6 @@ class TypeTableItem(QTableWidgetItem):
     def setData(self, role, value):
         """ Set Data in Item """
         if role == Qt.EditRole:
-            self.transaction.Income = value == "Income"
+            self.transaction.income = value == "Income"
             Transactions.save()
         return QTableWidgetItem.setData(self, role, self.getData())
