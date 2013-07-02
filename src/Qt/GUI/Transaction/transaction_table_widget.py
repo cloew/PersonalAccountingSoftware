@@ -25,7 +25,7 @@ class TransactionTableWidget(QTableWidget):
         self.verticalHeader().hide()
         
         self.populateTable(transactions)
-        self.setDelegateForColumn()
+        self.setCategoryDelegate()
         
     def populateTable(self, transactions):
         """ Load Transactions from the Database """
@@ -42,10 +42,17 @@ class TransactionTableWidget(QTableWidget):
                 elif item is not None:
                     self.setItem(row, column, item)
                     
-    def setDelegateForColumn(self):
-        """  """
+    def setCategoryDelegate(self):
+        """ Set the Category Delegate """
         self.categoryDelegate = TransactionCategoryDelegate()
-        self.setItemDelegateForColumn(2, self.categoryDelegate)
+        self.setDelegateForColumn(self.categoryDelegate, CategoryColumn)
+                    
+    def setDelegateForColumn(self, delegate, columnClass):
+        """ Set the Custom Delegate for a column """
+        columnClasses = [column.__class__ for column in self.columns]
+        index = columnClasses.index(columnClass)
+        if index is not None:
+            self.setItemDelegateForColumn(index, delegate)
         
     def tabSelected(self):
         """ Do Nothing when this tab is selected """
