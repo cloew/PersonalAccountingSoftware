@@ -1,3 +1,5 @@
+from db.transactions import Transactions
+
 from PySide.QtCore import Qt
 from PySide.QtGui import QCheckBox
 
@@ -9,6 +11,7 @@ class ClearedCheckbox(QCheckBox):
         QCheckBox.__init__(self, "")
         self.transaction = transaction
         self.setCheckState(self.getCheckedState())
+        self.stateChanged.connect(self.saveClearedState)
         
     def getCheckedState(self):
         """ Return the Checked State """
@@ -16,3 +19,8 @@ class ClearedCheckbox(QCheckBox):
             return Qt.Unchecked
         else:
             return Qt.Checked
+            
+    def saveClearedState(self, state):
+        """ Save Cleared State to the database """
+        self.transaction.cleared = state == Qt.Checked
+        Transactions.save()
