@@ -1,3 +1,5 @@
+from Qt.GUI.Transaction.Columns.description_table_item import DescriptionTableItem
+
 from PySide.QtGui import QTableWidgetItem 
 
 class DescriptionColumn:
@@ -6,7 +8,7 @@ class DescriptionColumn:
     
     def getItemForColumn(self, transaction):
         """  """
-        return QTableWidgetItem(transaction.description)
+        return DescriptionTableItem(transaction)
     
     def getWidgetForColumn(self, transaction):
         """  """
