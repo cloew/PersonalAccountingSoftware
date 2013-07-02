@@ -25,6 +25,7 @@ class TransactionTableWidget(QTableWidget):
         self.verticalHeader().hide()
         
         self.populateTable(transactions)
+        self.setDelegateForColumn()
         
     def populateTable(self, transactions):
         """ Load Transactions from the Database """
@@ -44,7 +45,7 @@ class TransactionTableWidget(QTableWidget):
     def setDelegateForColumn(self):
         """  """
         self.categoryDelegate = TransactionCategoryDelegate()
-        self.setItemDelegateForColumn(index, 1)
+        self.setItemDelegateForColumn(2, self.categoryDelegate)
         
     def tabSelected(self):
         """ Do Nothing when this tab is selected """
