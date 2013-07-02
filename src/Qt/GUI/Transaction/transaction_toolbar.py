@@ -63,9 +63,9 @@ class TransactionToolBar(TabToolBar):
     def newTransaction(self):
         """ Creates a New Transaction """
         transaction = Transaction(date=datetime.date.today())
-        transaction.account = self.table_view.table_model.account
+        transaction.account = self.table_view.account
         Transactions.add(transaction)
-        self.table_view.table_model.checkCount()
+        #self.table_view.table_model.checkCount()
 
     def setTransactionFilter(self, index):
         """ Set the Transaction Filter """
@@ -77,7 +77,7 @@ class TransactionToolBar(TabToolBar):
     def setAccount(self, index):
         """ Set the Transaction Account to view """
         account = Accounts.all()[index]
-        self.table_view.table_model.setAccount(account)
+        self.table_view.account = account
             
     def getAccountNames(self):
         """ Return Account Names """

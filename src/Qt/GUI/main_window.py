@@ -12,7 +12,7 @@ from Qt.GUI.Category.category_toolbar import CategoryToolBar
 
 from Qt.GUI.Statistics.statistics_panel import StatisticsPanel
 
-from Qt.GUI.Transaction.transaction_list_view import TransactionListView
+from Qt.GUI.Transaction.transaction_table_widget import TransactionTableWidget
 from Qt.GUI.Transaction.transaction_toolbar import TransactionToolBar
 
 import resources.resource_manager as resource_manager
@@ -43,7 +43,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def addTransactionTab(self):
         """ Add the Transaction Tab """
-        self.transaction_list_view = TransactionListView()
+        self.transaction_list_view = TransactionTableWidget()
         self.transaction_list_view.toolbar = TransactionToolBar
         self.tabView.addTab(self.transaction_list_view, "Transactions")
 
