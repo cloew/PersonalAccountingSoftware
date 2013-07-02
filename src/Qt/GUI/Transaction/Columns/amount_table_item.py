@@ -23,4 +23,4 @@ class AmountTableItem(QTableWidgetItem):
             except InvalidOperation:
                 pass # The cast from the string to a Decimal failed
             Transactions.save()
-        return QTableWidgetItem.setData(self, role, value)
+        return QTableWidgetItem.setData(self, role, GetDollarString(self.transaction.amount))
