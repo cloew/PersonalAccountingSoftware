@@ -2,6 +2,8 @@ from decimal import Decimal
 
 def GetDollarString(amountInCents):
     """ Return a dollar amount as a string """
+    if amountInCents is None:
+        amountInCents = 0
     dollars, cents = divmod(amountInCents, 100)
     return "${0:,}.{1:{fill}2}".format(dollars, cents, fill=0)
 
