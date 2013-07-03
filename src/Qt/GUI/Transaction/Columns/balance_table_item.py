@@ -15,6 +15,9 @@ class BalanceTableItem(QTableWidgetItem):
         self.transaction = transaction
         QTableWidgetItem.__init__(self, self.getData())
         
+        flags = self.flags()
+        self.setFlags(flags and ~Qt.ItemIsEditable)
+        
     def getData(self):
         """ Return the balance for the current transaction """
         transactions = Transactions.allForAccount(self.transaction.account, order=Transaction.date)
