@@ -5,6 +5,7 @@ from Qt.GUI.Transaction.transaction_category_delegate import TransactionCategory
 from Qt.GUI.Transaction.transaction_type_delegate import TransactionTypeDelegate
 
 from Qt.GUI.Transaction.Columns.amount_column import AmountColumn
+from Qt.GUI.Transaction.Columns.balance_column import BalanceColumn
 from Qt.GUI.Transaction.Columns.category_column import CategoryColumn
 from Qt.GUI.Transaction.Columns.cleared_column import ClearedColumn
 from Qt.GUI.Transaction.Columns.date_column import DateColumn
@@ -20,7 +21,7 @@ class TransactionTableWidget(QTableWidget):
     def __init__(self):
         """ Initialize the Transaction Table Widget """
         self.account = Accounts.all()[0]
-        self.columns = [AmountColumn(), DescriptionColumn(), TypeColumn(), CategoryColumn(), DateColumn(), ClearedColumn(), ReconciledColumn()] #"Amount", "Description", "Type", "Category", "Date", "Balance", "Cleared", "Reconciled"]
+        self.columns = [AmountColumn(), DescriptionColumn(), TypeColumn(), CategoryColumn(), DateColumn(), BalanceColumn(), ClearedColumn(), ReconciledColumn()] #"Amount", "Description", "Type", "Category", "Date", "Balance", "Cleared", "Reconciled"]
         transactions = Transactions.allForAccount(self.account)
         QTableWidget.__init__(self, len(transactions), len(self.columns))
         
