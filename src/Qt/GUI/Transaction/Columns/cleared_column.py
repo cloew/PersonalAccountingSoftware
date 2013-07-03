@@ -1,5 +1,7 @@
 from Qt.GUI.Transaction.Columns.cleared_checkbox import ClearedCheckbox
 
+from PySide.QtGui import QHBoxLayout, QWidget
+
 class ClearedColumn:
     """ Represents the Cleared Column """
     HEADER = "Cleared"
@@ -10,4 +12,10 @@ class ClearedColumn:
     
     def getWidgetForColumn(self, transaction):
         """  """
-        return ClearedCheckbox(transaction) 
+        widget = QWidget()
+        layout = QHBoxLayout(widget)
+        layout.addStretch()
+        layout.addWidget(ClearedCheckbox(transaction))
+        layout.addStretch()
+        widget.setLayout(layout)
+        return widget

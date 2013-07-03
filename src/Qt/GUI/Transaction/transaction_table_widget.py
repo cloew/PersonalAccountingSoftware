@@ -70,3 +70,4 @@ class TransactionTableWidget(QTableWidget):
         
     def tabSelected(self):
         """ Do Nothing when this tab is selected """
+        
