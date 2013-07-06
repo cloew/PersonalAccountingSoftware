@@ -24,10 +24,6 @@ class CategoryStatistics:
             transactions = Transactions.allExpenseTransactionsForCategory(category)
             if len(transactions) > 0:
                 self.categoryTransactions[category] = transactions
-                
-                print "Transactions per Category:", category.name
-                for transaction in transactions:
-                    print transaction.description, transaction.amount
 
     def getTotalExpenses(self):
         """ Gets the Total Expenses """

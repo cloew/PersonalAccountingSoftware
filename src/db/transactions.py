@@ -48,7 +48,10 @@ class TransactionsWrapper(TableWrapper):
         """ Returns all Expense Transactions with a given category """
         expenseTransactions = []
         with self.session() as session:
-            expenseTransactions = session.query(self.table_class).filter_by(income=False, category=category).all()
+            expenseTransactions_False = session.query(self.table_class).filter_by(income=False, category=category)
+            expenseTransactions_None = session.query(self.table_class).filter_by(income=None, category=category)
+            unionOfExpenseTransactions = expenseTransactions_False.union(expenseTransactions_None)
+            expenseTransactions = unionOfExpenseTransactions.all()
         return expenseTransactions
 
 Transactions = TransactionsWrapper()
