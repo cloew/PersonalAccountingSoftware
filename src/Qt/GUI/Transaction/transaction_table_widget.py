@@ -21,7 +21,7 @@ class TransactionTableWidget(QTableWidget):
     def __init__(self):
         """ Initialize the Transaction Table Widget """
         self.account = Accounts.all()[0]
-        self.columns = [AmountColumn(), DescriptionColumn(), TypeColumn(), CategoryColumn(), DateColumn(), BalanceColumn(), ClearedColumn(), ReconciledColumn()] #"Amount", "Description", "Type", "Category", "Date", "Balance", "Cleared", "Reconciled"]
+        self.columns = [AmountColumn(), DescriptionColumn(), TypeColumn(), CategoryColumn(), DateColumn(), BalanceColumn(), ClearedColumn(), ReconciledColumn()]
         transactions = Transactions.allForAccount(self.account)
         QTableWidget.__init__(self, len(transactions), len(self.columns))
         

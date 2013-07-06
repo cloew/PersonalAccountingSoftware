@@ -2,7 +2,7 @@ from Qt.GUI.Transaction.Columns.date_table_item import DateTableItem
 
 class DateColumn:
     """ Represents the Date Column """
-    HEADER = "Amount"
+    HEADER = "Date"
     
     def getItemForColumn(self, transaction):
         """  """
