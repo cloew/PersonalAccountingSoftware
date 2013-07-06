@@ -1,12 +1,13 @@
 from db.transactions import Transactions
 
+from ORM.transaction import Transaction
+
 class BalanceHelper:
     """ Helper to calculate Balance """
     
     def __init__(self):
         """ Initiliaze the Balance Helper """
         self.balancesForAccounts = {}
-        self.setupBalance()
         
     def setupBalancesForAccount(self, account):
         """ Setup the Balance """
@@ -19,5 +20,14 @@ class BalanceHelper:
                 else:
                     balance -= transaction.amount
             self.balancesForAccounts[account][transaction] = balance
+            
+    def getBalanceForTransaction(self, transaction):
+        """ Return balance for Transaction """
+        if transaction.account not in self.balancesForAccounts:
+            self.setupBalancesForAccount(transaction.account)
+        
+        if transaction in self.balancesForAccounts[transaction.account]:
+            return self.balancesForAccounts[transaction.account][transaction]
+        return 0
     
 TheBalanceHelper = BalanceHelper()

@@ -1,5 +1,6 @@
 from db.transactions import Transactions
 from ORM.transaction import Transaction
+from Utilities.balance_helper import TheBalanceHelper
 from Utilities.dollar_amount_helper import GetDollarString, GetCentsFromDollarString
 
 from decimal import InvalidOperation
@@ -20,6 +21,8 @@ class BalanceTableItem(QTableWidgetItem):
         
     def getData(self):
         """ Return the balance for the current transaction """
+        return GetDollarString(TheBalanceHelper.getBalanceForTransaction(self.transaction))
+        
         transactions = Transactions.allForAccount(self.transaction.account, order=Transaction.date)
         balance = self.transaction.account.starting_balance
         for loopTransaction in transactions:

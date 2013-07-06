@@ -32,7 +32,8 @@ class CategoryStatistics:
         for category in self.categoryTransactions:
             categoryTotal = 0
             for transaction in self.categoryTransactions[category]:
-                categoryTotal += transaction.amount
+                if transaction.amount is not None:
+                    categoryTotal += transaction.amount
             self.totalForCategory[category] = categoryTotal
             self.total += categoryTotal
 
