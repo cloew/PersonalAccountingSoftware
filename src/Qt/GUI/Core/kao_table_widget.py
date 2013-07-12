@@ -1,0 +1,44 @@
+from PySide.QtGui import QTableWidget
+
+class KaoTableWidget(QTableWidget):
+    """ Base class for Kao Ttessur Qt Table Widgets """
+    
+    def __init__(self, dataList, columns):
+        """ Initialize the Kao Ttessur Table Widget """
+        self.columns = columns
+        QTableWidget.__init__(self, len(dataList), len(self.columns))
+        
+        self.setHorizontalHeaderLabels([column.HEADER for column in self.columns])
+        self.verticalHeader().hide()
+        
+        self.populateTable(dataList)
+        self.setColumnDelegates()
+        
+    def populateTable(self, dataList):
+        """ Setup Table Items & Widget with their data """
+        for row in range(len(dataList)):
+            for column in range(len(self.columns)):
+                data = dataList[row]
+                columnPopulator = self.columns[column]
+                
+                widget = columnPopulator.getWidgetForColumn(data)
+                item = columnPopulator.getItemForColumn(data)
+                
+                if widget is not None:
+                    self.setCellWidget(row, column, widget)
+                elif item is not None:
+                    self.setItem(row, column, item)
+                    
+    def setColumnDelegates(self):
+        """ Set Column Delegates """
+        
+    def setDelegateForColumn(self, delegate, columnClass):
+        """ Set the Custom Delegate for a column """
+        index = self.getColumnIndex(columnClass)
+        if index is not None:
+            self.setItemDelegateForColumn(index, delegate)
+            
+    def getColumnIndex(self, columnClass):
+        """ Return the index for the given column in the table """
+        columnClasses = [column.__class__ for column in self.columns]
+        return columnClasses.index(columnClass)

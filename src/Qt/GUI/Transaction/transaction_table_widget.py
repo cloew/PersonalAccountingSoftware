@@ -1,6 +1,7 @@
 from db.accounts import Accounts
 from db.transactions import Transactions
 
+from Qt.GUI.Core.kao_table_widget import KaoTableWidget
 from Qt.GUI.Transaction.transaction_category_delegate import TransactionCategoryDelegate
 from Qt.GUI.Transaction.transaction_type_delegate import TransactionTypeDelegate
 
@@ -13,9 +14,9 @@ from Qt.GUI.Transaction.Columns.description_column import DescriptionColumn
 from Qt.GUI.Transaction.Columns.reconciled_column import ReconciledColumn
 from Qt.GUI.Transaction.Columns.type_column import TypeColumn
 
-from PySide.QtGui import QTableWidget, QTableWidgetItem
+from PySide.QtGui import QTableWidget
 
-class TransactionTableWidget(QTableWidget):
+class TransactionTableWidget(KaoTableWidget):
     """ The Transaction Table Widget View """
     
     def __init__(self):
@@ -23,30 +24,9 @@ class TransactionTableWidget(QTableWidget):
         self.account = Accounts.all()[0]
         self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(), CategoryColumn(), DateColumn(), BalanceColumn(), ClearedColumn(), ReconciledColumn()]
         transactions = Transactions.allForAccount(self.account)
-        QTableWidget.__init__(self, len(transactions), len(self.columns))
-        
-        self.setHorizontalHeaderLabels([column.HEADER for column in self.columns])
-        self.verticalHeader().hide()
-        
-        self.populateTable(transactions)
-        self.setColumnsDelegates()
-        
-    def populateTable(self, transactions):
-        """ Load Transactions from the Database """
-        for row in range(len(transactions)):
-            for column in range(len(self.columns)):
-                transaction = transactions[row]
-                columnPopulator = self.columns[column]
-                
-                widget = columnPopulator.getWidgetForColumn(transaction)
-                item = columnPopulator.getItemForColumn(transaction)
-                
-                if widget is not None:
-                    self.setCellWidget(row, column, widget)
-                elif item is not None:
-                    self.setItem(row, column, item)
+        KaoTableWidget.__init__(self, transactions, self.columns)
                     
-    def setColumnsDelegates(self):
+    def setColumnDelegates(self):
         """ Set Column Delegates """
         self.setCategoryDelegate()
         self.setTypeDelegate()
@@ -60,17 +40,6 @@ class TransactionTableWidget(QTableWidget):
         """ Set the Type Delegate """
         self.typeDelegate = TransactionTypeDelegate()
         self.setDelegateForColumn(self.typeDelegate, TypeColumn)
-                    
-    def setDelegateForColumn(self, delegate, columnClass):
-        """ Set the Custom Delegate for a column """
-        index = self.getColumnIndex(columnClass)
-        if index is not None:
-            self.setItemDelegateForColumn(index, delegate)
-            
-    def getColumnIndex(self, columnClass):
-        """ Return the index for the given column in the table """
-        columnClasses = [column.__class__ for column in self.columns]
-        return columnClasses.index(columnClass)
         
     def tabSelected(self):
         """ Do Nothing when this tab is selected """
