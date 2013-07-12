@@ -1,4 +1,4 @@
-from Qt.GUI.Transaction.Columns.reconciled_checkbox import ReconciledCheckbox
+from Qt.GUI.Transaction.TableWidgets.reconciled_checkbox import ReconciledCheckbox
 
 class ReconciledColumn:
     """ Represents the Reconciled Column """

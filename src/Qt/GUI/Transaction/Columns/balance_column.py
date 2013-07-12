@@ -1,4 +1,4 @@
-from Qt.GUI.Transaction.Columns.balance_table_item import BalanceTableItem
+from Qt.GUI.Transaction.TableWidgets.balance_table_item import BalanceTableItem
 
 from PySide.QtGui import QTableWidgetItem 
 

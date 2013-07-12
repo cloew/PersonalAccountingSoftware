@@ -1,4 +1,4 @@
-from Qt.GUI.Transaction.Columns.amount_table_item import AmountTableItem
+from Qt.GUI.Transaction.TableWidgets.amount_table_item import AmountTableItem
 
 from PySide.QtGui import QTableWidgetItem 
 

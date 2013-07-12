@@ -1,4 +1,4 @@
-from Qt.GUI.Transaction.Columns.cleared_checkbox import ClearedCheckbox
+from Qt.GUI.Transaction.TableWidgets.cleared_checkbox import ClearedCheckbox
 
 from PySide.QtGui import QHBoxLayout, QWidget
 

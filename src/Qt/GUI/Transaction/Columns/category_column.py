@@ -1,4 +1,4 @@
-from Qt.GUI.Transaction.Columns.category_table_item import CategoryTableItem
+from Qt.GUI.Transaction.TableWidgets.category_table_item import CategoryTableItem
 
 from PySide.QtGui import QTableWidgetItem 
 
