@@ -1,6 +1,7 @@
 from db.categories import Categories
 
 from Qt.GUI.Core.kao_table_widget import KaoTableWidget
+from Qt.GUI.Category.Columns.delete_column import DeleteColumn
 from Qt.GUI.Category.Columns.name_column import NameColumn
 
 class CategoryTableWidget(KaoTableWidget):
@@ -9,7 +10,7 @@ class CategoryTableWidget(KaoTableWidget):
     def __init__(self):
         """ Initalize the Category Table """
         categories = Categories.all()
-        columns = [NameColumn()]
+        columns = [NameColumn(), DeleteColumn(self)]
         KaoTableWidget.__init__(self, categories, columns)
         
     def tabSelected(self):
