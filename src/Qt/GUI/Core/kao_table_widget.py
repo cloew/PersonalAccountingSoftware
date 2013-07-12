@@ -17,17 +17,20 @@ class KaoTableWidget(QTableWidget):
     def populateTable(self, dataList):
         """ Setup Table Items & Widget with their data """
         for row in range(len(dataList)):
-            for column in range(len(self.columns)):
-                data = dataList[row]
-                columnPopulator = self.columns[column]
-                
-                widget = columnPopulator.getWidgetForColumn(data)
-                item = columnPopulator.getItemForColumn(data)
-                
-                if widget is not None:
-                    self.setCellWidget(row, column, widget)
-                elif item is not None:
-                    self.setItem(row, column, item)
+            self.populateRow(row, dataList[row])
+        
+    def populateRow(self, row, data):
+        """ Populate the Row """
+        for column in range(len(self.columns)):
+            columnPopulator = self.columns[column]
+            
+            widget = columnPopulator.getWidgetForColumn(data)
+            item = columnPopulator.getItemForColumn(data)
+            
+            if widget is not None:
+                self.setCellWidget(row, column, widget)
+            elif item is not None:
+                self.setItem(row, column, item)
                     
     def setColumnDelegates(self):
         """ Set Column Delegates """
