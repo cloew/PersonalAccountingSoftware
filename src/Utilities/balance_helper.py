@@ -1,5 +1,4 @@
 from db.transactions import Transactions
-
 from ORM.transaction import Transaction
 
 class BalanceHelper:

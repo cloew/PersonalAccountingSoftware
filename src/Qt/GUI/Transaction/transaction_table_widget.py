@@ -21,7 +21,7 @@ class TransactionTableWidget(QTableWidget):
     def __init__(self):
         """ Initialize the Transaction Table Widget """
         self.account = Accounts.all()[0]
-        self.columns = [AmountColumn(), DescriptionColumn(), TypeColumn(), CategoryColumn(), DateColumn(), BalanceColumn(), ClearedColumn(), ReconciledColumn()]
+        self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(), CategoryColumn(), DateColumn(), BalanceColumn(), ClearedColumn(), ReconciledColumn()]
         transactions = Transactions.allForAccount(self.account)
         QTableWidget.__init__(self, len(transactions), len(self.columns))
         
@@ -63,11 +63,23 @@ class TransactionTableWidget(QTableWidget):
                     
     def setDelegateForColumn(self, delegate, columnClass):
         """ Set the Custom Delegate for a column """
-        columnClasses = [column.__class__ for column in self.columns]
-        index = columnClasses.index(columnClass)
+        index = self.getColumnIndex(columnClass)
         if index is not None:
             self.setItemDelegateForColumn(index, delegate)
+            
+    def getColumnIndex(self, columnClass):
+        """ Return the index for the given column in the table """
+        columnClasses = [column.__class__ for column in self.columns]
+        return columnClasses.index(columnClass)
         
     def tabSelected(self):
         """ Do Nothing when this tab is selected """
+        
+    def updateBalanceColumn(self):
+        """ Update the Running Balance """
+        balanceColumnIndex = self.getColumnIndex(BalanceColumn)
+        
+        for row in range(self.rowCount()):
+            item = self.item(row, balanceColumnIndex)
+            item.updateData()
         
