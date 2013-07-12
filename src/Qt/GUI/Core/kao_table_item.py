@@ -12,6 +12,15 @@ class KaoTableItem(QTableWidgetItem):
         """ Return the item's data as a string """
         return ""
         
+    def setData(self, role, value):
+        """ Set Data in Item """
+        if role == Qt.EditRole:
+            self.saveData(value)
+        return QTableWidgetItem.setData(self, role, self.getData())
+        
     def updateData(self):
         """ Update the Table Item's text and data """
         self.setText(self.getData())
+        
+    def saveData(self, value):
+        """ Save the table items data change """
