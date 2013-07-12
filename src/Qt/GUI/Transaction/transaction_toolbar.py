@@ -65,7 +65,7 @@ class TransactionToolBar(TabToolBar):
         transaction = Transaction(date=datetime.date.today())
         transaction.account = self.table_view.account
         Transactions.add(transaction)
-        self.table_view.insertRow(0)
+        self.table_view.insertRow(transaction)
 
     def setTransactionFilter(self, index):
         """ Set the Transaction Filter """

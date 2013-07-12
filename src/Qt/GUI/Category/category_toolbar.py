@@ -24,4 +24,4 @@ class CategoryToolBar(TabToolBar):
         """ Creates a New Category """
         category = Category()
         Categories.add(category)
-        self.table_view.insertRow(0)
+        self.table_view.insertRow(category)

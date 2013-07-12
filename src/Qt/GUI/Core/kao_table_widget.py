@@ -45,3 +45,8 @@ class KaoTableWidget(QTableWidget):
         """ Return the index for the given column in the table """
         columnClasses = [column.__class__ for column in self.columns]
         return columnClasses.index(columnClass)
+        
+    def insertRow(self, data):
+        """ Insert a Row into the Kao Table with the given data """
+        QTableWidget.insertRow(self, 0)
+        self.populateRow(0, data)
