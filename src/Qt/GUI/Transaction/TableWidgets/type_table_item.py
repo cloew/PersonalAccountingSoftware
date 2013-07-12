@@ -1,15 +1,12 @@
 from db.transactions import Transactions
+from Qt.GUI.Transaction.TableWidgets.transaction_table_item import TransactionTableItem
 
-from PySide.QtCore import Qt
-from PySide.QtGui import QTableWidgetItem
-
-class TypeTableItem(QTableWidgetItem):
+class TypeTableItem(TransactionTableItem):
     """ Represents a Table Widget Item for a Transaction Type """
     
     def __init__(self, transaction):
         """ Initialize the Type Item """
-        self.transaction = transaction
-        QTableWidgetItem.__init__(self, self.getData())
+        TransactionTableItem.__init__(self, transaction)
         
     def getData(self):
         """ Return data for the provided transaction """
@@ -18,9 +15,7 @@ class TypeTableItem(QTableWidgetItem):
         else:
             return "Expense"
         
-    def setData(self, role, value):
-        """ Set Data in Item """
-        if role == Qt.EditRole:
-            self.transaction.income = value == "Income"
-            Transactions.save()
-        return QTableWidgetItem.setData(self, role, self.getData())
+    def saveData(self, value):
+        """ Save Data in Item """
+        self.transaction.income = value == "Income"
+        Transactions.save()

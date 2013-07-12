@@ -1,19 +1,21 @@
 from db.transactions import Transactions
+from Qt.GUI.Transaction.TableWidgets.transaction_table_item import TransactionTableItem
 
 from PySide.QtCore import Qt
 from PySide.QtGui import QTableWidgetItem
 
-class DescriptionTableItem(QTableWidgetItem):
+class DescriptionTableItem(TransactionTableItem):
     """ Represents a Table Widget Item for a Transaction Description """
     
     def __init__(self, transaction):
         """ Initialize the Description Item """
-        QTableWidgetItem.__init__(self, transaction.description)
-        self.transaction = transaction
+        TransactionTableItem.__init__(self, transaction)
         
-    def setData(self, role, value):
-        """ Set Data in Item """
-        if role == Qt.EditRole:
-            self.transaction.description = value
-            Transactions.save()
-        return QTableWidgetItem.setData(self, role, value)
+    def getData(self):
+        """ Return the Transaction's Description """
+        return self.transaction.description
+        
+    def saveData(self, value):
+        """ Save Data in Item """
+        self.transaction.description = value
+        Transactions.save()

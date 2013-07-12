@@ -4,9 +4,6 @@ from Qt.GUI.Transaction.TableWidgets.transaction_table_item import TransactionTa
 
 from decimal import InvalidOperation
 
-from PySide.QtCore import Qt
-from PySide.QtGui import QTableWidgetItem
-
 class AmountTableItem(TransactionTableItem):
     """ Represents a Table Widget Item for a Transaction Amount """
     
