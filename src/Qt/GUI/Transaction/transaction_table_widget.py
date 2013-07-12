@@ -16,7 +16,7 @@ from Qt.GUI.Transaction.Columns.type_column import TypeColumn
 from PySide.QtGui import QTableWidget, QTableWidgetItem
 
 class TransactionTableWidget(QTableWidget):
-    """ The Transaction Tabel Widget View """
+    """ The Transaction Table Widget View """
     
     def __init__(self):
         """ Initialize the Transaction Table Widget """
