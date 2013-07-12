@@ -1,8 +1,10 @@
 from db.accounts import Accounts
 from db.transactions import Transactions
+from Utilities.balance_helper import TheBalanceHelper
 from ORM.transaction import Transaction
-from PySide.QtGui import QAction, QComboBox, QLabel
 from Qt.GUI.tab_toolbar import TabToolBar
+
+from PySide.QtGui import QAction, QComboBox, QLabel
 
 import datetime
 import db.transaction_filters as TransactionFilters
@@ -65,6 +67,7 @@ class TransactionToolBar(TabToolBar):
         transaction = Transaction(date=datetime.date.today())
         transaction.account = self.table_view.account
         Transactions.add(transaction)
+        TheBalanceHelper.setupBalancesForAccount(transaction.account)
         self.table_view.insertRow(transaction)
 
     def setTransactionFilter(self, index):
