@@ -1,10 +1,10 @@
-from Qt.GUI.Category.TableItems.name_table_item import NameTableItem
+from Qt.GUI.Category.TableWidgets.name_table_item import NameTableItem
 
 class NameColumn:
     """ Represents the Category Name Column """
     HEADER = "Name"
     
-    def getItemForColumn(self, transaction):
+    def getItemForColumn(self, category):
         """  """
         return NameTableItem(category)
     
