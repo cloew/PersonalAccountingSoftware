@@ -22,16 +22,3 @@ class BalanceTableItem(QTableWidgetItem):
     def getData(self):
         """ Return the balance for the current transaction """
         return GetDollarString(TheBalanceHelper.getBalanceForTransaction(self.transaction))
-        
-        transactions = Transactions.allForAccount(self.transaction.account, order=Transaction.date)
-        balance = self.transaction.account.starting_balance
-        for loopTransaction in transactions:
-            if loopTransaction.amount is not None:
-                if loopTransaction.income:
-                    balance += loopTransaction.amount
-                else:
-                    balance -= loopTransaction.amount
-            if self.transaction is loopTransaction:
-                break
-        
-        return GetDollarString(balance)
