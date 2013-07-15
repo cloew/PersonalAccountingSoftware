@@ -55,7 +55,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def addAccountsTab(self):
         """ Add the Accounts Tab """
-        self.account_table_widget = AccountTableWidget()
+        self.account_table_widget = AccountTableWidget(self.transaction_table_widget)
         self.account_table_widget.toolbar = AccountToolBar
         self.tabView.addTab(self.account_table_widget, "Accounts")
 

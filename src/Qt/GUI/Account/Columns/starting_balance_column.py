@@ -4,13 +4,13 @@ class StartingBalanceColumn:
     """ Represents the Starting Balance Column """
     HEADER = "Starting Balance"
     
-    def __init__(self):
+    def __init__(self, transactionTable):
         """ Initialize the Starting Balance Column """
-        #self.table = table
+        self.transactionTable = transactionTable
     
     def getItemForColumn(self, account):
         """  """
-        return StartingBalanceTableItem(account)
+        return StartingBalanceTableItem(account, self.transactionTable)
     
     def getWidgetForColumn(self, account):
         """  """

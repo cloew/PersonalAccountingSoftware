@@ -7,9 +7,9 @@ from Qt.GUI.Core.kao_table_widget import KaoTableWidget
 class AccountTableWidget(KaoTableWidget):
     """ The Account Table Widget View """
     
-    def __init__(self):
+    def __init__(self, transactionTable):
         """ Initialize the Account Table Widget """
-        self.columns = [NameColumn(), StartingBalanceColumn()]
+        self.columns = [NameColumn(), StartingBalanceColumn(transactionTable)]
         accounts = Accounts.all()
         KaoTableWidget.__init__(self, accounts, self.columns)
         

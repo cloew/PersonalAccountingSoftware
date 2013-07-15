@@ -11,9 +11,9 @@ from decimal import InvalidOperation
 class StartingBalanceTableItem(KaoTableItem):
     """ Represents a Table Widget Item for an Account Starting Balance """
     
-    def __init__(self, account):
+    def __init__(self, account, transactionTable):
         """ Initialize the Starting Balance Item """
-        #self.table = table
+        self.transactionTable = transactionTable
         self.account = account
         KaoTableItem.__init__(self)
         
@@ -27,6 +27,6 @@ class StartingBalanceTableItem(KaoTableItem):
             self.account.starting_balance = GetCentsFromDollarString(value)
             Accounts.save()
             TheBalanceHelper.setupBalancesForAccount(self.account)
-            #self.table.updateBalanceColumn()
+            self.transactionTable.updateBalanceColumn()
         except InvalidOperation:
             pass # The cast from the string to a Decimal failed
