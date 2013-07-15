@@ -1,4 +1,4 @@
-from PySide.QtGui import QTableWidget
+from PySide.QtGui import QHeaderView, QTableWidget
 
 class KaoTableWidget(QTableWidget):
     """ Base class for Kao Ttessur Qt Table Widgets """
@@ -14,6 +14,8 @@ class KaoTableWidget(QTableWidget):
         self.populateTable(dataList)
         self.setColumnDelegates()
         
+        self.horizontalHeader().setResizeMode(QHeaderView.Stretch)
+        self.resizeColumnsToContents()
         self.resizeRowsToContents()
         
     def populateTable(self, dataList):
