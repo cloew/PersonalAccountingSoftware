@@ -14,6 +14,8 @@ class KaoTableWidget(QTableWidget):
         self.populateTable(dataList)
         self.setColumnDelegates()
         
+        self.resizeRowsToContents()
+        
     def populateTable(self, dataList):
         """ Setup Table Items & Widget with their data """
         for row in range(len(dataList)):
