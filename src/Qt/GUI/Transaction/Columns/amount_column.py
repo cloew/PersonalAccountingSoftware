@@ -1,7 +1,5 @@
 from Qt.GUI.Transaction.TableWidgets.amount_table_item import AmountTableItem
 
-from PySide.QtGui import QTableWidgetItem 
-
 class AmountColumn:
     """ Represents the Amount Column """
     HEADER = "Amount"
