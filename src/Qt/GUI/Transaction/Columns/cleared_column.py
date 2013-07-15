@@ -1,6 +1,5 @@
+from Qt.GUI.Core.qt_helper import GetCenteredWidgetForTableCell
 from Qt.GUI.Transaction.TableWidgets.cleared_checkbox import ClearedCheckbox
-
-from PySide.QtGui import QHBoxLayout, QWidget
 
 class ClearedColumn:
     """ Represents the Cleared Column """
@@ -12,10 +11,4 @@ class ClearedColumn:
     
     def getWidgetForColumn(self, transaction):
         """  """
-        widget = QWidget()
-        layout = QHBoxLayout(widget)
-        layout.addStretch()
-        layout.addWidget(ClearedCheckbox(transaction))
-        layout.addStretch()
-        widget.setLayout(layout)
-        return widget
+        return GetCenteredWidgetForTableCell(ClearedCheckbox(transaction))

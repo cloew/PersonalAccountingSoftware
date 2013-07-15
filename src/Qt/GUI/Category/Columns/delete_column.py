@@ -1,6 +1,5 @@
+from Qt.GUI.Core.qt_helper import GetCenteredWidgetForTableCell
 from Qt.GUI.Category.TableWidgets.delete_button import DeleteButton
-
-from PySide.QtGui import QHBoxLayout, QWidget
 
 class DeleteColumn:
     """ Represents the Delete Column """
@@ -16,10 +15,4 @@ class DeleteColumn:
     
     def getWidgetForColumn(self, category):
         """  """
-        widget = QWidget()
-        layout = QHBoxLayout(widget)
-        layout.addStretch()
-        layout.addWidget(DeleteButton(category, self.table, widget))
-        layout.addStretch()
-        widget.setLayout(layout)
-        return widget
+        return GetCenteredWidgetForTableCell(DeleteButton(category, self.table))

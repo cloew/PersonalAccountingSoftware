@@ -1,3 +1,4 @@
+from Qt.GUI.Core.qt_helper import GetCenteredWidgetForTableCell
 from Qt.GUI.Transaction.TableWidgets.reconciled_checkbox import ReconciledCheckbox
 
 class ReconciledColumn:
@@ -10,4 +11,4 @@ class ReconciledColumn:
     
     def getWidgetForColumn(self, transaction):
         """  """
-        return ReconciledCheckbox(transaction) 
+        return GetCenteredWidgetForTableCell(ReconciledCheckbox(transaction))
