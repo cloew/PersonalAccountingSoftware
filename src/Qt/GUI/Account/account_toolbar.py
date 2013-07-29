@@ -25,4 +25,4 @@ class AccountToolBar(TabToolBar):
         """ Creates a New Account """
         account = Account(starting_balance=0)
         Accounts.add(account)
-        self.addEntryToTable()
+        self.table_view.insertRow(account)
