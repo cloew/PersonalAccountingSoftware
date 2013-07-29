@@ -3,10 +3,10 @@ from PySide.QtGui import QHeaderView, QTableWidget
 class KaoTableWidget(QTableWidget):
     """ Base class for Kao Ttessur Qt Table Widgets """
     
-    def __init__(self, dataList, columns):
+    def __init__(self, dataList, columns, parent=None):
         """ Initialize the Kao Ttessur Table Widget """
         self.columns = columns
-        QTableWidget.__init__(self, len(dataList), len(self.columns))
+        QTableWidget.__init__(self, len(dataList), len(self.columns), parent=parent)
         
         self.setHorizontalHeaderLabels([column.HEADER for column in self.columns])
         self.verticalHeader().hide()
@@ -54,3 +54,4 @@ class KaoTableWidget(QTableWidget):
         """ Insert a Row into the Kao Table with the given data """
         QTableWidget.insertRow(self, 0)
         self.populateRow(0, data)
+        self.resizeRowsToContents()
