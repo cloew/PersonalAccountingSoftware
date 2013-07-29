@@ -24,6 +24,13 @@ class TransactionTableWidget(KaoTableWidget):
         self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(), CategoryColumn(), DateColumn(), BalanceColumn(), ClearedColumn(), ReconciledColumn()]
         transactions = Transactions.allForAccount(self.account)
         KaoTableWidget.__init__(self, transactions, self.columns)
+        
+    def updateAccount(self, account):
+        """ Update the Account for the table """
+        self.account = account
+        transactions = Transactions.allForAccount(self.account)
+        self.setRowCount(len(transactions))
+        self.populateTable(transactions)
                     
     def setColumnDelegates(self):
         """ Set Column Delegates """

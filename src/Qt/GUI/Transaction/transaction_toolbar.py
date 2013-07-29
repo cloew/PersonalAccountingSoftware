@@ -80,7 +80,7 @@ class TransactionToolBar(TabToolBar):
     def setAccount(self, index):
         """ Set the Transaction Account to view """
         account = Accounts.all()[index]
-        self.table_view.account = account
+        self.table_view.updateAccount(account)
             
     def getAccountNames(self):
         """ Return Account Names """
