@@ -22,9 +22,10 @@ class TransactionTableWidget(KaoTableWidget):
         """ Initialize the Transaction Table Widget """
         self.account = Accounts.all()[0]
         self.filters = {}
-        self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(), BalanceColumn(), ClearedColumn(), ReconciledColumn()]
+        self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(self), BalanceColumn(), ClearedColumn(), ReconciledColumn()]
         transactions = self.getTransactions()
         KaoTableWidget.__init__(self, transactions, self.columns)
+        self.setSortingEnabled(True)
         
     def updateTransactions(self, account=None, filters=None):
         """ Update the Account for the table """
