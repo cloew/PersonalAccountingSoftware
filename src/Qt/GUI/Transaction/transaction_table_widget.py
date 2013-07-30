@@ -15,6 +15,8 @@ from Qt.GUI.Transaction.Columns.description_column import DescriptionColumn
 from Qt.GUI.Transaction.Columns.reconciled_column import ReconciledColumn
 from Qt.GUI.Transaction.Columns.type_column import TypeColumn
 
+from PySide.QtCore import Qt
+
 class TransactionTableWidget(KaoTableWidget):
     """ The Transaction Table Widget View """
     
@@ -26,6 +28,7 @@ class TransactionTableWidget(KaoTableWidget):
         transactions = self.getTransactions()
         KaoTableWidget.__init__(self, transactions, self.columns)
         self.setSortingEnabled(True)
+        self.sortItems(self.getColumnIndex(DateColumn), Qt.DescendingOrder)
         
     def updateTransactions(self, account=None, filters=None):
         """ Update the Account for the table """
