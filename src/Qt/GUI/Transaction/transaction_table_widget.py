@@ -25,9 +25,10 @@ class TransactionTableWidget(KaoTableWidget):
         transactions = Transactions.allForAccount(self.account)
         KaoTableWidget.__init__(self, transactions, self.columns)
         
-    def updateAccount(self, account):
+    def updateTransactions(self, account=None):
         """ Update the Account for the table """
-        self.account = account
+        if account is not None:
+            self.account = account
         transactions = Transactions.allForAccount(self.account)
         self.setRowCount(len(transactions))
         self.populateTable(transactions)
