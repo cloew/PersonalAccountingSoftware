@@ -16,9 +16,9 @@ __unreconciled__ = "Unreconciled"
 __filter_order__ = [__all__, 
                     __uncleared__,
                     __unreconciled__]
-__transaction_filters__ = {__all__: TransactionFilters.All,
-                           __uncleared__: TransactionFilters.Uncleared,
-                           __unreconciled__: TransactionFilters.Unreconciled}
+__transaction_filters__ = {__all__:{},
+                           __uncleared__:{Transaction.cleared:[False, None]},
+                           __unreconciled__:{Transaction.reconciled:[False, None]}}
 
 class TransactionToolBar(TabToolBar):
     """ Represents the Transaction Tool Bar """
@@ -27,7 +27,9 @@ class TransactionToolBar(TabToolBar):
         """ Add Tool Bar Buttons """
         self.addNewTransactionButton()
         self.addSeparator()
+        print "In constructor before adding filter"
         self.addFilter()
+        print "In constructor after adding filter"
         self.addSeparator()
         self.addAccount()
         self.addSeparator()
@@ -44,6 +46,8 @@ class TransactionToolBar(TabToolBar):
 
     def addFilter(self):
         """ Add Filter Label and Combo Box to the UI """
+        print "Adding Fitler Combo Box"
+        
         label = QLabel("Filter", self)
         self.addWidget(label)
         comboBox = QComboBox(self)
@@ -74,8 +78,11 @@ class TransactionToolBar(TabToolBar):
         """ Set the Transaction Filter """
         text = __filter_order__[index]
         
+        print "Trying to set the Transaction Filter", __transaction_filters__[text]
+        
         if text in __transaction_filters__:
-            self.table_view.table_model.setTransactionRetriever(__transaction_filters__[text])
+            print "Setting Transaction Filter", __transaction_filters__[text]
+            self.table_view.updateTransactions(filters=__transaction_filters__[text])
             
     def setAccount(self, index):
         """ Set the Transaction Account to view """

@@ -1,6 +1,6 @@
 from table_wrapper import TableWrapper
 from ORM.transaction import Transaction
-from sqlalchemy import desc
+from sqlalchemy import desc, sql
 
 class TransactionsWrapper(TableWrapper):
     """ Class to wrap interaction to the Transactions table in the database """
@@ -12,24 +12,35 @@ class TransactionsWrapper(TableWrapper):
             return TableWrapper.all(self, order=desc(Transaction.date))
         else:
             return TableWrapper.all(self, order=order)
-            
-    def allForAccount(self, account, order=None):
-        """ Returns all transactions from the database """
+        
+    def allForAccount(self, account, order=None, filters={}):
+        """ Return all transactions for the given account with the applied filters """
         transactions = []
         with self.session() as session:
+            accountQuery = self.getAccountQuery(session, account)
+            
+            resultQuery = accountQuery
+            for column in filters:
+                unionQuery = session.query(self.table_class).filter(sql.false())
+                for value in filters[column]:
+                    tempQuery = accountQuery.filter(column==value)
+                    unionQuery = unionQuery.union(tempQuery)
+                resultQuery = resultQuery.intersect(unionQuery)
+            
             if order is None:
-                transactions = session.query(self.table_class).filter_by(account=account).order_by(Transaction.date).all()
+                transactions = resultQuery.order_by(Transaction.date).all()
                 transactions.reverse()
             else:
-                transactions = session.query(self.table_class).filter_by(account=account).order_by(order).all()
+                transactions = resultQuery.order_by(order).all()
         return transactions
 
     def allUnclearedTransactionsForAccount(self, account):
         """ Returns all Uncleared Transactions """
         unclearedTransactions = []
         with self.session() as session:
-            unclearedTransactions_False = session.query(self.table_class).filter_by(cleared=False, account=account)
-            unclearedTransactions_None = session.query(self.table_class).filter_by(cleared=None, account=account)
+            accountQuery = self.getAccountQuery(session, account)
+            unclearedTransactions_False = accountQuery.filter_by(cleared=False)
+            unclearedTransactions_None = accountQuery.filter_by(cleared=None)
             unionOfUnclearedTransactions = unclearedTransactions_False.union(unclearedTransactions_None)
             unclearedTransactions = unionOfUnclearedTransactions.order_by(desc(Transaction.date)).all()
         return unclearedTransactions
@@ -53,5 +64,9 @@ class TransactionsWrapper(TableWrapper):
             unionOfExpenseTransactions = expenseTransactions_False.union(expenseTransactions_None)
             expenseTransactions = unionOfExpenseTransactions.all()
         return expenseTransactions
+        
+    def getAccountQuery(self, session, account):
+        """ Return the query for the transactions of the given account """
+        return session.query(self.table_class).filter_by(account=account)
 
 Transactions = TransactionsWrapper()

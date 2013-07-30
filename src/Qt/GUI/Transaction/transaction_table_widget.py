@@ -21,15 +21,19 @@ class TransactionTableWidget(KaoTableWidget):
     def __init__(self):
         """ Initialize the Transaction Table Widget """
         self.account = Accounts.all()[0]
+        self.filters = {}
         self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(), BalanceColumn(), ClearedColumn(), ReconciledColumn()]
-        transactions = Transactions.allForAccount(self.account)
+        transactions = self.getTransactions()
         KaoTableWidget.__init__(self, transactions, self.columns)
         
-    def updateTransactions(self, account=None):
+    def updateTransactions(self, account=None, filters=None):
         """ Update the Account for the table """
         if account is not None:
             self.account = account
-        transactions = Transactions.allForAccount(self.account)
+        if filters is not None:
+            self.filters = filters
+            
+        transactions = self.getTransactions()
         self.setRowCount(len(transactions))
         self.populateTable(transactions)
                     
@@ -59,3 +63,6 @@ class TransactionTableWidget(KaoTableWidget):
             item = self.item(row, balanceColumnIndex)
             item.updateData()
         
+    def getTransactions(self):
+        """ Return the list of transactions with filters applied """
+        return Transactions.allForAccount(self.account, filters=self.filters)

@@ -22,6 +22,7 @@ class KaoTableWidget(QTableWidget):
         """ Setup Table Items & Widget with their data """
         for row in range(len(dataList)):
             self.populateRow(row, dataList[row])
+        self.resizeRowsToContents()
         
     def populateRow(self, row, data):
         """ Populate the Row """
