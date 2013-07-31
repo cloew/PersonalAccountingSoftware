@@ -27,9 +27,7 @@ class TransactionToolBar(TabToolBar):
         """ Add Tool Bar Buttons """
         self.addNewTransactionButton()
         self.addSeparator()
-        print "In constructor before adding filter"
         self.addFilter()
-        print "In constructor after adding filter"
         self.addSeparator()
         self.addAccount()
         self.addSeparator()
@@ -46,8 +44,6 @@ class TransactionToolBar(TabToolBar):
 
     def addFilter(self):
         """ Add Filter Label and Combo Box to the UI """
-        print "Adding Fitler Combo Box"
-        
         label = QLabel("Filter", self)
         self.addWidget(label)
         comboBox = QComboBox(self)
@@ -78,10 +74,7 @@ class TransactionToolBar(TabToolBar):
         """ Set the Transaction Filter """
         text = __filter_order__[index]
         
-        print "Trying to set the Transaction Filter", __transaction_filters__[text]
-        
         if text in __transaction_filters__:
-            print "Setting Transaction Filter", __transaction_filters__[text]
             self.table_view.updateTransactions(filters=__transaction_filters__[text])
             
     def setAccount(self, index):

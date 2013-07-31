@@ -44,25 +44,25 @@ class MainWindow(QtGui.QMainWindow):
     def addTransactionTab(self):
         """ Add the Transaction Tab """
         self.transaction_table_widget = TransactionTableWidget()
-        self.transaction_table_widget.toolbar = TransactionToolBar
+        self.transaction_table_widget.toolbar = TransactionToolBar(self.transaction_table_widget)
         self.tabView.addTab(self.transaction_table_widget, "Transactions")
 
     def addCategoriesTab(self):
         """ Add the Categories Tab """
         self.category_table_widget = CategoryTableWidget()
-        self.category_table_widget.toolbar = CategoryToolBar
+        self.category_table_widget.toolbar = CategoryToolBar(self.category_table_widget)
         self.tabView.addTab(self.category_table_widget, "Categories")
 
     def addAccountsTab(self):
         """ Add the Accounts Tab """
         self.account_table_widget = AccountTableWidget(self.transaction_table_widget)
-        self.account_table_widget.toolbar = AccountToolBar
+        self.account_table_widget.toolbar = AccountToolBar(self.account_table_widget)
         self.tabView.addTab(self.account_table_widget, "Accounts")
 
     def addStatisticsTab(self):
         """ Add the Statistics Tab """
         self.statistics_view = StatisticsPanel()
-        self.statistics_view.toolbar = TabToolBar
+        self.statistics_view.toolbar = TabToolBar(self.statistics_view)
         self.tabView.addTab(self.statistics_view, "Statistics")
 
     def setToolBar(self, index):
@@ -71,6 +71,7 @@ class MainWindow(QtGui.QMainWindow):
             self.removeToolBar(self.toolbar)
 
         widget = self.tabView.widget(index)
-        self.toolbar = widget.toolbar(widget)
+        self.toolbar = widget.toolbar
         self.addToolBar(self.toolbar)
+        self.toolbar.show()
         widget.tabSelected()
