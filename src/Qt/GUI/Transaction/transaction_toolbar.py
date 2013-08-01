@@ -97,6 +97,8 @@ class TransactionToolBar(TabToolBar):
         
     def tabSelected(self):
         """ Update the Account Tab when the tab is selected """
-        index = self.accountComboBox.currentIndex()
+        text = self.accountComboBox.currentText()
         self.updateAccountComboBox()
-        self.accountComboBox.setCurrentIndex(index)
+        index = self.accountComboBox.findText(text)
+        if not (index == -1):
+            self.accountComboBox.setCurrentIndex(index)
