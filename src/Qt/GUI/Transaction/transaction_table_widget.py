@@ -27,8 +27,6 @@ class TransactionTableWidget(KaoTableWidget):
         self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(self), BalanceColumn(), ClearedColumn(self), ReconciledColumn()]
         transactions = self.getTransactions()
         KaoTableWidget.__init__(self, transactions, self.columns)
-        self.setSortingEnabled(True)
-        self.sortItems(self.getColumnIndex(DateColumn), Qt.DescendingOrder)
         
     def updateTransactions(self, account=None, filters=None):
         """ Update the Account for the table """

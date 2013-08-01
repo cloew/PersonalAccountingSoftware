@@ -29,7 +29,7 @@ class DateTableItem(TransactionTableItem):
         try:
             self.transaction.date = parser.parse(value)
             TheBalanceHelper.setupBalancesForAccount(self.transaction.account)
-            self.table.updateBalanceColumn()
+            self.table.updateTransactions()
         except ValueError:
             pass # Expect it to happen if user enters a bad String for the date
         Transactions.save()
