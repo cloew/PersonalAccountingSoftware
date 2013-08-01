@@ -55,12 +55,17 @@ class TransactionToolBar(TabToolBar):
         """ Add Account Label and Combo Box to the UI """
         label = QLabel("Account", self)
         self.addWidget(label)
-        comboBox = QComboBox(self)
         
+        self.accountComboBox = QComboBox(self)
+        self.updateAccountComboBox()
+        self.accountComboBox.currentIndexChanged.connect(self.setAccount)
+        self.addWidget(self.accountComboBox)
+        
+    def updateAccountComboBox(self):
+        """ Update the Account Combo Box """
         names = self.getAccountNames()
-        comboBox.addItems(names)
-        comboBox.currentIndexChanged.connect(self.setAccount)
-        self.addWidget(comboBox)
+        self.accountComboBox.clear()
+        self.accountComboBox.addItems(names)
 
     def newTransaction(self):
         """ Creates a New Transaction """
@@ -89,3 +94,9 @@ class TransactionToolBar(TabToolBar):
             if account.name is not None:
                 names.append(account.name)
         return names
+        
+    def tabSelected(self):
+        """ Update the Account Tab when the tab is selected """
+        index = self.accountComboBox.currentIndex()
+        self.updateAccountComboBox()
+        self.accountComboBox.setCurrentIndex(index)

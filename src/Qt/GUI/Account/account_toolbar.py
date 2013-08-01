@@ -26,3 +26,6 @@ class AccountToolBar(TabToolBar):
         account = Account(starting_balance=0)
         Accounts.add(account)
         self.table_view.insertRow(account)
+        
+    def tabSelected(self):
+        """ Do Nothing when this tab is selected """

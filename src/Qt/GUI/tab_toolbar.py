@@ -33,3 +33,6 @@ class TabToolBar(QToolBar):
     def addEntryToTable(self):
         """ Adds an entry to table """
         self.table_view.table_model.insertRows(0, 1)
+        
+    def tabSelected(self):
+        """ Do Nothing when this tab is selected """

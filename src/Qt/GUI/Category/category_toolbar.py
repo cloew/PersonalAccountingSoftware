@@ -25,3 +25,6 @@ class CategoryToolBar(TabToolBar):
         category = Category()
         Categories.add(category)
         self.table_view.insertRow(category)
+        
+    def tabSelected(self):
+        """ Do Nothing when this tab is selected """
