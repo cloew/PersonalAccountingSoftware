@@ -16,7 +16,8 @@ class KaoTableItem(QTableWidgetItem):
         """ Set Data in Item """
         if role == Qt.EditRole:
             self.saveData(value)
-        return QTableWidgetItem.setData(self, role, self.getData())
+        if self.shouldSetData(role):
+            return QTableWidgetItem.setData(self, role, self.getData())
         
     def updateData(self):
         """ Update the Table Item's text and data """
@@ -24,3 +25,7 @@ class KaoTableItem(QTableWidgetItem):
         
     def saveData(self, value):
         """ Save the table items data change """
+        
+    def shouldSetData(self, role):
+        """ Returns if the Table Item should call the base classes set Data """
+        return True 

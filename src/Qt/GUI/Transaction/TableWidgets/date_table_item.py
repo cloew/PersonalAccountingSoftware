@@ -1,13 +1,10 @@
 from db.transactions import Transactions
 from Qt.GUI.Transaction.TableWidgets.transaction_table_item import TransactionTableItem
 from Utilities.balance_helper import TheBalanceHelper
-from Utilities.dollar_amount_helper import GetDollarString, GetCentsFromDollarString
 
 from dateutil import parser
-from decimal import InvalidOperation
 
 from PySide.QtCore import Qt
-from PySide.QtGui import QTableWidgetItem
 
 class DateTableItem(TransactionTableItem):
     """ Represents a Table Widget Item for a Transaction Date """
@@ -33,3 +30,7 @@ class DateTableItem(TransactionTableItem):
         except ValueError:
             pass # Expect it to happen if user enters a bad String for the date
         Transactions.save()
+        
+    def shouldSetData(self, role):
+        """ Returns if the Table Item should call the base classes set Data """
+        return not (role == Qt.EditRole)
