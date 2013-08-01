@@ -24,7 +24,7 @@ class TransactionTableWidget(KaoTableWidget):
         """ Initialize the Transaction Table Widget """
         self.account = Accounts.all()[0]
         self.filters = {}
-        self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(self), BalanceColumn(), ClearedColumn(), ReconciledColumn()]
+        self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(self), BalanceColumn(), ClearedColumn(self), ReconciledColumn()]
         transactions = self.getTransactions()
         KaoTableWidget.__init__(self, transactions, self.columns)
         self.setSortingEnabled(True)

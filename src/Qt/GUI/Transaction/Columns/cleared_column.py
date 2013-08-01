@@ -5,10 +5,14 @@ class ClearedColumn:
     """ Represents the Cleared Column """
     HEADER = "Cleared"
     
+    def __init__(self, table):
+        """ Initialize the Cleared Column """
+        self.table = table
+    
     def getItemForColumn(self, transaction):
         """  """
         return None
     
     def getWidgetForColumn(self, transaction):
         """  """
-        return GetCenteredWidgetForTableCell(ClearedCheckbox(transaction))
+        return GetCenteredWidgetForTableCell(ClearedCheckbox(transaction, self.table))
