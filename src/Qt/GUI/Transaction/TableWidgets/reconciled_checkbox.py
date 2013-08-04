@@ -1,26 +1,23 @@
 from db.transactions import Transactions
 
 from PySide.QtCore import Qt
-from PySide.QtGui import QCheckBox
 
-class ReconciledCheckbox(QCheckBox):
+from Qt.GUI.Core.kao_table_checkbox import KaoTableCheckbox
+
+class ReconciledCheckbox(KaoTableCheckbox):
     """ Represents a Checkbox to manage whether a transaction has been reconciled """
     
-    def __init__(self, transaction):
+    def __init__(self, transaction, table):
         """ Initialize the Checkbox """
-        QCheckBox.__init__(self, "")
         self.transaction = transaction
-        self.setCheckState(self.getCheckedState())
-        self.stateChanged.connect(self.saveReconciledState)
+        KaoTableCheckbox.__init__(self, table)
         
-    def getCheckedState(self):
-        """ Return the Checked State """
-        if self.transaction.reconciled is None or not self.transaction.reconciled:
-            return Qt.Unchecked
-        else:
-            return Qt.Checked
+    def isChecked(self):
+        """ Return whether the checkbox should be checked """
+        return self.transaction.reconciled
             
-    def saveReconciledState(self, state):
+    def onCheckStateChanged(self, state):
         """ Save Reconciled State to the database """
         self.transaction.reconciled = state == Qt.Checked
         Transactions.save()
+        self.table.updateTransactions()
