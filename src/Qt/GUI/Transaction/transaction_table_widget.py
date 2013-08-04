@@ -16,6 +16,7 @@ from Qt.GUI.Transaction.Columns.reconciled_column import ReconciledColumn
 from Qt.GUI.Transaction.Columns.type_column import TypeColumn
 
 from PySide.QtCore import Qt
+from PySide.QtGui import QAction
 
 class TransactionTableWidget(KaoTableWidget):
     """ The Transaction Table Widget View """
