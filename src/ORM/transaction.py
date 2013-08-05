@@ -23,7 +23,7 @@ class Transaction(Base):
     category = relationship("Category", backref=backref('transactions'))
     transferAccounts = relationship("Account",
                                     secondary=transfers_table,
-                                    backref="accounts")
+                                    backref="transfers")
 
     def __repr__(self):
         return "<Transaction('{0}', '${1}.{2}', '{3}', '{4}', '{5}')>".format(self.description, self.amount/100.0, self.amount%100, self.date, self.category, self.cleared)

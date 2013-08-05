@@ -1,4 +1,5 @@
 from table_wrapper import TableWrapper
+from ORM.account import Account
 from ORM.transaction import Transaction
 from sqlalchemy import desc, sql
 
@@ -17,9 +18,9 @@ class TransactionsWrapper(TableWrapper):
         """ Return all transactions for the given account with the applied filters """
         transactions = []
         with self.session() as session:
-            accountQuery = self.getAccountQuery(session, account)
-            
-            resultQuery = accountQuery
+            accountQuery = self.getAccountQuery(session, account)#.join(Account.transfers)
+            transfersQuery = session.query(self.table_class).join(Account.transfers)
+            resultQuery = accountQuery.union(transfersQuery)
             for column in filters:
                 unionQuery = session.query(self.table_class).filter(sql.false())
                 for value in filters[column]:
@@ -32,7 +33,7 @@ class TransactionsWrapper(TableWrapper):
                 transactions.reverse()
             else:
                 transactions = resultQuery.order_by(order).all()
-        return transactions
+        return transactions# + account.transfers
 
     def allUnclearedTransactionsForAccount(self, account):
         """ Returns all Uncleared Transactions """
