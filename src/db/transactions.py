@@ -19,7 +19,7 @@ class TransactionsWrapper(TableWrapper):
         transactions = []
         with self.session() as session:
             accountQuery = self.getAccountQuery(session, account)#.join(Account.transfers)
-            transfersQuery = session.query(self.table_class).join(Account.transfers)
+            transfersQuery = session.query(self.table_class).join(Account.transfers).filter(Transaction.transferAccounts.contains(account))
             resultQuery = accountQuery.union(transfersQuery)
             for column in filters:
                 unionQuery = session.query(self.table_class).filter(sql.false())

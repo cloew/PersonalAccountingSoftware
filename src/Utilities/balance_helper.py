@@ -20,13 +20,13 @@ class BalanceHelper:
                     balance -= transaction.amount
             self.balancesForAccounts[account][transaction] = balance
             
-    def getBalanceForTransaction(self, transaction):
+    def getBalanceForTransaction(self, transaction, account):
         """ Return balance for Transaction """
-        if transaction.account not in self.balancesForAccounts:
-            self.setupBalancesForAccount(transaction.account)
+        if account not in self.balancesForAccounts:
+            self.setupBalancesForAccount(account)
         
-        if transaction in self.balancesForAccounts[transaction.account]:
-            return self.balancesForAccounts[transaction.account][transaction]
+        if transaction in self.balancesForAccounts[account]:
+            return self.balancesForAccounts[account][transaction]
         return 0
     
 TheBalanceHelper = BalanceHelper()

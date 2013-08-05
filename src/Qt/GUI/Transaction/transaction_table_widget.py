@@ -37,6 +37,9 @@ class TransactionTableWidget(KaoTableWidget):
             self.account = account
         if filters is not None:
             self.filters = filters
+        
+        balanceColumn = self.getColumn(BalanceColumn)
+        balanceColumn.account = self.account
             
         transactions = self.getTransactions()
         self.setRowCount(len(transactions))

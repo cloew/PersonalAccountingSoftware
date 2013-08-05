@@ -51,6 +51,12 @@ class KaoTableWidget(QTableWidget):
         if index is not None:
             self.setItemDelegateForColumn(index, delegate)
             
+    def getColumn(self, columnClass):
+        """ Returns the column of the type requested or None """
+        index = self.getColumnIndex(columnClass)
+        if index in range(len(self.columns)):
+            return self.columns[index]
+            
     def getColumnIndex(self, columnClass):
         """ Return the index for the given column in the table """
         columnClasses = [column.__class__ for column in self.columns]
