@@ -25,7 +25,7 @@ class TransactionTableWidget(KaoTableWidget):
         """ Initialize the Transaction Table Widget """
         self.account = Accounts.all()[0]
         self.filters = {}
-        self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(self), BalanceColumn(), ClearedColumn(self), ReconciledColumn(self)]
+        self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(self), BalanceColumn(self.account), ClearedColumn(self), ReconciledColumn(self)]
         transactions = self.getTransactions()
         KaoTableWidget.__init__(self, transactions, self.columns)
         
@@ -66,6 +66,7 @@ class TransactionTableWidget(KaoTableWidget):
         
         for row in range(self.rowCount()):
             item = self.item(row, balanceColumnIndex)
+            item.account = self.account
             item.updateData()
         
     def getTransactions(self):

@@ -11,8 +11,9 @@ from PySide.QtCore import Qt
 class BalanceTableItem(TransactionTableItem):
     """ Represents a Table Widget Item for a Transaction Balance """
     
-    def __init__(self, transaction):
+    def __init__(self, transaction, account):
         """ Initialize the Amount Item """
+        self.account = account
         TransactionTableItem.__init__(self, transaction)
         
         flags = self.flags()
@@ -20,4 +21,4 @@ class BalanceTableItem(TransactionTableItem):
         
     def getData(self):
         """ Return the balance for the current transaction """
-        return GetDollarString(TheBalanceHelper.getBalanceForTransaction(self.transaction))
+        return GetDollarString(TheBalanceHelper.getBalanceForTransaction(self.transaction, self.account))
