@@ -130,11 +130,13 @@ class TransactionToolBar(TabToolBar):
         if len(self.transaction.transferAccounts) == 0:
             self.transaction.transferAccounts.append(account)
             Transactions.save()
+            self.buildToolbarWidgets()
             
     def removeTransfer(self):
         """ Remove the Transfer """
         self.transaction.transferAccounts = []
         Transactions.save()
+        self.buildToolbarWidgets()
             
     def getAccountNames(self):
         """ Return Account Names """
