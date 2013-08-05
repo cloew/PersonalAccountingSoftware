@@ -79,7 +79,10 @@ class TransactionToolBar(TabToolBar):
             self.transferComboBox.currentIndexChanged.connect(self.setTransfer)
             self.addWidget(self.transferComboBox)
         else:
-            self.transferLabel = QLabel("Transferred to: {0}".format(self.transaction.transferAccounts[0].name), self)
+            if self.transaction.account is self.table_view.account:
+                self.transferLabel = QLabel("Transferred to: {0}".format(self.transaction.transferAccounts[0].name), self)
+            else:
+                self.transferLabel = QLabel("Transferred to: {0}".format(self.transaction.account.name), self)
             self.addWidget(self.transferLabel)
             eraseIcon = self.getQIcon('erase.png')
             removeTransferAction = QAction(eraseIcon, 'Remove Transfer', self)
