@@ -4,6 +4,9 @@ from Utilities.balance_helper import TheBalanceHelper
 
 class TypeTableItem(TransactionTableItem):
     """ Represents a Table Widget Item for a Transaction Type """
+    label_text = {True:"Income",
+                  False:"Expense",
+                  None:"Expense"} 
     
     def __init__(self, transaction, table):
         """ Initialize the Type Item """
@@ -12,10 +15,7 @@ class TypeTableItem(TransactionTableItem):
         
     def getData(self):
         """ Return data for the provided transaction """
-        if self.transaction.income is True:
-            return "Income"
-        else:
-            return "Expense"
+        return TypeTableItem.label_text[self.transaction.isIncome(self.table.account)]
         
     def saveData(self, value):
         """ Save Data in Item """

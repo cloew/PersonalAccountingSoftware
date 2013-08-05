@@ -14,7 +14,7 @@ class BalanceHelper:
         balance = account.starting_balance
         for transaction in Transactions.allForAccount(account, order=Transaction.date):
             if transaction.amount is not None:
-                if transaction.income:
+                if transaction.isIncome(account):
                     balance += transaction.amount
                 else:
                     balance -= transaction.amount

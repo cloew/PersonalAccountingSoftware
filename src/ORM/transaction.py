@@ -24,6 +24,13 @@ class Transaction(Base):
     transferAccounts = relationship("Account",
                                     secondary=transfers_table,
                                     backref="transfers")
+                                    
+    def isIncome(self, account):
+        """ Returns if the account is income for the given account """
+        if self.account is account:
+            return self.income is True
+        else:
+            return self.income is False or self.income is None
 
     def __repr__(self):
         return "<Transaction('{0}', '${1}.{2}', '{3}', '{4}', '{5}')>".format(self.description, self.amount/100.0, self.amount%100, self.date, self.category, self.cleared)
