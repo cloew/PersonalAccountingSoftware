@@ -18,6 +18,11 @@ class KaoTableWidget(QTableWidget):
         self.resizeColumnsToContents()
         self.resizeRowsToContents()
         
+        # for row in range(self.rowCount()):
+            # for column in range(self.columnCount()):
+                # widget = self.cellWidget(row, column)
+                # print "Cell Widget", widget
+        
     def populateTable(self, dataList):
         """ Setup Table Items & Widget with their data """
         for row in range(len(dataList)):
@@ -56,3 +61,5 @@ class KaoTableWidget(QTableWidget):
         QTableWidget.insertRow(self, 0)
         self.populateRow(0, data)
         self.resizeRowsToContents()
+        
+    

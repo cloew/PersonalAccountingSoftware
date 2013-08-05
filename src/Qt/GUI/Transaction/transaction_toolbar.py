@@ -22,6 +22,11 @@ __transaction_filters__ = {__all__:{},
 
 class TransactionToolBar(TabToolBar):
     """ Represents the Transaction Tool Bar """
+    
+    def __init__(self, table_view):
+        """ Create and populate the Tab Tool Bar """
+        self.transaction = None
+        TabToolBar.__init__(self, table_view)
 
     def addToolBarButtons(self):
         """ Add Tool Bar Buttons """
@@ -31,6 +36,9 @@ class TransactionToolBar(TabToolBar):
         self.addSeparator()
         self.addAccount()
         self.addSeparator()
+        if self.transaction is not None:
+            self.addTransfers()
+            self.addSeparator()
         
     def addNewTransactionButton(self):
         """ Adds the New Transaction Button to the ToolBar """
@@ -44,7 +52,7 @@ class TransactionToolBar(TabToolBar):
 
     def addFilter(self):
         """ Add Filter Label and Combo Box to the UI """
-        label = QLabel("Filter", self)
+        label = QLabel("Filter: ", self)
         self.addWidget(label)
         comboBox = QComboBox(self)
         comboBox.addItems(__filter_order__)
@@ -53,19 +61,40 @@ class TransactionToolBar(TabToolBar):
         
     def addAccount(self):
         """ Add Account Label and Combo Box to the UI """
-        label = QLabel("Account", self)
+        label = QLabel("Account: ", self)
         self.addWidget(label)
         
         self.accountComboBox = QComboBox(self)
-        self.updateAccountComboBox()
+        self.updateComboBoxWithAccounts(self.accountComboBox)
         self.accountComboBox.currentIndexChanged.connect(self.setAccount)
         self.addWidget(self.accountComboBox)
+        
+    def addTransfers(self):
+        """ Add the transfer widgets """
+        self.transferLabel = QLabel("Transfer to: ", self)
+        self.addWidget(self.transferLabel)
+        
+        self.transferComboBox = QComboBox(self)
+        self.updateComboBoxWithAccounts(self.transferComboBox)
+        self.transferComboBox.currentIndexChanged.connect(self.setTransfer)
+        self.addWidget(self.transferComboBox)
         
     def updateAccountComboBox(self):
         """ Update the Account Combo Box """
         names = self.getAccountNames()
         self.accountComboBox.clear()
         self.accountComboBox.addItems(names)
+        
+    def updateComboBoxWithAccounts(self, comboBox):
+        """ Update Combo Box """
+        names = self.getAccountNames()
+        comboBox.clear()
+        comboBox.addItems(names)
+        
+    def updateTransfers(self, transaction):
+        """ Update the Transfer Selection """
+        self.transaction = transaction
+        self.buildToolbarWidgets()
 
     def newTransaction(self):
         """ Creates a New Transaction """
@@ -86,6 +115,11 @@ class TransactionToolBar(TabToolBar):
         """ Set the Transaction Account to view """
         account = Accounts.all()[index]
         self.table_view.updateTransactions(account=account)
+        
+    def setTransfer(self, index):
+        """ Set the Transaction Account to view """
+        account = Accounts.all()[index]
+        #self.table_view.updateTransactions(account=account)
             
     def getAccountNames(self):
         """ Return Account Names """

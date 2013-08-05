@@ -10,6 +10,11 @@ class TabToolBar(QToolBar):
         """ Create and populate the Tab Tool Bar """
         QToolBar.__init__(self)
         self.table_view = table_view
+        self.buildToolbarWidgets()
+        
+    def buildToolbarWidgets(self):
+        """ Build the Toolbar Widgets """
+        self.clear()
         self.addToolBarButtons()
         self.addExitButton()
 

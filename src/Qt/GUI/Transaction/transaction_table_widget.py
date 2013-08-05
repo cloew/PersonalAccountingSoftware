@@ -29,6 +29,8 @@ class TransactionTableWidget(KaoTableWidget):
         transactions = self.getTransactions()
         KaoTableWidget.__init__(self, transactions, self.columns)
         
+        self.currentCellChanged.connect(self.updateToolbarOnCurrentSelectionChange)
+        
     def updateTransactions(self, account=None, filters=None):
         """ Update the Account for the table """
         if account is not None:
@@ -69,3 +71,10 @@ class TransactionTableWidget(KaoTableWidget):
     def getTransactions(self):
         """ Return the list of transactions with filters applied """
         return Transactions.allForAccount(self.account, filters=self.filters)
+        
+    def updateToolbarOnCurrentSelectionChange(self, currentRow, currentColumn, previousRow, previousColumn):
+        """ Update the Toolbar Transfer section so it reflects the current Transaction """
+        transactions = self.getTransactions()
+        if currentRow in range(len(transactions)):
+            transaction = transactions[currentRow]
+            self.toolbar.updateTransfers(transaction)
