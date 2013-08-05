@@ -72,7 +72,7 @@ class TransactionToolBar(TabToolBar):
     def addTransfers(self):
         """ Add the transfer widgets """
         if len(self.transaction.transferAccounts) == 0:
-            self.transferLabel = QLabel("Transfer to: ", self)
+            self.transferLabel = QLabel("Transfer {0}: ".format(self.getTransferDirection()), self)
             self.addWidget(self.transferLabel)
             self.transferComboBox = QComboBox(self)
             self.updateComboBoxWithAccounts(self.transferComboBox)
@@ -80,15 +80,22 @@ class TransactionToolBar(TabToolBar):
             self.addWidget(self.transferComboBox)
         else:
             if self.transaction.account is self.table_view.account:
-                self.transferLabel = QLabel("Transferred to: {0}".format(self.transaction.transferAccounts[0].name), self)
+                self.transferLabel = QLabel("Transferred {0}: {1}".format(self.getTransferDirection(), self.transaction.transferAccounts[0].name), self)
             else:
-                self.transferLabel = QLabel("Transferred to: {0}".format(self.transaction.account.name), self)
+                self.transferLabel = QLabel("Transferred {0}: {1}".format(self.getTransferDirection(), self.transaction.account.name), self)
             self.addWidget(self.transferLabel)
             eraseIcon = self.getQIcon('erase.png')
             removeTransferAction = QAction(eraseIcon, 'Remove Transfer', self)
             removeTransferAction.setStatusTip("Remove Transfer.")
             removeTransferAction.triggered.connect(self.removeTransfer)
             self.addAction(removeTransferAction)
+            
+    def getTransferDirection(self):
+        """ Return the Transfer Direction word """
+        if self.transaction.isIncome(self.table_view.account):
+            return "from"
+        else:
+            return "to"
         
     def updateAccountComboBox(self):
         """ Update the Account Combo Box """
