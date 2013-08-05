@@ -81,6 +81,11 @@ class TransactionToolBar(TabToolBar):
         else:
             self.transferLabel = QLabel("Transferred to: {0}".format(self.transaction.transferAccounts[0].name), self)
             self.addWidget(self.transferLabel)
+            eraseIcon = self.getQIcon('erase.png')
+            removeTransferAction = QAction(eraseIcon, 'Remove Transfer', self)
+            removeTransferAction.setStatusTip("Remove Transfer.")
+            removeTransferAction.triggered.connect(self.removeTransfer)
+            self.addAction(removeTransferAction)
         
     def updateAccountComboBox(self):
         """ Update the Account Combo Box """
@@ -125,6 +130,11 @@ class TransactionToolBar(TabToolBar):
         if len(self.transaction.transferAccounts) == 0:
             self.transaction.transferAccounts.append(account)
             Transactions.save()
+            
+    def removeTransfer(self):
+        """ Remove the Transfer """
+        self.transaction.transferAccounts = []
+        Transactions.save()
             
     def getAccountNames(self):
         """ Return Account Names """
