@@ -77,6 +77,12 @@ class TransactionToolBar(TabToolBar):
         self.transferComboBox = QComboBox(self)
         self.updateComboBoxWithAccounts(self.transferComboBox)
         self.transferComboBox.currentIndexChanged.connect(self.setTransfer)
+        
+        if len(self.transaction.transferAccounts) > 0:
+            index = self.transferComboBox.findText(self.transaction.transferAccounts[0].name)
+            if not (index == -1):
+                self.transferComboBox.setCurrentIndex(index)
+        
         self.addWidget(self.transferComboBox)
         
     def updateAccountComboBox(self):
@@ -119,7 +125,9 @@ class TransactionToolBar(TabToolBar):
     def setTransfer(self, index):
         """ Set the Transaction Account to view """
         account = Accounts.all()[index]
-        #self.table_view.updateTransactions(account=account)
+        if len(self.transaction.transferAccounts) == 0:
+            self.transaction.transferAccounts.append(account)
+            Transactions.save()
             
     def getAccountNames(self):
         """ Return Account Names """
