@@ -67,6 +67,10 @@ class TransactionToolBar(TabToolBar):
         self.accountComboBox = QComboBox(self)
         self.updateComboBoxWithAccounts(self.accountComboBox)
         self.accountComboBox.activated.connect(self.setAccount)
+        
+        index = self.accountComboBox.findText(self.table_view.account.name)
+        if not index == -1:
+            self.accountComboBox.setCurrentIndex(index)
         self.addWidget(self.accountComboBox)
         
     def addTransfers(self):
