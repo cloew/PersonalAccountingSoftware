@@ -44,6 +44,8 @@ class TransactionTableWidget(KaoTableWidget):
         transactions = self.getTransactions()
         self.setRowCount(len(transactions))
         self.populateTable(transactions)
+        
+        self.updateToolbarOnCurrentSelectionChange(self.currentRow(), 0, 0, 0)
                     
     def setColumnDelegates(self):
         """ Set Column Delegates """
@@ -79,6 +81,7 @@ class TransactionTableWidget(KaoTableWidget):
     def updateToolbarOnCurrentSelectionChange(self, currentRow, currentColumn, previousRow, previousColumn):
         """ Update the Toolbar Transfer section so it reflects the current Transaction """
         transactions = self.getTransactions()
+        transaction = None
         if currentRow in range(len(transactions)):
             transaction = transactions[currentRow]
-            self.toolbar.updateTransfers(transaction)
+        self.toolbar.updateTransfers(transaction)
