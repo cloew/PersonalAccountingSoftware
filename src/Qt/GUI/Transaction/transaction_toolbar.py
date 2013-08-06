@@ -56,7 +56,7 @@ class TransactionToolBar(TabToolBar):
         self.addWidget(label)
         comboBox = QComboBox(self)
         comboBox.addItems(__filter_order__)
-        comboBox.currentIndexChanged.connect(self.setTransactionFilter)
+        comboBox.activated.connect(self.setTransactionFilter)
         self.addWidget(comboBox)
         
     def addAccount(self):
@@ -66,7 +66,7 @@ class TransactionToolBar(TabToolBar):
         
         self.accountComboBox = QComboBox(self)
         self.updateComboBoxWithAccounts(self.accountComboBox)
-        self.accountComboBox.currentIndexChanged.connect(self.setAccount)
+        self.accountComboBox.activated.connect(self.setAccount)
         self.addWidget(self.accountComboBox)
         
     def addTransfers(self):
@@ -76,7 +76,7 @@ class TransactionToolBar(TabToolBar):
             self.addWidget(self.transferLabel)
             self.transferComboBox = QComboBox(self)
             self.updateComboBoxWithAccounts(self.transferComboBox)
-            self.transferComboBox.currentIndexChanged.connect(self.setTransfer)
+            self.transferComboBox.activated.connect(self.setTransfer)
             self.addWidget(self.transferComboBox)
         else:
             if self.transaction.account is self.table_view.account:
