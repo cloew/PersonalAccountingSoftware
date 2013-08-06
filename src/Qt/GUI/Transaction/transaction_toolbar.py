@@ -147,6 +147,7 @@ class TransactionToolBar(TabToolBar):
         self.transaction.transferAccounts = []
         Transactions.save()
         self.buildToolbarWidgets()
+        self.table_view.updateTransactions()
             
     def getAccountNames(self):
         """ Return Account Names """
