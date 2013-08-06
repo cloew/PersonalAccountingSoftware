@@ -79,7 +79,7 @@ class TransactionToolBar(TabToolBar):
             self.transferLabel = QLabel("Transfer {0}: ".format(self.getTransferDirection()), self)
             self.addWidget(self.transferLabel)
             self.transferComboBox = QComboBox(self)
-            self.updateComboBoxWithAccounts(self.transferComboBox)
+            self.updateComboBoxWithAccounts(self.transferComboBox, ignoreCurrent=True)
             self.transferComboBox.activated.connect(self.setTransfer)
             self.addWidget(self.transferComboBox)
         else:
@@ -107,9 +107,11 @@ class TransactionToolBar(TabToolBar):
         self.accountComboBox.clear()
         self.accountComboBox.addItems(names)
         
-    def updateComboBoxWithAccounts(self, comboBox):
+    def updateComboBoxWithAccounts(self, comboBox, ignoreCurrent=False):
         """ Update Combo Box """
         names = self.getAccountNames()
+        if ignoreCurrent:
+            names.remove(self.table_view.account.name)
         comboBox.clear()
         comboBox.addItems(names)
         
@@ -137,6 +139,7 @@ class TransactionToolBar(TabToolBar):
         """ Set the Transaction Account to view """
         account = Accounts.all()[index]
         self.table_view.updateTransactions(account=account)
+        self.buildToolbarWidgets()
         
     def setTransfer(self, index):
         """ Set the Transaction Account to view """
