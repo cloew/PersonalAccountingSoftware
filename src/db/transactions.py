@@ -64,7 +64,7 @@ class TransactionsWrapper(TableWrapper):
             expenseTransactions_None = session.query(self.table_class).filter_by(income=None, category=category)
             unionOfExpenseTransactions = expenseTransactions_False.union(expenseTransactions_None)
             expenseTransactions = unionOfExpenseTransactions.all()
-        return expenseTransactions
+        return [expenseTransaction for expenseTransaction in expenseTransactions if not expenseTransaction.isTransfer()]
         
     def getAccountQuery(self, session, account):
         """ Return the query for the transactions of the given account """

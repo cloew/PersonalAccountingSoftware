@@ -8,4 +8,5 @@ def GenerateDatabase(engine):
     Base.metadata.create_all(engine)
 
 if __name__ == "__main__":
-    GenerateDatabase()
+    from db.database import Database
+    GenerateDatabase(Database.engine)
