@@ -57,6 +57,8 @@ class TransactionToolBar(TabToolBar):
         comboBox = QComboBox(self)
         comboBox.addItems(__filter_order__)
         comboBox.activated.connect(self.setTransactionFilter)
+        index = [__transaction_filters__[filterText] for filterText in __filter_order__].index(self.table_view.filters)
+        comboBox.setCurrentIndex(index)
         self.addWidget(comboBox)
         
     def addAccount(self):
@@ -67,7 +69,6 @@ class TransactionToolBar(TabToolBar):
         self.accountComboBox = QComboBox(self)
         self.updateComboBoxWithAccounts(self.accountComboBox)
         self.accountComboBox.activated.connect(self.setAccount)
-        
         index = self.accountComboBox.findText(self.table_view.account.name)
         if not index == -1:
             self.accountComboBox.setCurrentIndex(index)
