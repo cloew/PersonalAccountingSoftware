@@ -1,24 +1,13 @@
 from db.accounts import Accounts
 from db.transactions import Transactions
-from Utilities.balance_helper import TheBalanceHelper
 from ORM.transaction import Transaction
 from Qt.GUI.tab_toolbar import TabToolBar
+from Qt.GUI.Transaction.Toolbar.filter_toolbar_section import FilterToolbarSection
+from Utilities.balance_helper import TheBalanceHelper
 
 from PySide.QtGui import QAction, QComboBox, QLabel
 
 import datetime
-import db.transaction_filters as TransactionFilters
-
-__all__ = "All"
-__uncleared__ = "Uncleared"
-__unreconciled__ = "Unreconciled"
-
-__filter_order__ = [__all__, 
-                    __uncleared__,
-                    __unreconciled__]
-__transaction_filters__ = {__all__:{},
-                           __uncleared__:{Transaction.cleared:[False, None]},
-                           __unreconciled__:{Transaction.reconciled:[False, None]}}
 
 class TransactionToolBar(TabToolBar):
     """ Represents the Transaction Tool Bar """
@@ -26,13 +15,14 @@ class TransactionToolBar(TabToolBar):
     def __init__(self, table_view):
         """ Create and populate the Tab Tool Bar """
         self.transaction = None
+        self.filterSection = FilterToolbarSection(self, table_view)
         TabToolBar.__init__(self, table_view)
 
     def addToolBarButtons(self):
         """ Add Tool Bar Buttons """
         self.addNewTransactionButton()
         self.addSeparator()
-        self.addFilter()
+        self.filterSection.addFilter()
         self.addSeparator()
         self.addAccount()
         self.addSeparator()
@@ -49,17 +39,6 @@ class TransactionToolBar(TabToolBar):
         newTransactionAction.triggered.connect(self.newTransaction)
         
         self.addAction(newTransactionAction)
-
-    def addFilter(self):
-        """ Add Filter Label and Combo Box to the UI """
-        label = QLabel("Filter: ", self)
-        self.addWidget(label)
-        comboBox = QComboBox(self)
-        comboBox.addItems(__filter_order__)
-        comboBox.activated.connect(self.setTransactionFilter)
-        index = [__transaction_filters__[filterText] for filterText in __filter_order__].index(self.table_view.filters)
-        comboBox.setCurrentIndex(index)
-        self.addWidget(comboBox)
         
     def addAccount(self):
         """ Add Account Label and Combo Box to the UI """
@@ -128,13 +107,6 @@ class TransactionToolBar(TabToolBar):
         Transactions.add(transaction)
         TheBalanceHelper.setupBalancesForAccount(transaction.account)
         self.table_view.insertRow(transaction)
-
-    def setTransactionFilter(self, index):
-        """ Set the Transaction Filter """
-        text = __filter_order__[index]
-        
-        if text in __transaction_filters__:
-            self.table_view.updateTransactions(filters=__transaction_filters__[text])
             
     def setAccount(self, index):
         """ Set the Transaction Account to view """
