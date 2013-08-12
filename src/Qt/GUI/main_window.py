@@ -13,7 +13,7 @@ from Qt.GUI.Category.category_toolbar import CategoryToolBar
 from Qt.GUI.Statistics.statistics_panel import StatisticsPanel
 
 from Qt.GUI.Transaction.transaction_table_widget import TransactionTableWidget
-from Qt.GUI.Transaction.transaction_toolbar import TransactionToolBar
+from Qt.GUI.Transaction.Toolbar.transaction_toolbar import TransactionToolBar
 
 import resources.resource_manager as resource_manager
 
