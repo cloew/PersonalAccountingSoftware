@@ -8,9 +8,8 @@ from PySide.QtCore import Qt
 class CurrentBalanceTableItem(KaoTableItem):
     """ Represents a Table Widget Item for an Account Current Balance """
     
-    def __init__(self, account, transactionTable):
+    def __init__(self, account):
         """ Initialize the Starting Balance Item """
-        self.transactionTable = transactionTable
         self.account = account
         KaoTableItem.__init__(self)
         

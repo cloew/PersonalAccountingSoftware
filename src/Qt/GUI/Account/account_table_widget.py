@@ -10,7 +10,7 @@ class AccountTableWidget(KaoTableWidget):
     
     def __init__(self, transactionTable):
         """ Initialize the Account Table Widget """
-        self.columns = [NameColumn(), StartingBalanceColumn(transactionTable), CurrentBalanceColumn(transactionTable)]
+        self.columns = [NameColumn(), StartingBalanceColumn(transactionTable), CurrentBalanceColumn()]
         accounts = Accounts.all()
         KaoTableWidget.__init__(self, accounts, self.columns)
         
