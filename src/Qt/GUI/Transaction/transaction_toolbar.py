@@ -143,7 +143,8 @@ class TransactionToolBar(TabToolBar):
         
     def setTransfer(self, index):
         """ Set the Transaction Account to view """
-        account = Accounts.all()[index]
+        text = self.transferComboBox.itemText(index)
+        account = Accounts.accountWithName(text)
         if len(self.transaction.transferAccounts) == 0:
             self.transaction.transferAccounts.append(account)
             Transactions.save()
