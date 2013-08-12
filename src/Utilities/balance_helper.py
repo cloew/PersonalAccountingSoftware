@@ -28,5 +28,13 @@ class BalanceHelper:
         if transaction in self.balancesForAccounts[account]:
             return self.balancesForAccounts[account][transaction]
         return 0
+        
+    def getCurrentBalanceForAccount(self, account):
+        """ Returns the Current Balance for the given account """
+        if account not in self.balancesForAccounts:
+            self.setupBalancesForAccount(account)
+            
+        lastTransaction = Transactions.allForAccount(account)[0]
+        return self.balancesForAccounts[account][lastTransaction]
     
 TheBalanceHelper = BalanceHelper()
