@@ -1,5 +1,7 @@
 from db.accounts import Accounts
 from ORM.transaction import Transaction
+from Qt.GUI.Utilities.account_combobox_helper import UpdateComboBoxWithAccounts
+
 from PySide.QtGui import QComboBox, QLabel
 
 class AccountToolbarSection:
@@ -16,7 +18,7 @@ class AccountToolbarSection:
         self.toolbar.addWidget(label)
         
         self.accountComboBox = QComboBox(self.toolbar)
-        self.updateComboBoxWithAccounts(self.accountComboBox)
+        UpdateComboBoxWithAccounts(self.accountComboBox)
         self.accountComboBox.activated.connect(self.setAccount)
         index = self.accountComboBox.findText(self.table_view.account.name)
         if not index == -1:
@@ -29,26 +31,10 @@ class AccountToolbarSection:
         self.table_view.updateTransactions(account=account)
         self.toolbar.buildToolbarWidgets()
         
-    def updateComboBoxWithAccounts(self, comboBox, ignoreCurrent=False):
-        """ Update Combo Box """
-        names = self.getAccountNames()
-        if ignoreCurrent:
-            names.remove(self.table_view.account.name)
-        comboBox.clear()
-        comboBox.addItems(names)
-        
-    def getAccountNames(self):
-        """ Return Account Names """
-        names = []
-        for account in Accounts.all():
-            if account.name is not None:
-                names.append(account.name)
-        return names
-        
     def tabSelected(self):
         """ Update the Account Tab when the tab is selected """
         text = self.accountComboBox.currentText()
-        self.updateComboBoxWithAccounts(self.accountComboBox)
+        UpdateComboBoxWithAccounts(self.accountComboBox)
         index = self.accountComboBox.findText(text)
         if not (index == -1):
             self.accountComboBox.setCurrentIndex(index)
