@@ -1,5 +1,5 @@
 from ORM.transaction import Transaction
-from PySide.QtGui import QAction, QComboBox, QLabel
+from PySide.QtGui import QComboBox, QLabel
 
 __all__ = "All"
 __uncleared__ = "Uncleared"

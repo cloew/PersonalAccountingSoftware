@@ -2,6 +2,7 @@ from db.accounts import Accounts
 from db.transactions import Transactions
 from ORM.transaction import Transaction
 from Qt.GUI.tab_toolbar import TabToolBar
+from Qt.GUI.Transaction.Toolbar.account_toolbar_section import AccountToolbarSection
 from Qt.GUI.Transaction.Toolbar.filter_toolbar_section import FilterToolbarSection
 from Utilities.balance_helper import TheBalanceHelper
 
@@ -15,6 +16,7 @@ class TransactionToolBar(TabToolBar):
     def __init__(self, table_view):
         """ Create and populate the Tab Tool Bar """
         self.transaction = None
+        self.accountSection = AccountToolbarSection(self, table_view)
         self.filterSection = FilterToolbarSection(self, table_view)
         TabToolBar.__init__(self, table_view)
 
@@ -24,7 +26,7 @@ class TransactionToolBar(TabToolBar):
         self.addSeparator()
         self.filterSection.addFilter()
         self.addSeparator()
-        self.addAccount()
+        self.accountSection.addAccount()
         self.addSeparator()
         if self.transaction is not None:
             self.addTransfers()
@@ -39,19 +41,6 @@ class TransactionToolBar(TabToolBar):
         newTransactionAction.triggered.connect(self.newTransaction)
         
         self.addAction(newTransactionAction)
-        
-    def addAccount(self):
-        """ Add Account Label and Combo Box to the UI """
-        label = QLabel("Account: ", self)
-        self.addWidget(label)
-        
-        self.accountComboBox = QComboBox(self)
-        self.updateComboBoxWithAccounts(self.accountComboBox)
-        self.accountComboBox.activated.connect(self.setAccount)
-        index = self.accountComboBox.findText(self.table_view.account.name)
-        if not index == -1:
-            self.accountComboBox.setCurrentIndex(index)
-        self.addWidget(self.accountComboBox)
         
     def addTransfers(self):
         """ Add the transfer widgets """
@@ -81,12 +70,6 @@ class TransactionToolBar(TabToolBar):
         else:
             return "to"
         
-    def updateAccountComboBox(self):
-        """ Update the Account Combo Box """
-        names = self.getAccountNames()
-        self.accountComboBox.clear()
-        self.accountComboBox.addItems(names)
-        
     def updateComboBoxWithAccounts(self, comboBox, ignoreCurrent=False):
         """ Update Combo Box """
         names = self.getAccountNames()
@@ -107,12 +90,6 @@ class TransactionToolBar(TabToolBar):
         Transactions.add(transaction)
         TheBalanceHelper.setupBalancesForAccount(transaction.account)
         self.table_view.insertRow(transaction)
-            
-    def setAccount(self, index):
-        """ Set the Transaction Account to view """
-        account = Accounts.all()[index]
-        self.table_view.updateTransactions(account=account)
-        self.buildToolbarWidgets()
         
     def setTransfer(self, index):
         """ Set the Transaction Account to view """
@@ -140,8 +117,4 @@ class TransactionToolBar(TabToolBar):
         
     def tabSelected(self):
         """ Update the Account Tab when the tab is selected """
-        text = self.accountComboBox.currentText()
-        self.updateAccountComboBox()
-        index = self.accountComboBox.findText(text)
-        if not (index == -1):
-            self.accountComboBox.setCurrentIndex(index)
+        self.accountSection.tabSelected()
