@@ -4,6 +4,7 @@ from ORM.transaction import Transaction
 from Qt.GUI.tab_toolbar import TabToolBar
 from Qt.GUI.Transaction.Toolbar.account_toolbar_section import AccountToolbarSection
 from Qt.GUI.Transaction.Toolbar.filter_toolbar_section import FilterToolbarSection
+from Qt.GUI.Transaction.Toolbar.transfer_toolbar_section import TransferToolbarSection
 from Utilities.balance_helper import TheBalanceHelper
 
 from PySide.QtGui import QAction, QComboBox, QLabel
@@ -18,6 +19,7 @@ class TransactionToolBar(TabToolBar):
         self.transaction = None
         self.accountSection = AccountToolbarSection(self, table_view)
         self.filterSection = FilterToolbarSection(self, table_view)
+        self.transferSection = TransferToolbarSection(self, table_view)
         TabToolBar.__init__(self, table_view)
 
     def addToolBarButtons(self):
@@ -29,7 +31,7 @@ class TransactionToolBar(TabToolBar):
         self.accountSection.addAccount()
         self.addSeparator()
         if self.transaction is not None:
-            self.addTransfers()
+            self.transferSection.addTransfers()
             self.addSeparator()
         
     def addNewTransactionButton(self):
@@ -90,30 +92,6 @@ class TransactionToolBar(TabToolBar):
         Transactions.add(transaction)
         TheBalanceHelper.setupBalancesForAccount(transaction.account)
         self.table_view.insertRow(transaction)
-        
-    def setTransfer(self, index):
-        """ Set the Transaction Account to view """
-        text = self.transferComboBox.itemText(index)
-        account = Accounts.accountWithName(text)
-        if len(self.transaction.transferAccounts) == 0:
-            self.transaction.transferAccounts.append(account)
-            Transactions.save()
-            self.buildToolbarWidgets()
-            
-    def removeTransfer(self):
-        """ Remove the Transfer """
-        self.transaction.transferAccounts = []
-        Transactions.save()
-        self.buildToolbarWidgets()
-        self.table_view.updateTransactions()
-            
-    def getAccountNames(self):
-        """ Return Account Names """
-        names = []
-        for account in Accounts.all():
-            if account.name is not None:
-                names.append(account.name)
-        return names
         
     def tabSelected(self):
         """ Update the Account Tab when the tab is selected """

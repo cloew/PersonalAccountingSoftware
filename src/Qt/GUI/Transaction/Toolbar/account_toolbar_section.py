@@ -1,5 +1,4 @@
 from db.accounts import Accounts
-from ORM.transaction import Transaction
 from Qt.GUI.Utilities.account_combobox_helper import UpdateComboBoxWithAccounts
 
 from PySide.QtGui import QComboBox, QLabel
