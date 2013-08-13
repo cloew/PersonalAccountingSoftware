@@ -1,6 +1,7 @@
 from db.accounts import Accounts
 from db.transactions import Transactions
 from Qt.GUI.Utilities.account_combobox_helper import UpdateComboBoxWithAccounts
+from Utilities.balance_helper import TheBalanceHelper
 
 from PySide.QtGui import QAction, QComboBox, QLabel
 
@@ -55,6 +56,8 @@ class TransferToolbarSection:
         if len(self.toolbar.transaction.transferAccounts) == 0:
             self.toolbar.transaction.transferAccounts.append(account)
             Transactions.save()
+            TheBalanceHelper.setupBalancesForAccount(account)
+            TheBalanceHelper.setupBalancesForAccount(self.toolbar.transaction.account)
             self.toolbar.buildToolbarWidgets()
             
     def removeTransfer(self):
