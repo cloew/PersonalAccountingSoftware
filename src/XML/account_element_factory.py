@@ -4,10 +4,10 @@ def CreateAccountElement(account):
     """ Create the Account XML ELement for the given account """
     accountElement = Element("account")
     
-    nameElement = SubElement("name", accountElement)
+    nameElement = SubElement(accountElement, "name")
     nameElement.text = account.name
     
-    startingBalalanceElement = SubElement("starting", accountElement)
-    startingBalalanceElement.text = str(account.startingBalance)
+    startingBalalanceElement = SubElement(accountElement, "starting")
+    startingBalalanceElement.text = str(account.starting_balance)
     
     return accountElement
