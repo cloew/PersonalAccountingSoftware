@@ -62,7 +62,10 @@ class TransferToolbarSection:
             
     def removeTransfer(self):
         """ Remove the Transfer """
+        account = self.toolbar.transaction.transferAccounts[0]
         self.toolbar.transaction.transferAccounts = []
         Transactions.save()
+        TheBalanceHelper.setupBalancesForAccount(account)
+        TheBalanceHelper.setupBalancesForAccount(self.toolbar.transaction.account)
         self.toolbar.buildToolbarWidgets()
         self.table_view.updateTransactions()
