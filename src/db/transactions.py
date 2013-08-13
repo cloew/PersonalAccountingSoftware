@@ -1,6 +1,8 @@
 from table_wrapper import TableWrapper
+from db.transfers import Transfers
 from ORM.account import Account
 from ORM.transaction import Transaction
+from ORM.transfer import Transfer
 from sqlalchemy import desc, sql
 
 class TransactionsWrapper(TableWrapper):
@@ -18,8 +20,8 @@ class TransactionsWrapper(TableWrapper):
         """ Return all transactions for the given account with the applied filters """
         transactions = []
         with self.session() as session:
-            accountQuery = self.getAccountQuery(session, account)#.join(Account.transfers)
-            transfersQuery = session.query(self.table_class).join(Account.transfers).filter(Transaction.transferAccounts.contains(account))
+            accountQuery = self.getTransactionsForAccountQuery(session, account)
+            transfersQuery = session.query(self.table_class).join(Transfer).filter(Transfer.account == account)
             resultQuery = accountQuery.union(transfersQuery)
             for column in filters:
                 unionQuery = session.query(self.table_class).filter(sql.false())
@@ -39,7 +41,7 @@ class TransactionsWrapper(TableWrapper):
         """ Returns all Uncleared Transactions """
         unclearedTransactions = []
         with self.session() as session:
-            accountQuery = self.getAccountQuery(session, account)
+            accountQuery = self.getTransactionsForAccountQuery(session, account)
             unclearedTransactions_False = accountQuery.filter_by(cleared=False)
             unclearedTransactions_None = accountQuery.filter_by(cleared=None)
             unionOfUnclearedTransactions = unclearedTransactions_False.union(unclearedTransactions_None)
@@ -66,7 +68,7 @@ class TransactionsWrapper(TableWrapper):
             expenseTransactions = unionOfExpenseTransactions.all()
         return [expenseTransaction for expenseTransaction in expenseTransactions if not expenseTransaction.isTransfer()]
         
-    def getAccountQuery(self, session, account):
+    def getTransactionsForAccountQuery(self, session, account):
         """ Return the query for the transactions of the given account """
         return session.query(self.table_class).filter_by(account=account)
 

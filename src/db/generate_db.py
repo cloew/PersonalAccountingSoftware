@@ -1,6 +1,7 @@
 import ORM.account
 import ORM.category
 import ORM.transaction
+import ORM.transfer
 from ORM.orm_base import Base
 
 def GenerateDatabase(engine):
