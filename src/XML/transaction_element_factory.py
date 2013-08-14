@@ -1,7 +1,7 @@
 from xml.etree.ElementTree import Element, SubElement
 
 def CreateTransactionElement(transaction):
-    """ Create the Transaction XML ELement for the given account """
+    """ Create the Transaction XML Element for the given account """
     transactionElement = Element("transaction")
     
     amountElement = SubElement(transactionElement, "amount")
