@@ -22,6 +22,10 @@ def CreateTransactionElement(transaction):
     reconciledElement = SubElement(transactionElement, "reconciled")
     reconciledElement.text = str(transaction.reconciled)
     
+    if transaction.category:
+        categoryElement = SubElement(transactionElement, "category")
+        categoryElement.text = transaction.category.name
+    
     if transaction.isTransfer():
         transferElement = SubElement(transactionElement, "transfer")
         transferElement.text = str(transaction.transferAccount.name)
