@@ -1,7 +1,7 @@
 from db.transactions import Transactions
 from XML.account_element_factory import CreateAccountElements, LoadAccounts
 from XML.category_element_factory import CreateCategoryElements, LoadCategories
-from XML.transaction_element_factory import CreateTransactionElements
+from XML.transaction_element_factory import CreateTransactionElements, LoadTransactions
 
 from xml.dom.minidom import parseString
 from xml.etree.ElementTree import Element, tostring, SubElement, parse
@@ -23,7 +23,7 @@ def Import():
     xmlTree = parse("export.xml")
     root = xmlTree.getroot()
     
-    dataLoaders = [LoadAccounts, LoadCategories]#, LoadTransactions]
+    dataLoaders = [LoadAccounts, LoadCategories, LoadTransactions]
     
     for dataLoader in dataLoaders:
         dataLoader(root)
