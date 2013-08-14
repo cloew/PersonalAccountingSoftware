@@ -18,7 +18,7 @@ class DateTableItem(TransactionTableItem):
         """ Get Data """
         date = ""
         if self.transaction.date is not None:
-            date = "{0:%m/%d/%Y}".format(self.transaction.date)
+            date = self.transaction.dateString
         return date
         
     def saveData(self, value):

@@ -34,8 +34,24 @@ class Transaction(Base):
             
     def isTransfer(self):
         """ Returns if the transaction is a transfer """
-        #return not self.transferAccounts == []
         return not self.transfers == []
+        
+    @property
+    def dateString(self):
+        """ Return the Transaction date string """
+        return "{0:%m/%d/%Y}".format(self.date
+        
+    @property
+    def transfer(self):
+        """ Return the Transfer the Transaction is associated with """
+        if self.isTransfer():
+            return self.transfers[0]
+        
+    @property
+    def transferAccount(self):
+        """ Return the Account the Transaction is transferrred to/from """
+        if self.isTransfer():
+            return self.transfer.account
 
     def __repr__(self):
-        return "<Transaction('{0}', '${1}.{2}', '{3}', '{4}', '{5}')>".format(self.description, self.amount/100.0, self.amount%100, self.date, self.category, self.cleared)
+        return "<Transaction('{0}', '${1}.{2}', '{3}', '{4}', '{5}')>".format(self.description, self.amount/100.0, self.amount%100, self.dateString, self.category, self.cleared)

@@ -15,4 +15,9 @@ class AccountTableWidget(KaoTableWidget):
         KaoTableWidget.__init__(self, accounts, self.columns)
         
     def tabSelected(self):
-        """ Do Nothing when this tab is selected """
+        """ Update the Current Balance Column """
+        balanceColumnIndex = self.getColumnIndex(CurrentBalanceColumn)
+        
+        for row in range(self.rowCount()):
+            item = self.item(row, balanceColumnIndex)
+            item.updateData()

@@ -3,6 +3,7 @@ from db.transactions import Transactions
 from db.transfers import Transfers
 from ORM.transfer import Transfer
 from Qt.GUI.Utilities.account_combobox_helper import UpdateComboBoxWithAccounts
+from Utilities.balance_helper import TheBalanceHelper
 
 from PySide.QtGui import QAction, QComboBox, QLabel
 
@@ -33,7 +34,7 @@ class TransferToolbarSection:
     def buildExistingTransferSection(self):
         """ Build existing Transfer Section """
         if self.toolbar.transaction.account is self.table_view.account:
-            self.transferLabel = QLabel("Transferred {0}: {1}".format(self.getTransferDirection(), self.toolbar.transaction.transfers[0].account.name), self.toolbar)
+            self.transferLabel = QLabel("Transferred {0}: {1}".format(self.getTransferDirection(), self.toolbar.transaction.transferAccount.name), self.toolbar)
         else:
             self.transferLabel = QLabel("Transferred {0}: {1}".format(self.getTransferDirection(), self.toolbar.transaction.account.name), self.toolbar)
         self.toolbar.addWidget(self.transferLabel)
@@ -54,17 +55,21 @@ class TransferToolbarSection:
         """ Set the Transaction Account to view """
         text = self.transferComboBox.itemText(index)
         account = Accounts.accountWithName(text)
-        if not self.toolbar.transaction.isTransfer():
+        
+        if self.toolbar.transaction.isTransfer():
             transfer = Transfer(transaction=self.toolbar.transaction, account=account)
-            #self.toolbar.transaction.transferAccounts.append(account)
             Transfers.save()
+            TheBalanceHelper.setupBalancesForAccount(account)
+            TheBalanceHelper.setupBalancesForAccount(self.toolbar.transaction.account)
             self.toolbar.buildToolbarWidgets()
             
     def removeTransfer(self):
         """ Remove the Transfer """
         if self.toolbar.transaction.isTransfer():
-            #self.toolbar.transaction.transferAccounts = []
-            Transfers.delete(self.toolbar.transaction.transfers[0])
+            account = self.toolbar.transaction.transferAccount
+            Transfers.delete(self.toolbar.transaction.transfer)
             Transfers.save()
+            TheBalanceHelper.setupBalancesForAccount(account)
+            TheBalanceHelper.setupBalancesForAccount(self.toolbar.transaction.account)
             self.toolbar.buildToolbarWidgets()
             self.table_view.updateTransactions()
