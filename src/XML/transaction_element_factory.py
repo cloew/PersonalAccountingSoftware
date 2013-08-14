@@ -1,4 +1,15 @@
+from db.transactions import Transactions
 from xml.etree.ElementTree import Element, SubElement
+
+def CreateTransactionElements():
+    """ Create Transaction Elements to the parent element """
+    transactionsElement = Element("transactions")
+    
+    for transaction in Transactions.all():
+        transactionElement = CreateTransactionElement(transaction)
+        transactionsElement.append(transactionElement)
+        
+    return transactionsElement
 
 def CreateTransactionElement(transaction):
     """ Create the Transaction XML Element for the given account """
