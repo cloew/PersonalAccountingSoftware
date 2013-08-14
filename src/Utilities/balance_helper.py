@@ -34,7 +34,10 @@ class BalanceHelper:
         if account not in self.balancesForAccounts:
             self.setupBalancesForAccount(account)
             
-        lastTransaction = Transactions.allForAccount(account)[0]
-        return self.balancesForAccounts[account][lastTransaction]
+        accountTransactions = Transactions.allForAccount(account)
+        if len(accountTransactions) > 0:
+            lastTransaction = accountTransactions[0]
+            return self.balancesForAccounts[account][lastTransaction]
+        return account.starting_balance
     
 TheBalanceHelper = BalanceHelper()
