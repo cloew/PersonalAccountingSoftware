@@ -1,4 +1,5 @@
 from db.accounts import Accounts
+from ORM.account import Account
 from xml.etree.ElementTree import Element, SubElement
 
 def CreateAccountElements():
@@ -22,3 +23,16 @@ def CreateAccountElement(account):
     startingBalalanceElement.text = str(account.starting_balance)
     
     return accountElement
+
+def LoadAccounts(parentElement):
+    """ Load all accounts from the XML """
+    accountsElement = parentElement.find("accounts")
+    for accountElement in accountsElement.findall("account"):
+        LoadAccount(accountElement)
+    
+def LoadAccount(accountElement):
+    """ Load an account from XML """
+    name = accountElement.findtext("name")
+    startingBalance = int(accountElement.findtext("starting"))
+    
+    return Account(name=name, starting_balance=startingBalance) 
