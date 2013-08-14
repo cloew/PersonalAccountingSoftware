@@ -1,9 +1,7 @@
 from db.accounts import Accounts
 from db.categories import Categories
 from db.transactions import Transactions
-from db.transfers import Transfers
 from ORM.transaction import Transaction
-from ORM.transfer import Transfer
 from xml.etree.ElementTree import Element, SubElement
 
 from dateutil import parser
@@ -84,8 +82,7 @@ def LoadTransaction(transactionElement):
         
     if transferAccountName:
         transferAccount = Accounts.accountWithName(transferAccountName)
-        transfer = Transfer(transaction=transaction, account=transferAccount)
-        Transfers.add(transfer)
+        transaction.transferAccounts = [transferAccount]
     
     Transactions.add(transaction)
     
