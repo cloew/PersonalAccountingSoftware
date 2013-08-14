@@ -1,0 +1,25 @@
+from xml.etree.ElementTree import Element, SubElement
+
+def CreateTransactionElement(transaction):
+    """ Create the Transaction XML ELement for the given account """
+    transactionElement = Element("transaction")
+    
+    amountElement = SubElement(transactionElement, "amount")
+    amountElement.text = str(transaction.amount)
+    
+    descriptionElement = SubElement(transactionElement, "description")
+    descriptionElement.text = transaction.description
+    
+    incomeElement = SubElement(transactionElement, "income")
+    incomeElement.text = str(transaction.income)
+    
+    dateElement = SubElement(transactionElement, "date")
+    dateElement.text = transaction.dateString
+    
+    clearedElement = SubElement(transactionElement, "cleared")
+    clearedElement.text = str(transaction.cleared)
+    
+    reconciledElement = SubElement(transactionElement, "reconciled")
+    reconciledElement.text = str(transaction.reconciled)
+    
+    return transactionElement
