@@ -35,4 +35,5 @@ def LoadAccount(accountElement):
     name = accountElement.findtext("name")
     startingBalance = int(accountElement.findtext("starting"))
     
-    return Account(name=name, starting_balance=startingBalance) 
+    account = Account(name=name, starting_balance=startingBalance) 
+    Accounts.add(account)

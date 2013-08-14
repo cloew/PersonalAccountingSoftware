@@ -1,5 +1,5 @@
 from db.transactions import Transactions
-from XML.account_element_factory import CreateAccountElements
+from XML.account_element_factory import CreateAccountElements, LoadAccounts
 from XML.category_element_factory import CreateCategoryElements
 from XML.transaction_element_factory import CreateTransactionElements
 
