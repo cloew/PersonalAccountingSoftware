@@ -32,7 +32,7 @@ class TransferToolbarSection:
     def buildExistingTransferSection(self):
         """ Build existing Transfer Section """
         if self.toolbar.transaction.account is self.table_view.account:
-            self.transferLabel = QLabel("Transferred {0}: {1}".format(self.getTransferDirection(), self.toolbar.transaction.transferAccounts[0].name), self.toolbar)
+            self.transferLabel = QLabel("Transferred {0}: {1}".format(self.getTransferDirection(), self.toolbar.transaction.transferAccount.name), self.toolbar)
         else:
             self.transferLabel = QLabel("Transferred {0}: {1}".format(self.getTransferDirection(), self.toolbar.transaction.account.name), self.toolbar)
         self.toolbar.addWidget(self.transferLabel)

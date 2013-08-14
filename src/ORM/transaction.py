@@ -40,6 +40,12 @@ class Transaction(Base):
     def dateString(self):
         """ Return the Transaction date string """
         return "{0:%m/%d/%Y}".format(self.date)
+        
+    @property
+    def transferAccount(self):
+        """ Return the Account the Transaction is transferrred to/from """
+        if self.isTransfer():
+            return self.transferAccounts[0]
 
     def __repr__(self):
         return "<Transaction('{0}', '${1}.{2}', '{3}', '{4}', '{5}')>".format(self.description, self.amount/100.0, self.amount%100, self.dateString, self.category, self.cleared)
