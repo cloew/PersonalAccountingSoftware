@@ -1,4 +1,5 @@
 from db.categories import Categories
+from ORM.category import Category
 from xml.etree.ElementTree import Element, SubElement
 
 def CreateCategoryElements():
@@ -19,3 +20,16 @@ def CreateCategoryElement(category):
     nameElement.text = category.name
     
     return categoryElement
+    
+def LoadCategories(parentElement):
+    """ Load all categories from the XML """
+    categoriesElement = parentElement.find("categories")
+    for categoryElement in categoriesElement.findall("category"):
+        LoadCategory(categoryElement)
+    
+def LoadCategory(categoryElement):
+    """ Load a category from XML """
+    name = categoryElement.findtext("name")
+    
+    category = Category(name=name) 
+    Categories.add(category)
