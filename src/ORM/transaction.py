@@ -39,7 +39,7 @@ class Transaction(Base):
     @property
     def dateString(self):
         """ Return the Transaction date string """
-        return "{0:%m/%d/%Y}".format(self.date
+        return "{0:%m/%d/%Y}".format(self.date)
         
     @property
     def transfer(self):
