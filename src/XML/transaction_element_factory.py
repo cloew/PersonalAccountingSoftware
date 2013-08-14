@@ -1,7 +1,9 @@
 from db.accounts import Accounts
 from db.categories import Categories
 from db.transactions import Transactions
+from db.transfers import Transfers
 from ORM.transaction import Transaction
+from ORM.transfer import Transfer
 from xml.etree.ElementTree import Element, SubElement
 
 from dateutil import parser
@@ -80,11 +82,13 @@ def LoadTransaction(transactionElement):
         category = Categories.findByName(categoryName)
         transaction.category = category
         
+    Transactions.add(transaction)
+        
     if transferAccountName:
         transferAccount = Accounts.accountWithName(transferAccountName)
+        transfer = Transfer(transaction=transaction, account=transferAccount)
         transaction.transferAccounts = [transferAccount]
-    
-    Transactions.add(transaction)
+        Transfers.add(transfer)
     
 def StringToBoolean(someString):
     """ Convert a String to a Boolean """
