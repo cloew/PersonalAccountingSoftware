@@ -56,9 +56,9 @@ class TransferToolbarSection:
         text = self.transferComboBox.itemText(index)
         account = Accounts.accountWithName(text)
         
-        if self.toolbar.transaction.isTransfer():
+        if not self.toolbar.transaction.isTransfer():
             transfer = Transfer(transaction=self.toolbar.transaction, account=account)
-            Transfers.save()
+            Transfers.add(transfer)
             TheBalanceHelper.setupBalancesForAccount(account)
             TheBalanceHelper.setupBalancesForAccount(self.toolbar.transaction.account)
             self.toolbar.buildToolbarWidgets()
