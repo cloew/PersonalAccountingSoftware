@@ -11,6 +11,7 @@ from Qt.GUI.Category.category_table_widget import CategoryTableWidget
 from Qt.GUI.Category.category_toolbar import CategoryToolBar
 
 from Qt.GUI.Statistics.statistics_panel import StatisticsPanel
+from Qt.GUI.Statistics.Toolbar.statistics_toolbar import StatisticsToolbar
 
 from Qt.GUI.Transaction.transaction_table_widget import TransactionTableWidget
 from Qt.GUI.Transaction.Toolbar.transaction_toolbar import TransactionToolBar
@@ -62,7 +63,7 @@ class MainWindow(QtGui.QMainWindow):
     def addStatisticsTab(self):
         """ Add the Statistics Tab """
         self.statistics_view = StatisticsPanel()
-        self.statistics_view.toolbar = TabToolBar(self.statistics_view)
+        self.statistics_view.toolbar = StatisticsToolbar(self.statistics_view)
         self.tabView.addTab(self.statistics_view, "Statistics")
 
     def setToolBar(self, index):
