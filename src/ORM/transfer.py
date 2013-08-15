@@ -4,7 +4,7 @@ from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship, backref
 
 class Transfer(Base):
-    """ Represents a Financial Transaction. """
+    """ Represents a Transaction that is transferred to another account. """
     __tablename__ = 'transfers'
 
     # Database Columns
