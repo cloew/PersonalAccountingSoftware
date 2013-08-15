@@ -20,12 +20,15 @@ class CategoryList(QWidget):
         self.categoryLabels = {}
         self.totalLabel = None
 
-        self.addTotalExpenses()
-        self.addCategoryExpenses()
-        
+        self.populateList()
 
         self.verticalLayout.addStretch()
         self.setLayout(self.verticalLayout)
+        
+    def populateList(self):
+        """ Populate the list """
+        self.addTotalExpenses()
+        self.addCategoryExpenses()
 
     def addHeader(self):
         """ Add the Header to the Panel """
@@ -34,6 +37,13 @@ class CategoryList(QWidget):
 
     def addCategoryExpenses(self):
         """ Add Category Expenses """
+        for category in self.categoryLabels.keys():
+            if category not in self.categoryStatistics.totalForCategory:
+                widget = self.categoryLabels[category]
+                self.verticalLayout.removeWidget(widget)
+                widget.deleteLater()
+                self.categoryLabels.pop(category, None)
+        
         for category in self.categoryStatistics.totalForCategory:
             if category not in self.categoryLabels:
                 self.categoryLabels[category] = self.addHorizontalBar(category.name, self.categoryStatistics.totalForCategory[category])
@@ -60,5 +70,4 @@ class CategoryList(QWidget):
         return "<b>{0}: ${1}</b>".format(text, amount/100.0)
 
     def updateUI(self):
-        self.addCategoryExpenses()
-        self.addTotalExpenses()
+        self.populateList()
