@@ -32,3 +32,4 @@ class CategoryPieChart(FigureCanvas):
     def updateUI(self):
         self.figure.clear()
         self.addFigure()
+        self.figure.canvas.draw()
