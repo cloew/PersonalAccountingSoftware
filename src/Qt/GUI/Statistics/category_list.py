@@ -1,3 +1,5 @@
+from Utilities.dollar_amount_helper import GetDollarString
+
 from PySide.QtCore import QCoreApplication 
 from PySide.QtGui import QLabel, QWidget, QVBoxLayout
 
@@ -67,7 +69,7 @@ class CategoryList(QWidget):
 
     def getLabelText(self, text, amount):
         """ Returns the text for the label formatted properly """
-        return "<b>{0}: ${1}</b>".format(text, amount/100.0)
+        return "<b>{0}: {1}</b>".format(text, GetDollarString(amount))
 
     def updateUI(self):
         self.populateList()
