@@ -3,6 +3,11 @@ from db.transactions import Transactions
 
 class CategoryStatistics:
     """ Represents the Pie Chart of the Category Values """
+    
+    def __init__(self):
+        """ Initialize Category Statistics """
+        self.month = 8 # TODO: Update to get the most recent Transaction Month
+        self.year = 2013
 
     def getLabelsAndPercentages(self):
         """ Returns the labels and percentages for the Category Statistics """
@@ -21,7 +26,7 @@ class CategoryStatistics:
         """ Gets the categories and their associated Expense Transactions """
         self.categoryTransactions = {}
         for category in Categories.all():
-            transactions = Transactions.allExpenseTransactionsForCategory(category)
+            transactions = Transactions.allExpenseTransactionsForCategory(category, self.month, self.year)
             if len(transactions) > 0:
                 self.categoryTransactions[category] = transactions
 

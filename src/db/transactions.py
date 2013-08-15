@@ -3,7 +3,10 @@ from db.transfers import Transfers
 from ORM.account import Account
 from ORM.transaction import Transaction
 from ORM.transfer import Transfer
-from sqlalchemy import desc, sql
+from sqlalchemy import desc, sql, and_
+
+import calendar
+import datetime
 
 class TransactionsWrapper(TableWrapper):
     """ Class to wrap interaction to the Transactions table in the database """
@@ -58,18 +61,26 @@ class TransactionsWrapper(TableWrapper):
             unreconciledTransactions = unionOfUnreconciledTransactions.order_by(desc(Transaction.date)).all()
         return unreconciledTransactions
 
-    def allExpenseTransactionsForCategory(self, category):
+    def allExpenseTransactionsForCategory(self, category, month, year):
         """ Returns all Expense Transactions with a given category """
         expenseTransactions = []
         with self.session() as session:
             expenseTransactions_False = session.query(self.table_class).filter_by(income=False, category=category)
             expenseTransactions_None = session.query(self.table_class).filter_by(income=None, category=category)
             unionOfExpenseTransactions = expenseTransactions_False.union(expenseTransactions_None)
-            expenseTransactions = unionOfExpenseTransactions.all()
+            start_date, end_date = self.getMonthDateRange(month, year)
+            expenseTransactions = unionOfExpenseTransactions.filter(and_(Transaction.date >= start_date, Transaction.date <= end_date)).all()
         return [expenseTransaction for expenseTransaction in expenseTransactions if not expenseTransaction.isTransfer()]
         
     def getTransactionsForAccountQuery(self, session, account):
         """ Return the query for the transactions of the given account """
         return session.query(self.table_class).filter_by(account=account)
+        
+    def getMonthDateRange(self, month, year):
+        """ Return the Month Date Range """
+        num_days = calendar.monthrange(year, month)[1]
+        start_date = datetime.date(year, month, 1)
+        end_date = datetime.date(year, month, num_days)
+        return start_date, end_date
 
 Transactions = TransactionsWrapper()
