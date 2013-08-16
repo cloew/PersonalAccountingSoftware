@@ -15,7 +15,9 @@ class DateToolbarSection:
         self.monthComboBox = QComboBox(self.toolbar)
         self.monthComboBox.addItems(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
         self.monthComboBox.activated.connect(self.setMonth)
+        self.monthComboBox.setCurrentIndex(self.getCategoryStatistics().month-1)
         self.toolbar.addWidget(self.monthComboBox)
+        
         
         self.yearComboBox = QComboBox(self.toolbar)
         self.yearComboBox.addItems(["2013"])
