@@ -28,7 +28,3 @@ class InitialDateTableItem(KaoTableItem):
             self.transactionTable.updateBalanceColumn()
         except ValueError:
             pass # Expect it to happen if user enters a bad String for the date
-            
-    def shouldSetData(self, role):
-        """ Returns if the Table Item should call the base classes set Data """
-        return not (role == Qt.EditRole)
