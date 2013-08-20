@@ -1,0 +1,17 @@
+Import/Export
+- Attach Import/Export to Menu in UI
+- ALlow selection of import file and export file
+
+Account
+- Allow user to set a date and balance at the start of that day
+
+Transaction
+- SubTransactions
+    - Allow attaching sub transactions to a parent transaction
+    - Modify the overall financial impact of a transaction based on its child transactions
+    - Ignore subtransactions for financial impact
+- Itemizations
+    - Add Itemizations to Database
+    - Allow attaching of transactions as itemizations to a parent transaction
+    - Allow each itemization to have a different category than the parent
+    - Ignore parent for financial impact
