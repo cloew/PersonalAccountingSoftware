@@ -9,7 +9,7 @@ from ORM.transaction import Transaction
 import datetime
 
 def AddAccount(name="", balance=0):
-    my_account = Account(name=name, starting_balance=int(balance*100))
+    my_account = Account(name=name, initial_balance=int(balance*100), initial_balance_date=datetime.date(2013, 8, 1))
     Accounts.add(my_account)
     return my_account
 

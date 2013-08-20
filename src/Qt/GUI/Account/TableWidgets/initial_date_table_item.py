@@ -15,12 +15,12 @@ class InitialDateTableItem(KaoTableItem):
         
     def getData(self):
         """ Return the item's data as a string """
-        return DateToString(self.account.initial_date)
+        return DateToString(self.account.initial_balance_date)
         
     def saveData(self, value):
         """ Save Data """
         try:
-            self.account.initial_date = StringToDate(value)
+            self.account.initial_balance_date = StringToDate(value)
             Accounts.save()
             TheBalanceHelper.setupBalancesForAccount(self.account)
             self.transactionTable.updateBalanceColumn()

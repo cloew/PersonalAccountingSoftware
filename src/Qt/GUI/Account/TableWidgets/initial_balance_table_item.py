@@ -17,7 +17,7 @@ class InitialBalanceTableItem(KaoTableItem):
         
     def getData(self):
         """ Return the item's data as a string """
-        return GetDollarString(self.account.starting_balance)
+        return GetDollarString(self.account.initial_balance)
         
     def saveData(self, value):
         """ Save Data """

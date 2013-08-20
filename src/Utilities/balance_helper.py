@@ -13,7 +13,7 @@ class BalanceHelper:
         self.balancesForAccounts[account] = {}
         balance = 0
         for transaction in Transactions.allForAccount(account, order=Transaction.date):
-            if transaction.date > account.initial_date:
+            if transaction.date > account.initial_balance_date:
                 balance += account.initial_balance
         
             if transaction.amount is not None:
