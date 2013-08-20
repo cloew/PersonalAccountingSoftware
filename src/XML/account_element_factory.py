@@ -1,5 +1,7 @@
 from db.accounts import Accounts
 from ORM.account import Account
+from Utilities.date_helper import DateToString, StringToDate
+
 from xml.etree.ElementTree import Element, SubElement
 
 def CreateAccountElements():
@@ -19,8 +21,11 @@ def CreateAccountElement(account):
     nameElement = SubElement(accountElement, "name")
     nameElement.text = account.name
     
-    startingBalalanceElement = SubElement(accountElement, "starting")
-    startingBalalanceElement.text = str(account.starting_balance)
+    initialBalalanceElement = SubElement(accountElement, "initial_balance")
+    initialBalalanceElement.text = str(account.initial_balance)
+    
+    dateElement = SubElement(accountElement, "date")
+    dateElement.text = DateToString(transaction.date)
     
     return accountElement
 
@@ -33,7 +38,8 @@ def LoadAccounts(parentElement):
 def LoadAccount(accountElement):
     """ Load an account from XML """
     name = accountElement.findtext("name")
-    startingBalance = int(accountElement.findtext("starting"))
+    initialBalance = int(accountElement.findtext("initial_balance"))
+    date = StringToDate(accountElement.findtext("date"))
     
-    account = Account(name=name, starting_balance=startingBalance) 
+    account = Account(name=name, initial_balance=initialBalance, initial_balance_date=date) 
     Accounts.add(account)
