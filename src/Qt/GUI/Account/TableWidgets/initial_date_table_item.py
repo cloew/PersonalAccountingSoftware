@@ -4,6 +4,8 @@ from Qt.GUI.Core.kao_table_item import KaoTableItem
 from Utilities.balance_helper import TheBalanceHelper
 from Utilities.date_helper import DateToString, StringToDate
 
+from PySide.QtCore import Qt
+
 class InitialDateTableItem(KaoTableItem):
     """ Represents a Table Widget Item for an Account Initial Date """
     

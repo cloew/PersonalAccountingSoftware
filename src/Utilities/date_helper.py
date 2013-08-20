@@ -6,4 +6,4 @@ def DateToString(date):
     
 def StringToDate(dateString):
     """ Converts a String to a date """
-    return parser.parse(value)
+    return parser.parse(dateString)
