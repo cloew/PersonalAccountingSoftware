@@ -25,7 +25,7 @@ def CreateAccountElement(account):
     initialBalalanceElement.text = str(account.initial_balance)
     
     dateElement = SubElement(accountElement, "date")
-    dateElement.text = DateToString(transaction.date)
+    dateElement.text = DateToString(account.initial_balance_date)
     
     return accountElement
 
