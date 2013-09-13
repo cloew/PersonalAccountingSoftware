@@ -5,6 +5,8 @@ from shutil import copy
 import os
 import sys
 
+version = ".14"
+
 def GetBackupDirectory():
     """ Returns the backup directory and creates it if it does not exist already """
     directory = os.path.join(os.path.dirname(__file__), "../../PASBackups")
@@ -28,7 +30,10 @@ def CopyFile(someFile, destinationName, extension):
     copy(someFile, destinationPath)
 
 def main(args):
-    backupName = args[0]
+    if len(args) > 0:
+        backupName = args[0]
+    else:
+        backupName = "version{0}".format(version.replace(".", ""))
     CopyDatabase(backupName)
     CopyExport(backupName)    
 
