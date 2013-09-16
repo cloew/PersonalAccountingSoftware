@@ -1,6 +1,4 @@
-from Qt.GUI.Transaction.TableWidgets.category_table_item import CategoryTableItem
-
-from PySide.QtGui import QTableWidgetItem 
+from Qt.GUI.Transaction.Table.TableWidgets.category_table_item import CategoryTableItem
 
 class CategoryColumn:
     """ Represents the Category Column """

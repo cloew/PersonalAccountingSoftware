@@ -2,7 +2,7 @@ from db.transactions import Transactions
 from ORM.transaction import Transaction
 from Utilities.balance_helper import TheBalanceHelper
 from Utilities.dollar_amount_helper import GetDollarString, GetCentsFromDollarString
-from Qt.GUI.Transaction.TableWidgets.transaction_table_item import TransactionTableItem
+from Qt.GUI.Transaction.Table.TableWidgets.transaction_table_item import TransactionTableItem
 
 from decimal import InvalidOperation
 

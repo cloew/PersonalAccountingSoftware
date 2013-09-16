@@ -1,4 +1,4 @@
-from Qt.GUI.Transaction.TableWidgets.description_table_item import DescriptionTableItem
+from Qt.GUI.Transaction.Table.TableWidgets.description_table_item import DescriptionTableItem
 
 from PySide.QtGui import QTableWidgetItem 
 

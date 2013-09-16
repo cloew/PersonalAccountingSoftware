@@ -3,17 +3,17 @@ from db.transactions import Transactions
 
 from Qt.GUI.Core.kao_table_widget import KaoTableWidget
 
-from Qt.GUI.Transaction.transaction_category_delegate import TransactionCategoryDelegate
-from Qt.GUI.Transaction.transaction_type_delegate import TransactionTypeDelegate
+from Qt.GUI.Transaction.Table.transaction_category_delegate import TransactionCategoryDelegate
+from Qt.GUI.Transaction.Table.transaction_type_delegate import TransactionTypeDelegate
 
-from Qt.GUI.Transaction.Columns.amount_column import AmountColumn
-from Qt.GUI.Transaction.Columns.balance_column import BalanceColumn
-from Qt.GUI.Transaction.Columns.category_column import CategoryColumn
-from Qt.GUI.Transaction.Columns.cleared_column import ClearedColumn
-from Qt.GUI.Transaction.Columns.date_column import DateColumn
-from Qt.GUI.Transaction.Columns.description_column import DescriptionColumn
-from Qt.GUI.Transaction.Columns.reconciled_column import ReconciledColumn
-from Qt.GUI.Transaction.Columns.type_column import TypeColumn
+from Qt.GUI.Transaction.Table.Columns.amount_column import AmountColumn
+from Qt.GUI.Transaction.Table.Columns.balance_column import BalanceColumn
+from Qt.GUI.Transaction.Table.Columns.category_column import CategoryColumn
+from Qt.GUI.Transaction.Table.Columns.cleared_column import ClearedColumn
+from Qt.GUI.Transaction.Table.Columns.date_column import DateColumn
+from Qt.GUI.Transaction.Table.Columns.description_column import DescriptionColumn
+from Qt.GUI.Transaction.Table.Columns.reconciled_column import ReconciledColumn
+from Qt.GUI.Transaction.Table.Columns.type_column import TypeColumn
 
 from PySide.QtCore import Qt
 from PySide.QtGui import QAction

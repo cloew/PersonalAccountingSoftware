@@ -1,5 +1,5 @@
 from db.transactions import Transactions
-from Qt.GUI.Transaction.TableWidgets.transaction_table_item import TransactionTableItem
+from Qt.GUI.Transaction.Table.TableWidgets.transaction_table_item import TransactionTableItem
 from Qt.GUI.Transaction.Transfers.transfer_menu_factory import AddTransferActionsToWidgetContextMenu
 from Utilities.balance_helper import TheBalanceHelper
 from Utilities.dollar_amount_helper import GetDollarString, GetCentsFromDollarString

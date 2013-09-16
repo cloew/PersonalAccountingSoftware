@@ -1,5 +1,5 @@
 from Qt.GUI.Core.qt_helper import GetCenteredWidgetForTableCell
-from Qt.GUI.Transaction.TableWidgets.reconciled_checkbox import ReconciledCheckbox
+from Qt.GUI.Transaction.Table.TableWidgets.reconciled_checkbox import ReconciledCheckbox
 
 class ReconciledColumn:
     """ Represents the Reconciled Column """

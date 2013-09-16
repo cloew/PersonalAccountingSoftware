@@ -1,5 +1,5 @@
 from Qt.GUI.Core.qt_helper import GetCenteredWidgetForTableCell
-from Qt.GUI.Transaction.TableWidgets.cleared_checkbox import ClearedCheckbox
+from Qt.GUI.Transaction.Table.TableWidgets.cleared_checkbox import ClearedCheckbox
 
 class ClearedColumn:
     """ Represents the Cleared Column """

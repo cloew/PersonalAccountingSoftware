@@ -1,4 +1,4 @@
-from Qt.GUI.Transaction.TableWidgets.amount_table_item import AmountTableItem
+from Qt.GUI.Transaction.Table.TableWidgets.amount_table_item import AmountTableItem
 
 class AmountColumn:
     """ Represents the Amount Column """

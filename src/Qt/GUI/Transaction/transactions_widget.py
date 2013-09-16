@@ -1,4 +1,4 @@
-from Qt.GUI.Transaction.transaction_table_widget import TransactionTableWidget
+from Qt.GUI.Transaction.Table.transaction_table_widget import TransactionTableWidget
 
 from PySide.QtGui import QHBoxLayout, QWidget
 

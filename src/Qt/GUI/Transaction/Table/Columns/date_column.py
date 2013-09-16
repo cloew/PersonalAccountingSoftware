@@ -1,4 +1,4 @@
-from Qt.GUI.Transaction.TableWidgets.date_table_item import DateTableItem
+from Qt.GUI.Transaction.Table.TableWidgets.date_table_item import DateTableItem
 
 class DateColumn:
     """ Represents the Date Column """

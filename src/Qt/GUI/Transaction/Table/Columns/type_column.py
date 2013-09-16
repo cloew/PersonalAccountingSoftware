@@ -1,4 +1,4 @@
-from Qt.GUI.Transaction.TableWidgets.type_table_item import TypeTableItem
+from Qt.GUI.Transaction.Table.TableWidgets.type_table_item import TypeTableItem
 
 from PySide.QtGui import QTableWidgetItem 
 

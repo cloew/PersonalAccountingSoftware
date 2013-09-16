@@ -1,6 +1,4 @@
-from Qt.GUI.Transaction.TableWidgets.balance_table_item import BalanceTableItem
-
-from PySide.QtGui import QTableWidgetItem 
+from Qt.GUI.Transaction.Table.TableWidgets.balance_table_item import BalanceTableItem
 
 class BalanceColumn:
     """ Represents the Balance Column """

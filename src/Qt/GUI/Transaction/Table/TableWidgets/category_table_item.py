@@ -1,6 +1,6 @@
 from db.categories import Categories
 from db.transactions import Transactions
-from Qt.GUI.Transaction.TableWidgets.transaction_table_item import TransactionTableItem
+from Qt.GUI.Transaction.Table.TableWidgets.transaction_table_item import TransactionTableItem
 
 from PySide.QtCore import Qt
 from PySide.QtGui import QTableWidgetItem
