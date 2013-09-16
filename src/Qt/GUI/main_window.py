@@ -13,7 +13,7 @@ from Qt.GUI.Category.category_toolbar import CategoryToolBar
 from Qt.GUI.Statistics.statistics_panel import StatisticsPanel
 from Qt.GUI.Statistics.Toolbar.statistics_toolbar import StatisticsToolbar
 
-from Qt.GUI.Transaction.transaction_table_widget import TransactionTableWidget
+from Qt.GUI.Transaction.transactions_widget import TransactionsWidget
 from Qt.GUI.Transaction.Toolbar.transaction_toolbar import TransactionToolBar
 
 import resources.resource_manager as resource_manager
@@ -44,9 +44,9 @@ class MainWindow(QtGui.QMainWindow):
 
     def addTransactionTab(self):
         """ Add the Transaction Tab """
-        self.transaction_table_widget = TransactionTableWidget()
-        self.transaction_table_widget.toolbar = TransactionToolBar(self.transaction_table_widget)
-        self.tabView.addTab(self.transaction_table_widget, "Transactions")
+        self.transactions_widget = TransactionsWidget()
+        self.transactions_widget.setToolbar(TransactionToolBar(self.transactions_widget.transactionTableWidget))
+        self.tabView.addTab(self.transactions_widget, "Transactions")
 
     def addCategoriesTab(self):
         """ Add the Categories Tab """
@@ -56,7 +56,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def addAccountsTab(self):
         """ Add the Accounts Tab """
-        self.account_table_widget = AccountTableWidget(self.transaction_table_widget)
+        self.account_table_widget = AccountTableWidget(self.transactions_widget.transactionTableWidget)
         self.account_table_widget.toolbar = AccountToolBar(self.account_table_widget)
         self.tabView.addTab(self.account_table_widget, "Accounts")
 
