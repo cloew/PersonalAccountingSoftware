@@ -1,8 +1,7 @@
 from db.transactions import Transactions
 from Qt.GUI.Transaction.TableWidgets.transaction_table_item import TransactionTableItem
 from Utilities.balance_helper import TheBalanceHelper
-
-from dateutil import parser
+from Utilities.date_helper import DateToString, StringToDate
 
 from PySide.QtCore import Qt
 
@@ -18,13 +17,13 @@ class DateTableItem(TransactionTableItem):
         """ Get Data """
         date = ""
         if self.transaction.date is not None:
-            date = self.transaction.dateString
+            date = DateToString(self.transaction.date)
         return date
         
     def saveData(self, value):
         """ Save Data in Item """
         try:
-            self.transaction.date = parser.parse(value)
+            self.transaction.date = StringToDate(value)
             TheBalanceHelper.setupBalancesForAccount(self.transaction.account)
             self.table.updateTransactions()
         except ValueError:

@@ -1,8 +1,8 @@
-from Qt.GUI.Account.TableWidgets.starting_balance_table_item import StartingBalanceTableItem
+from Qt.GUI.Account.TableWidgets.initial_balance_table_item import InitialBalanceTableItem
 
-class StartingBalanceColumn:
-    """ Represents the Starting Balance Column """
-    HEADER = "Starting Balance"
+class InitialBalanceColumn:
+    """ Represents the Initial Balance Column """
+    HEADER = "Initial Balance"
     
     def __init__(self, transactionTable):
         """ Initialize the Starting Balance Column """
@@ -10,7 +10,7 @@ class StartingBalanceColumn:
     
     def getItemForColumn(self, account):
         """  """
-        return StartingBalanceTableItem(account, self.transactionTable)
+        return InitialBalanceTableItem(account, self.transactionTable)
     
     def getWidgetForColumn(self, account):
         """  """

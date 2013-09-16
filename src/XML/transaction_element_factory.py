@@ -4,9 +4,9 @@ from db.transactions import Transactions
 from db.transfers import Transfers
 from ORM.transaction import Transaction
 from ORM.transfer import Transfer
-from xml.etree.ElementTree import Element, SubElement
+from Utilities.date_helper import DateToString, StringToDate
 
-from dateutil import parser
+from xml.etree.ElementTree import Element, SubElement
 
 def CreateTransactionElements():
     """ Create Transaction Elements to the parent element """
@@ -32,7 +32,7 @@ def CreateTransactionElement(transaction):
     incomeElement.text = str(transaction.income)
     
     dateElement = SubElement(transactionElement, "date")
-    dateElement.text = transaction.dateString
+    dateElement.text = DateToString(transaction.date)
     
     clearedElement = SubElement(transactionElement, "cleared")
     clearedElement.text = str(transaction.cleared)
@@ -65,7 +65,7 @@ def LoadTransaction(transactionElement):
     amount = int(transactionElement.findtext("amount"))
     description = transactionElement.findtext("description")
     income = StringToBoolean(transactionElement.findtext("income"))
-    date = parser.parse(transactionElement.findtext("date"))
+    date = StringToDate(transactionElement.findtext("date"))
     cleared = StringToBoolean(transactionElement.findtext("cleared"))
     reconciled = StringToBoolean(transactionElement.findtext("reconciled"))
     accountName = transactionElement.findtext("account")

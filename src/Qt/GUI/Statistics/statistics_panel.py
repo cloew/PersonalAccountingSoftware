@@ -28,6 +28,10 @@ class StatisticsPanel(QWidget):
 
     def tabSelected(self):
         """ Called when the tab is selected """
+        self.updatePanel()
+        
+    def updatePanel(self):
+        """ Update the Statistics Panel """
         self.categoryStatistics.prepareStatistics()
         self.pieChart.updateUI()
         self.categoryList.updateUI()

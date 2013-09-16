@@ -11,13 +11,43 @@ class BalanceHelper:
     def setupBalancesForAccount(self, account):
         """ Setup the Balance """
         self.balancesForAccounts[account] = {}
-        balance = account.starting_balance
-        for transaction in Transactions.allForAccount(account, order=Transaction.date):
+        
+        self.setupTransactionsBeforeAccount(account)
+        self.setupTransactionsAfterAccount(account)
+        
+        # balance = 0
+        # for transaction in Transactions.allForAccount(account, order=Transaction.date):
+            # if transaction.date > account.initial_balance_date:
+                # balance += account.initial_balance
+        
+            # if transaction.amount is not None:
+                # if transaction.isIncome(account):
+                    # balance += transaction.amount
+                # else:
+                    # balance -= transaction.amount
+            # self.balancesForAccounts[account][transaction] = balance
+                    
+    def setupTransactionsBeforeAccount(self, account):
+        """ Setup Transactions before the account initial date """
+        balance = account.initial_balance
+        for transaction in Transactions.allForAccount(account, before=account.initial_balance_date):
+            self.balancesForAccounts[account][transaction] = balance
+            if transaction.amount is not None:
+                if transaction.isIncome(account):
+                    balance -= transaction.amount
+                else:
+                    balance += transaction.amount
+            
+    def setupTransactionsAfterAccount(self, account):
+        """ Setup Transactions after the account initial date """
+        balance = account.initial_balance
+        for transaction in Transactions.allForAccount(account, order=Transaction.date, onOrAfter=account.initial_balance_date):
             if transaction.amount is not None:
                 if transaction.isIncome(account):
                     balance += transaction.amount
                 else:
                     balance -= transaction.amount
+                    
             self.balancesForAccounts[account][transaction] = balance
             
     def getBalanceForTransaction(self, transaction, account):
@@ -38,6 +68,6 @@ class BalanceHelper:
         if len(accountTransactions) > 0:
             lastTransaction = accountTransactions[0]
             return self.balancesForAccounts[account][lastTransaction]
-        return account.starting_balance
+        return account.initial_balance
     
 TheBalanceHelper = BalanceHelper()

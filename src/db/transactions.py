@@ -19,7 +19,7 @@ class TransactionsWrapper(TableWrapper):
         else:
             return TableWrapper.all(self, order=order)
         
-    def allForAccount(self, account, order=None, filters={}):
+    def allForAccount(self, account, order=None, filters={}, onOrAfter=None, before=None):
         """ Return all transactions for the given account with the applied filters """
         transactions = []
         with self.session() as session:
@@ -32,6 +32,11 @@ class TransactionsWrapper(TableWrapper):
                     tempQuery = accountQuery.filter(column==value)
                     unionQuery = unionQuery.union(tempQuery)
                 resultQuery = resultQuery.intersect(unionQuery)
+                
+            if onOrAfter is not None:
+                resultQuery = resultQuery.filter(Transaction.date >= onOrAfter)
+            elif before is not None:
+                resultQuery = resultQuery.filter(Transaction.date < before)
             
             if order is None:
                 transactions = resultQuery.order_by(Transaction.date).all()

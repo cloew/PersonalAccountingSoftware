@@ -3,6 +3,8 @@ from ORM.account import Account
 from PySide.QtGui import QAction
 from Qt.GUI.tab_toolbar import TabToolBar
 
+import datetime
+
 class AccountToolBar(TabToolBar):
     """ Represents the Account Tool Bar """
 
@@ -23,7 +25,7 @@ class AccountToolBar(TabToolBar):
 
     def newAccount(self):
         """ Creates a New Account """
-        account = Account(starting_balance=0)
+        account = Account(initial_balance=0, initial_balance_date=datetime.date.today())
         Accounts.add(account)
         self.table_view.insertRow(account)
         
