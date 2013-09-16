@@ -27,7 +27,7 @@ class CategoryPieChart(FigureCanvas):
     def createPlot(self):
         """ Create the Pie Chart Plot """
         labels, percentages = self.categoryStatistics.getLabelsAndPercentages()
-        pyplot.pie(percentages, labels=labels, autopct='%1.1f%%', shadow=True)
+        pyplot.pie(percentages, labels=labels, autopct='%1.1f%%', shadow=True, colors=['b', 'g', 'r', 'c', 'm', 'y'])
 
     def updateUI(self):
         self.figure.clear()
