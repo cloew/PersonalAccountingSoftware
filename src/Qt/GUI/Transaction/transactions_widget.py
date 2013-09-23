@@ -28,6 +28,7 @@ class TransactionsWidget(QFrame):
         
     def tabSelected(self):
         """ Do Nothing when this tab is selected """
+        self.transactionMenuWidget.tabSelected()
     
     def resizeEvent(self, resizeEvent):
         """ Called when window is resized """

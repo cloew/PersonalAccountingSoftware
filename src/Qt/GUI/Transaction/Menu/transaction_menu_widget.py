@@ -41,9 +41,9 @@ class TransactionMenuWidget(QFrame):
         label = QLabel()
         label.setText("<b>Subtransactions</b>")
         formLayout.addRow(label)
-        comboBox = QComboBox()
-        UpdateComboBoxWithAccounts(comboBox)
-        formLayout.addRow("Account:", comboBox)
+        self.accountComboBox = QComboBox()
+        UpdateComboBoxWithAccounts(self.accountComboBox)
+        formLayout.addRow("Account:", self.accountComboBox)
         formLayout.addRow("Amount:", QLineEdit())
         self.subtransactionFrame.setLayout(formLayout)
         self.layout.addWidget(self.subtransactionFrame)
@@ -57,4 +57,12 @@ class TransactionMenuWidget(QFrame):
         """ Set the Transaction label Text """
         if self.transaction is not None:
             self.transactionLabel.setText("<b>{0}</b>".format(self.transaction.description))
+            
+    def tabSelected(self):
+        """ Update the Account Tab when the tab is selected """
+        text = self.accountComboBox.currentText()
+        UpdateComboBoxWithAccounts(self.accountComboBox)
+        index = self.accountComboBox.findText(text)
+        if not (index == -1):
+            self.accountComboBox.setCurrentIndex(index)
         
