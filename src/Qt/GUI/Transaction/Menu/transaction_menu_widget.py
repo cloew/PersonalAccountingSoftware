@@ -52,6 +52,4 @@ class TransactionMenuWidget(QFrame):
         """ Set the Transaction label Text """
         if self.transaction is not None:
             self.transactionLabel.setText("<b>{0}</b>".format(self.transaction.description))
-        else:
-            self.transactionLabel.setText("<b>{0}</b>".format(self.transaction))
         
