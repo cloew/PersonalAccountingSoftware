@@ -3,6 +3,7 @@ from db.transactions import Transactions
 from ORM.transaction import Transaction
 from Qt.GUI.Utilities.account_combobox_helper import UpdateComboBoxWithAccounts
 from Utilities.balance_helper import TheBalanceHelper
+from Utilities.dollar_amount_helper import GetCentsFromDollarString
 
 from PySide.QtGui import QComboBox, QFormLayout, QFrame, QLabel, QLineEdit, QPushButton
 
@@ -26,7 +27,10 @@ class SubtransactionForm:
         self.accountComboBox = QComboBox()
         UpdateComboBoxWithAccounts(self.accountComboBox)
         formLayout.addRow("Account:", self.accountComboBox)
-        formLayout.addRow("Amount:", QLineEdit())
+        self.amountEdit = QLineEdit()
+        formLayout.addRow("Amount:", self.amountEdit)
+        self.descriptionEdit = QLineEdit()
+        formLayout.addRow("Description:", self.descriptionEdit)
         button = QPushButton("Add New Subtransaction")
         button.clicked.connect(self.saveTransaction)
         formLayout.addRow(button)
@@ -44,9 +48,13 @@ class SubtransactionForm:
     def saveTransaction(self, checked=False):
         """ Save the current Transaction """
         transaction = Transaction(date=datetime.date.today())
+        transaction.amount = GetCentsFromDollarString(self.amountEdit.text())
+        transaction.description = self.descriptionEdit.text()
+        
         account = Accounts.all()[self.accountComboBox.currentIndex()]
         transaction.account = account
         Transactions.add(transaction)
+        
         TheBalanceHelper.setupBalancesForAccount(transaction.account)
         #self.table_view.insertRow(transaction)
         
