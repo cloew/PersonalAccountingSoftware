@@ -14,7 +14,8 @@ class TransactionsWidget(QFrame):
         self.transactionMenuWidget = TransactionMenuWidget(self)
         self.transactionTableWidget = TransactionTableWidget(self.transactionMenuWidget)
         
-        self.transactionMenuWidget.setMinimumSize(400, 800)
+        # Need to un-hard-code this
+        self.transactionMenuWidget.setMaximumSize(400, 800)
         self.transactionTableWidget.setMaximumSize(1200, 800)
         
         layout = QHBoxLayout(self)
