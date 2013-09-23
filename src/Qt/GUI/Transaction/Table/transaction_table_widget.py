@@ -46,7 +46,8 @@ class TransactionTableWidget(KaoTableWidget):
         self.setRowCount(len(transactions))
         self.populateTable(transactions)
         
-        self.updateToolbarOnCurrentSelectionChange(self.currentRow(), 0, 0, 0)
+        transaction = self.getCurrentTransaction(self.currentRow())
+        self.updateToolbarOnCurrentSelectionChange(transaction)
                     
     def setColumnDelegates(self):
         """ Set Column Delegates """
