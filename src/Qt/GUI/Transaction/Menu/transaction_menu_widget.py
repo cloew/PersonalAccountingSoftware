@@ -1,4 +1,4 @@
-from PySide.QtGui import QFrame, QLabel
+from PySide.QtGui import QFormLayout, QFrame, QLabel, QLineEdit, QVBoxLayout
 
 class TransactionMenuWidget(QFrame):
     """ Represents Transaction Menu Widget """
@@ -8,9 +8,31 @@ class TransactionMenuWidget(QFrame):
         QFrame.__init__(self, parent=parent)
         
         self.setFrameShape(QFrame.Panel)
-        self.label = QLabel(self)
-        self.label.setText("<b>Transaction Details</b>")
-        font = self.label.font()
+        self.layout = QVBoxLayout(self)
+        self.setupHeader()
+        self.setupMenuBody()
+        self.layout.addStretch()
+        
+    def setupHeader(self):
+        header = QLabel()
+        header.setText("<b>Transaction Details</b>")
+        font = header.font()
         font.setPointSize(16)
-        self.label.setFont(font)
-        self.label.move(5, 5)
+        header.setFont(font)
+        self.layout.addWidget(header)
+    
+    def setupMenuBody(self):
+        """ Setup the Body of the Menu """
+        self.setupSubtransactions()
+        
+    def setupSubtransactions(self):
+        """ Setup the Subtransactions for the Transaction Details """
+        self.subtransactionFrame = QFrame()
+        formLayout = QFormLayout(self.subtransactionFrame)
+        
+        label = QLabel()
+        label.setText("<b>Subtransactions</b>")
+        formLayout.addRow(label)
+        formLayout.addRow("Amount", QLineEdit())
+        self.subtransactionFrame.setLayout(formLayout)
+        self.layout.addWidget(self.subtransactionFrame)
