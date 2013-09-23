@@ -1,4 +1,6 @@
-from PySide.QtGui import QFormLayout, QFrame, QLabel, QLineEdit, QVBoxLayout
+from Qt.GUI.Utilities.account_combobox_helper import UpdateComboBoxWithAccounts
+
+from PySide.QtGui import QComboBox, QFormLayout, QFrame, QLabel, QLineEdit, QVBoxLayout
 
 class TransactionMenuWidget(QFrame):
     """ Represents Transaction Menu Widget """
@@ -39,7 +41,10 @@ class TransactionMenuWidget(QFrame):
         label = QLabel()
         label.setText("<b>Subtransactions</b>")
         formLayout.addRow(label)
-        formLayout.addRow("Amount", QLineEdit())
+        comboBox = QComboBox()
+        UpdateComboBoxWithAccounts(comboBox)
+        formLayout.addRow("Account:", comboBox)
+        formLayout.addRow("Amount:", QLineEdit())
         self.subtransactionFrame.setLayout(formLayout)
         self.layout.addWidget(self.subtransactionFrame)
         
