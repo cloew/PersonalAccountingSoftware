@@ -21,13 +21,13 @@ from PySide.QtGui import QAction
 class TransactionTableWidget(KaoTableWidget):
     """ The Transaction Table Widget View """
     
-    def __init__(self):
+    def __init__(self, parent=None):
         """ Initialize the Transaction Table Widget """
         self.account = Accounts.all()[0]
         self.filters = {}
         self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(self), BalanceColumn(self.account), ClearedColumn(self), ReconciledColumn(self)]
         transactions = self.getTransactions()
-        KaoTableWidget.__init__(self, transactions, self.columns)
+        KaoTableWidget.__init__(self, transactions, self.columns, parent=parent)
         
         self.currentCellChanged.connect(self.updateToolbarOnCurrentSelectionChange)
         

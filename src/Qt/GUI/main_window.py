@@ -44,7 +44,7 @@ class MainWindow(QtGui.QMainWindow):
 
     def addTransactionTab(self):
         """ Add the Transaction Tab """
-        self.transactions_widget = TransactionsWidget()
+        self.transactions_widget = TransactionsWidget(self)
         self.transactions_widget.setToolbar(TransactionToolBar(self.transactions_widget.transactionTableWidget))
         self.tabView.addTab(self.transactions_widget, "Transactions")
 
