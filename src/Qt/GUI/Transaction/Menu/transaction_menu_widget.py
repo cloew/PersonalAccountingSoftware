@@ -7,6 +7,8 @@ class TransactionMenuWidget(QFrame):
         """ Initialize the Transaction Menu Widget """
         QFrame.__init__(self, parent=parent)
         
+        self.transaction = None
+        
         self.setFrameShape(QFrame.Panel)
         self.layout = QVBoxLayout(self)
         self.setupHeader()
@@ -20,6 +22,10 @@ class TransactionMenuWidget(QFrame):
         font.setPointSize(16)
         header.setFont(font)
         self.layout.addWidget(header)
+        
+        self.transactionLabel = QLabel()
+        self.setTransactionLabelText()
+        self.layout.addWidget(self.transactionLabel)
     
     def setupMenuBody(self):
         """ Setup the Body of the Menu """
@@ -36,3 +42,16 @@ class TransactionMenuWidget(QFrame):
         formLayout.addRow("Amount", QLineEdit())
         self.subtransactionFrame.setLayout(formLayout)
         self.layout.addWidget(self.subtransactionFrame)
+        
+    def updateOnTransactionChange(self, currentTransaction):
+        """ Update menu contents when the current transaction changes Transaction Change """
+        self.transaction = currentTransaction
+        self.setTransactionLabelText()
+        
+    def setTransactionLabelText(self):
+        """ Set the Transaction label Text """
+        if self.transaction is not None:
+            self.transactionLabel.setText("<b>{0}</b>".format(self.transaction.description))
+        else:
+            self.transactionLabel.setText("<b>{0}</b>".format(self.transaction))
+        

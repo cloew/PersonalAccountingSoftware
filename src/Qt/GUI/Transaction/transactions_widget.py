@@ -11,8 +11,8 @@ class TransactionsWidget(QFrame):
         """ Initialize the Transactions Widget """
         QFrame.__init__(self)
         
-        self.transactionTableWidget = TransactionTableWidget()
         self.transactionMenuWidget = TransactionMenuWidget(self)
+        self.transactionTableWidget = TransactionTableWidget(self.transactionMenuWidget)
         
         self.transactionMenuWidget.setMinimumSize(400, 800)
         self.transactionTableWidget.setMaximumSize(1200, 800)
@@ -21,8 +21,6 @@ class TransactionsWidget(QFrame):
         layout.addWidget(self.transactionTableWidget)
         layout.addWidget(self.transactionMenuWidget)
         self.setLayout(layout)
-        
-        
         
     def setToolbar(self, toolbar):
         """ Set the  toolbar for the widget """

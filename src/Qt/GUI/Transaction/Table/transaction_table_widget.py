@@ -21,15 +21,16 @@ from PySide.QtGui import QAction
 class TransactionTableWidget(KaoTableWidget):
     """ The Transaction Table Widget View """
     
-    def __init__(self, parent=None):
+    def __init__(self, transactionMenu, parent=None):
         """ Initialize the Transaction Table Widget """
         self.account = Accounts.all()[0]
         self.filters = {}
         self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(self), BalanceColumn(self.account), ClearedColumn(self), ReconciledColumn(self)]
         transactions = self.getTransactions()
+        self.transactionMenu = transactionMenu
         KaoTableWidget.__init__(self, transactions, self.columns, parent=parent)
         
-        self.currentCellChanged.connect(self.updateToolbarOnCurrentSelectionChange)
+        self.currentCellChanged.connect(self.updateOnSelectionChange)
         
     def updateTransactions(self, account=None, filters=None):
         """ Update the Account for the table """
@@ -78,10 +79,20 @@ class TransactionTableWidget(KaoTableWidget):
         """ Return the list of transactions with filters applied """
         return Transactions.allForAccount(self.account, filters=self.filters)
         
-    def updateToolbarOnCurrentSelectionChange(self, currentRow, currentColumn, previousRow, previousColumn):
+    def updateOnSelectionChange(self, currentRow, currentColumn, previousRow, previousColumn):
+        """ Update the Transactions Widget when a row is selected """
+        transaction = self.getCurrentTransaction(currentRow)
+        self.updateToolbarOnCurrentSelectionChange(transaction)
+        self.transactionMenu.updateOnTransactionChange(transaction)
+        
+    def updateToolbarOnCurrentSelectionChange(self, transaction):
         """ Update the Toolbar Transfer section so it reflects the current Transaction """
+        self.toolbar.updateTransfers(transaction)
+        
+    def getCurrentTransaction(self, currentRow):
+        """ Return the currently selected Transaction """
         transactions = self.getTransactions()
         transaction = None
         if currentRow in range(len(transactions)):
             transaction = transactions[currentRow]
-        self.toolbar.updateTransfers(transaction)
+        return transaction
