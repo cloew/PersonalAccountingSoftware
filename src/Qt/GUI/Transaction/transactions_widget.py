@@ -10,13 +10,11 @@ class TransactionsWidget(QFrame):
     def __init__(self, parent):
         """ Initialize the Transactions Widget """
         QFrame.__init__(self)
-        
+        self.parentWidget = parent
         self.transactionMenuWidget = TransactionMenuWidget(self)
         self.transactionTableWidget = TransactionTableWidget(self.transactionMenuWidget)
-        
-        # Need to un-hard-code this
-        self.transactionMenuWidget.setMaximumSize(400, 800)
-        self.transactionTableWidget.setMaximumSize(1200, 800)
+            
+        self.setPieceSizes()
         
         layout = QHBoxLayout(self)
         layout.addWidget(self.transactionTableWidget)
@@ -30,3 +28,16 @@ class TransactionsWidget(QFrame):
         
     def tabSelected(self):
         """ Do Nothing when this tab is selected """
+    
+    def resizeEvent(self, resizeEvent):
+        """ Called when window is resized """
+        self.setPieceSizes()
+        
+    def setPieceSizes(self):
+        """ Set the Piece Sizes """
+        size = self.parentWidget.size()
+        height = size.height()-100
+        smallWidth = size.width()/4
+        largeWidth = size.width() - smallWidth
+        self.transactionMenuWidget.setMaximumSize(smallWidth, height)
+        self.transactionTableWidget.setMaximumSize(largeWidth, height)
