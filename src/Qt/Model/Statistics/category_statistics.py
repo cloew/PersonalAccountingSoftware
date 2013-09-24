@@ -1,13 +1,16 @@
 from db.categories import Categories
 from db.transactions import Transactions
 
+from datetime import datetime
+
 class CategoryStatistics:
     """ Represents the Pie Chart of the Category Values """
     
     def __init__(self):
         """ Initialize Category Statistics """
-        self.month = 8 # TODO: Update to get the most recent Transaction Month
-        self.year = 2013
+        today = datetime.today()
+        self.month = today.month
+        self.year = today.year
 
     def getLabelsAndPercentages(self):
         """ Returns the labels and percentages for the Category Statistics """
