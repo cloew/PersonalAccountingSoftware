@@ -44,6 +44,7 @@ class SubtransactionForm:
         
     def addSubtransactionLabels(self):
         """ Add Subtransaction Labels """
+        self.subtransactionLabels = []
         if self.transaction is not None and self.transaction.subtransaction_set is not None:
             for transaction in self.transaction.subtransaction_set.transactions:
                 if transaction is not self.transaction:
@@ -55,6 +56,8 @@ class SubtransactionForm:
         """ Update on a Transaction Change """
         for label in self.subtransactionLabels:
             self.formLayout.removeWidget(label)
+            label.deleteLater()
+            
         self.addSubtransactionLabels()
         
     def tabSelected(self):
