@@ -35,6 +35,9 @@ class TransactionMenuWidget(QFrame):
         """ Update menu contents when the current transaction changes Transaction Change """
         self.transaction = currentTransaction
         self.setTransactionLabelText()
+        for form in self.forms:
+            form.updateOnTransactionChange()
+        
         
     def setTransactionLabelText(self):
         """ Set the Transaction label Text """

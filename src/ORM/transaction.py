@@ -1,5 +1,6 @@
 from account import Account
 from category import Category
+from subtransaction import SubTransaction
 from orm_base import Base
 from sqlalchemy import Boolean, Column, Date, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, backref
@@ -21,6 +22,8 @@ class Transaction(Base):
     account = relationship("Account", backref=backref('transactions'))
     category_id = Column(Integer, ForeignKey('categories.id'))
     category = relationship("Category", backref=backref('transactions'))
+    subtransaction_set_id = Column(Integer, ForeignKey('subtransactions.id'))
+    subtransaction_set = relationship("SubTransaction", backref=backref('transactions'))
     # transferAccounts = relationship("Account",
                                     # secondary=transfers_table,
                                     # backref="transfers")
