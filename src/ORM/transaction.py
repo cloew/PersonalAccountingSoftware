@@ -28,9 +28,9 @@ class Transaction(Base):
                                     # secondary=transfers_table,
                                     # backref="transfers")
                                     
-    def isIncome(self, account):
+    def isIncome(self, account=None):
         """ Returns if the transaction is income for the given account """
-        if self.account is account:
+        if self.account is account or account is None:
             return self.income is True
         else:
             return self.income is False or self.income is None
