@@ -39,6 +39,15 @@ class Transaction(Base):
         """ Returns if the transaction is a transfer """
         return not self.transfers == []
         
+    def getValue(self, account=None):
+        """ Return the value in cents of the transaction taking into account whether it is an Expense """
+        amount = 0
+        if self.isIncome(account):
+            amount += self.amount
+        else:
+            amount -= self.amount
+        return amount
+        
     @property
     def dateString(self):
         """ Return the Transaction date string """
