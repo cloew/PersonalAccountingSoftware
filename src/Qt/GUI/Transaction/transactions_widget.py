@@ -1,4 +1,4 @@
-from Qt.GUI.Transaction.Table.transaction_table_widget import TransactionTableWidget
+from Qt.GUI.Transaction.Table.transaction_account_table_widget import TransactionAccountTableWidget
 from Qt.GUI.Transaction.Menu.transaction_menu_widget import TransactionMenuWidget
 
 from PySide.QtCore import Qt
@@ -12,7 +12,7 @@ class TransactionsWidget(QFrame):
         QFrame.__init__(self)
         self.parentWidget = parent
         self.transactionMenuWidget = TransactionMenuWidget(self)
-        self.transactionTableWidget = TransactionTableWidget(self.transactionMenuWidget)
+        self.transactionTableWidget = TransactionAccountTableWidget(self.transactionMenuWidget)
             
         self.setPieceSizes()
         

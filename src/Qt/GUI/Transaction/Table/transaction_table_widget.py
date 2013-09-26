@@ -21,27 +21,16 @@ from PySide.QtGui import QAction
 class TransactionTableWidget(KaoTableWidget):
     """ The Transaction Table Widget View """
     
-    def __init__(self, transactionMenu, parent=None):
+    def __init__(self, parent=None):
         """ Initialize the Transaction Table Widget """
-        self.account = Accounts.all()[0]
-        self.filters = {}
-        self.columns = [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(self), BalanceColumn(self.account), ClearedColumn(self), ReconciledColumn(self)]
+        self.columns = self.getColumns()
         transactions = self.getTransactions()
-        self.transactionMenu = transactionMenu
         KaoTableWidget.__init__(self, transactions, self.columns, parent=parent)
         
         self.currentCellChanged.connect(self.updateOnSelectionChange)
         
-    def updateTransactions(self, account=None, filters=None):
+    def updateTransactions(self):
         """ Update the Account for the table """
-        if account is not None:
-            self.account = account
-        if filters is not None:
-            self.filters = filters
-        
-        balanceColumn = self.getColumn(BalanceColumn)
-        balanceColumn.account = self.account
-            
         transactions = self.getTransactions()
         self.setRowCount(len(transactions))
         self.populateTable(transactions)
@@ -67,24 +56,22 @@ class TransactionTableWidget(KaoTableWidget):
     def tabSelected(self):
         """ Do Nothing when this tab is selected """
         
-    def updateBalanceColumn(self):
-        """ Update the Running Balance """
-        balanceColumnIndex = self.getColumnIndex(BalanceColumn)
-        
-        for row in range(self.rowCount()):
-            item = self.item(row, balanceColumnIndex)
-            item.account = self.account
-            item.updateData()
-        
+    def getColumns(self):
+        """ Return the  """
+        return []
+    
     def getTransactions(self):
         """ Return the list of transactions with filters applied """
-        return Transactions.allForAccount(self.account, filters=self.filters)
+        return []
         
     def updateOnSelectionChange(self, currentRow, currentColumn, previousRow, previousColumn):
         """ Update the Transactions Widget when a row is selected """
         transaction = self.getCurrentTransaction(currentRow)
+        self.updateTransactionOnSelectionChange(transaction)
+        
+    def updateTransactionOnSelectionChange(self, transaction):
+        """ Update the Transactions Widget when a row is selected """
         self.updateToolbarOnCurrentSelectionChange(transaction)
-        self.transactionMenu.updateOnTransactionChange(transaction)
         
     def updateToolbarOnCurrentSelectionChange(self, transaction):
         """ Update the Toolbar Transfer section so it reflects the current Transaction """
