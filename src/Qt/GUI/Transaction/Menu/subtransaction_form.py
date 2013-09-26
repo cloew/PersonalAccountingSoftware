@@ -91,12 +91,17 @@ class SubtransactionForm:
             
             TheBalanceHelper.setupBalancesForAccount(transaction.account)
             self.subtransactionTable.updateTransactions()
-            #self.table_view.insertRow(transaction)
+            if transaction.account is self.table.account:
+                self.table.insertRow(transaction)
         
     
     @property
     def layout(self):
         return self.parent.layout
+        
+    @property
+    def table(self):
+        return self.parent.table
         
     @property
     def transaction(self):

@@ -13,6 +13,7 @@ class TransactionsWidget(QFrame):
         self.parentWidget = parent
         self.transactionMenuWidget = TransactionMenuWidget(self)
         self.transactionTableWidget = TransactionAccountTableWidget(self.transactionMenuWidget)
+        self.transactionMenuWidget.table = self.transactionTableWidget
             
         self.setPieceSizes()
         
