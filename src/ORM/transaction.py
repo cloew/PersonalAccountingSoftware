@@ -42,10 +42,11 @@ class Transaction(Base):
     def getValue(self, account=None):
         """ Return the value in cents of the transaction taking into account whether it is an Expense """
         amount = 0
-        if self.isIncome(account):
-            amount += self.amount
-        else:
-            amount -= self.amount
+        if self.amount is not None:
+            if self.isIncome(account):
+                amount += self.amount
+            else:
+                amount -= self.amount
         return amount
         
     @property
