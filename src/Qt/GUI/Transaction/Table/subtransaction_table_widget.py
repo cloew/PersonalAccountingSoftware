@@ -1,4 +1,5 @@
 from db.transactions import Transactions
+from db.subtransactions import SubTransactions
 
 from Qt.GUI.Transaction.Table.transaction_table_widget import TransactionTableWidget
 
@@ -8,7 +9,7 @@ from Qt.GUI.Transaction.Table.Columns.date_column import DateColumn
 from Qt.GUI.Transaction.Table.Columns.description_column import DescriptionColumn
 from Qt.GUI.Transaction.Table.Columns.type_column import TypeColumn
 
-class TransactionAccountTableWidget(TransactionTableWidget):
+class SubTransactionTableWidget(TransactionTableWidget):
     """ The Transaction Table Widget View for a single account """
     
     def __init__(self, transaction, parent=None):
@@ -23,7 +24,7 @@ class TransactionAccountTableWidget(TransactionTableWidget):
     def getTransactions(self):
         """ Return the list of transactions with filters applied """
         transactions = []
-        if self.parent_transaction.subtransaction_set is not None:
-            transactions = self.parent_transaction.subtransaction_set.transactions
+        if self.parent_transaction is not None and self.parent_transaction.subtransaction_set is not None:
+            transactions = list(self.parent_transaction.subtransaction_set.transactions)
             transactions.remove(self.parent_transaction)
         return transactions

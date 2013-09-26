@@ -38,7 +38,6 @@ class TransactionMenuWidget(QFrame):
         for form in self.forms:
             form.updateOnTransactionChange()
         
-        
     def setTransactionLabelText(self):
         """ Set the Transaction label Text """
         if self.transaction is not None:

@@ -6,7 +6,7 @@ class KaoTableWidget(QTableWidget):
     def __init__(self, dataList, columns, parent=None):
         """ Initialize the Kao Ttessur Table Widget """
         self.columns = columns
-        QTableWidget.__init__(self, len(dataList), len(self.columns), parent=parent)
+        QTableWidget.__init__(self, len(dataList), len(self.columns), parent)
         
         self.setHorizontalHeaderLabels([column.HEADER for column in self.columns])
         self.verticalHeader().hide()

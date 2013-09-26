@@ -34,6 +34,7 @@ class TransactionAccountTableWidget(TransactionTableWidget):
         balanceColumn.account = self.account
             
         TransactionTableWidget.updateTransactions()
+        self.updateToolbarOnCurrentSelectionChange(transaction)
         
     def updateBalanceColumn(self):
         """ Update the Running Balance """
@@ -54,5 +55,9 @@ class TransactionAccountTableWidget(TransactionTableWidget):
         
     def updateTransactionOnSelectionChange(self, transaction):
         """ Update the Transactions Widget when a row is selected """
-        TransactionTableWidget.updateTransactionOnSelectionChange(self, transaction)
+        self.updateToolbarOnCurrentSelectionChange(transaction)
         self.transactionMenu.updateOnTransactionChange(transaction)
+        
+    def updateToolbarOnCurrentSelectionChange(self, transaction):
+        """ Update the Toolbar Transfer section so it reflects the current Transaction """
+        self.toolbar.updateTransfers(transaction)

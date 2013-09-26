@@ -15,7 +15,10 @@ class TypeTableItem(TransactionTableItem):
         
     def getData(self):
         """ Return data for the provided transaction """
-        return TypeTableItem.label_text[self.transaction.isIncome(self.table.account)]
+        if hasattr(self.table, "account"):
+            return TypeTableItem.label_text[self.transaction.isIncome(self.table.account)]
+        else:
+            return TypeTableItem.label_text[self.transaction.isIncome()]
         
     def saveData(self, value):
         """ Save Data in Item """
