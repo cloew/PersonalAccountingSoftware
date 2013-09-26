@@ -8,7 +8,7 @@ from Qt.GUI.Utilities.account_combobox_helper import UpdateComboBoxWithAccounts
 from Utilities.balance_helper import TheBalanceHelper
 from Utilities.dollar_amount_helper import GetCentsFromDollarString
 
-from PySide.QtGui import QComboBox, QFormLayout, QFrame, QLabel, QLineEdit, QPushButton, QVBoxLayout
+from PySide.QtGui import QComboBox, QFormLayout, QFrame, QLabel, QLineEdit, QPushButton, QHBoxLayout, QVBoxLayout
 
 import datetime
 
@@ -24,26 +24,22 @@ class SubtransactionForm:
     def setup(self):
         """ Setup the Subtransactions for the Transaction Details """
         self.subtransactionFrame = QFrame()
-        self.formLayout = QVBoxLayout(self.subtransactionFrame)
+        
+        self.verticalLayout = QVBoxLayout(self.subtransactionFrame)
+        self.horizontalLayout = QHBoxLayout()
         
         label = QLabel("<b>Subtransactions</b>")
-        # label.setText()
-        self.formLayout.addWidget(label)
-        self.formLayout.addWidget(self.subtransactionTable)
-        self.formLayout.addStretch()
-        # self.addSubtransactionLabels()
+        self.horizontalLayout.addWidget(label)
         
-        # self.accountComboBox = QComboBox()
-        # UpdateComboBoxWithAccounts(self.accountComboBox)
-        # self.formLayout.addRow("Account:", self.accountComboBox)
-        # self.amountEdit = QLineEdit()
-        # self.formLayout.addRow("Amount:", self.amountEdit)
-        # self.descriptionEdit = QLineEdit()
-        # self.formLayout.addRow("Description:", self.descriptionEdit)
-        # button = QPushButton("Add New Subtransaction")
-        # button.clicked.connect(self.saveTransaction)
-        # self.formLayout.addRow(button)
-        self.subtransactionFrame.setLayout(self.formLayout)
+        button = QPushButton("Add New Subtransaction")
+        button.clicked.connect(self.saveTransaction)
+        self.horizontalLayout.addWidget(button)
+        
+        self.verticalLayout.addLayout(self.horizontalLayout)
+        self.verticalLayout.addWidget(self.subtransactionTable)
+        self.verticalLayout.addStretch()
+        
+        self.subtransactionFrame.setLayout(self.verticalLayout)
         self.layout.addWidget(self.subtransactionFrame)
         
     def addSubtransactionLabels(self):
@@ -77,8 +73,6 @@ class SubtransactionForm:
     def saveTransaction(self, checked=False):
         """ Save the current Transaction """
         transaction = Transaction(date=datetime.date.today())
-        transaction.amount = GetCentsFromDollarString(self.amountEdit.text())
-        transaction.description = self.descriptionEdit.text()
         
         if self.transaction is not None:
             subtransaction_set = self.transaction.subtransaction_set
@@ -89,14 +83,15 @@ class SubtransactionForm:
                 self.transaction.subtransaction_set = subtransaction_set
                 Transactions.add(self.transaction)
             
-        transaction.subtransaction_set = subtransaction_set
-        account = Accounts.all()[self.accountComboBox.currentIndex()]
-        transaction.account = account
-        Transactions.add(transaction)
-        Transactions.save()
-        
-        TheBalanceHelper.setupBalancesForAccount(transaction.account)
-        #self.table_view.insertRow(transaction)
+            transaction.subtransaction_set = subtransaction_set
+            # account = Accounts.all()[self.accountComboBox.currentIndex()]
+            transaction.account = self.transaction.account
+            Transactions.add(transaction)
+            Transactions.save()
+            
+            TheBalanceHelper.setupBalancesForAccount(transaction.account)
+            self.subtransactionTable.updateTransactions()
+            #self.table_view.insertRow(transaction)
         
     
     @property
