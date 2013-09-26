@@ -1,9 +1,7 @@
 from db.accounts import Accounts
 from db.transactions import Transactions
 
-from Qt.GUI.Transaction.Table.transaction_category_delegate import TransactionCategoryDelegate
 from Qt.GUI.Transaction.Table.transaction_table_widget import TransactionTableWidget
-from Qt.GUI.Transaction.Table.transaction_type_delegate import TransactionTypeDelegate
 
 from Qt.GUI.Transaction.Table.Columns.amount_column import AmountColumn
 from Qt.GUI.Transaction.Table.Columns.balance_column import BalanceColumn
@@ -14,8 +12,6 @@ from Qt.GUI.Transaction.Table.Columns.description_column import DescriptionColum
 from Qt.GUI.Transaction.Table.Columns.reconciled_column import ReconciledColumn
 from Qt.GUI.Transaction.Table.Columns.type_column import TypeColumn
 
-from PySide.QtCore import Qt
-from PySide.QtGui import QAction
 
 class TransactionAccountTableWidget(TransactionTableWidget):
     """ The Transaction Table Widget View for a single account """
