@@ -12,9 +12,10 @@ from Qt.GUI.Transaction.Table.Columns.type_column import TypeColumn
 class SubTransactionTableWidget(TransactionTableWidget):
     """ The Transaction Table Widget View for a single account """
     
-    def __init__(self, transaction, parent=None):
+    def __init__(self, transaction, parentForm, parent=None):
         """ Initialize the Transaction Table Widget """
         self.parent_transaction = transaction
+        self.parentForm = parentForm
         TransactionTableWidget.__init__(self, parent=parent)
     
     def getColumns(self):
@@ -28,3 +29,7 @@ class SubTransactionTableWidget(TransactionTableWidget):
             transactions = list(self.parent_transaction.subtransaction_set.transactions)
             transactions.remove(self.parent_transaction)
         return transactions
+        
+    def updateBalanceColumn(self):
+        """ Update the Balance Column """
+        self.parentForm.table.updateTransactions()

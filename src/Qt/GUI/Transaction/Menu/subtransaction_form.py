@@ -18,7 +18,7 @@ class SubtransactionForm:
     def __init__(self, parent):
         """ Initialize the Subtransaction Form """
         self.parent = parent
-        self.subtransactionTable = SubTransactionTableWidget(self.transaction)
+        self.subtransactionTable = SubTransactionTableWidget(self.transaction, self)
         self.subtransactionLabels = []
     
     def setup(self):

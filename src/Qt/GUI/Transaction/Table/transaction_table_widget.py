@@ -22,8 +22,6 @@ class TransactionTableWidget(KaoTableWidget):
         transactions = self.getTransactions()
         self.setRowCount(len(transactions))
         self.populateTable(transactions)
-        
-        transaction = self.getCurrentTransaction(self.currentRow())
                     
     def setColumnDelegates(self):
         """ Set Column Delegates """
