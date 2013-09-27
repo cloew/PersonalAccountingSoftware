@@ -22,4 +22,4 @@ class TypeTableItem(TransactionTableItem):
         self.transaction.income = value == "Income"
         Transactions.save()
         TheBalanceHelper.setupBalancesForAccount(self.transaction.account)
-        self.table.updateBalanceColumn()
+        return True 

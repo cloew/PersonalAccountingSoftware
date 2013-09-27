@@ -19,3 +19,4 @@ class DescriptionTableItem(TransactionTableItem):
         """ Save Data in Item """
         self.transaction.description = value
         Transactions.save()
+        return True 

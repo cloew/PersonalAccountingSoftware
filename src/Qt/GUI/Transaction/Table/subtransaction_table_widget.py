@@ -20,7 +20,11 @@ class SubTransactionTableWidget(TransactionTableWidget):
     
     def getColumns(self):
         """ Return the columns for use in the table """
-        return [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(self)]
+        return [AmountColumn(callbacks=[self.updateCoreTransactionTable]),
+                DescriptionColumn(callbacks=[self.updateCoreTransactionTable]),
+                TypeColumn(callbacks=[self.updateCoreTransactionTable]),
+                CategoryColumn(callbacks=[self.updateCoreTransactionTable]),
+                DateColumn(callbacks=[self.updateCoreTransactionTable])]
         
     def getTransactions(self):
         """ Return the list of transactions with filters applied """
@@ -30,6 +34,6 @@ class SubTransactionTableWidget(TransactionTableWidget):
             transactions.remove(self.parent_transaction)
         return transactions
         
-    def updateBalanceColumn(self):
-        """ Update the Balance Column """
+    def updateCoreTransactionTable(self):
         self.parentForm.table.updateTransactions()
+        

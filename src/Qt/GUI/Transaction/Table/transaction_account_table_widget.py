@@ -36,7 +36,7 @@ class TransactionAccountTableWidget(TransactionTableWidget):
         TransactionTableWidget.updateTransactions(self)
         
         transaction = self.getCurrentTransaction(self.currentRow())
-        self.updateToolbarOnCurrentSelectionChange(transaction)
+        self.updateTransactionOnSelectionChange(transaction)
         
     def updateBalanceColumn(self):
         """ Update the Running Balance """

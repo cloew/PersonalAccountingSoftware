@@ -23,4 +23,5 @@ class CategoryTableItem(TransactionTableItem):
         category = Categories.findByName(value)
         if category is not None:
             self.transaction.category = category
-        Transactions.save()
+            Transactions.save()
+            return True 
