@@ -1,6 +1,7 @@
 from Qt.GUI.Account.TableWidgets.current_balance_table_item import CurrentBalanceTableItem
+from Qt.GUI.Core.kao_table_column import KaoTableColumn
 
-class CurrentBalanceColumn:
+class CurrentBalanceColumn(KaoTableColumn):
     """ Represents the Current Balance Column """
     HEADER = "Current Balance"
     

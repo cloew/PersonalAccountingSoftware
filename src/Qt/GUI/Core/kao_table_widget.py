@@ -18,11 +18,6 @@ class KaoTableWidget(QTableWidget):
         self.resizeColumnsToContents()
         self.resizeRowsToContents()
         
-        # for row in range(self.rowCount()):
-            # for column in range(self.columnCount()):
-                # widget = self.cellWidget(row, column)
-                # print "Cell Widget", widget
-        
     def populateTable(self, dataList):
         """ Setup Table Items & Widget with their data """
         for row in range(len(dataList)):
@@ -34,8 +29,8 @@ class KaoTableWidget(QTableWidget):
         for column in range(len(self.columns)):
             columnPopulator = self.columns[column]
             
-            widget = columnPopulator.getWidgetForColumn(data)
-            item = columnPopulator.getItemForColumn(data)
+            widget = columnPopulator.getProcessedWidgetForColumn(data)
+            item = columnPopulator.getProcessedItemForColumn(data)
             
             if widget is not None:
                 self.setCellWidget(row, column, widget)
@@ -44,6 +39,10 @@ class KaoTableWidget(QTableWidget):
                     
     def setColumnDelegates(self):
         """ Set Column Delegates """
+        for column in self.columns:
+            if column.DELEGATE_CLASS is not None:
+                delegate = column.DELEGATE_CLASS()
+                self.setDelegateForColumn(delegate, column.__class__)
         
     def setDelegateForColumn(self, delegate, columnClass):
         """ Set the Custom Delegate for a column """

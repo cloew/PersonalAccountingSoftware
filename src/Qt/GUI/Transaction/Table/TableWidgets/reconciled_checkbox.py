@@ -7,10 +7,10 @@ from Qt.GUI.Core.kao_table_checkbox import KaoTableCheckbox
 class ReconciledCheckbox(KaoTableCheckbox):
     """ Represents a Checkbox to manage whether a transaction has been reconciled """
     
-    def __init__(self, transaction, table):
+    def __init__(self, transaction):
         """ Initialize the Checkbox """
         self.transaction = transaction
-        KaoTableCheckbox.__init__(self, table)
+        KaoTableCheckbox.__init__(self)
         
     def isChecked(self):
         """ Return whether the checkbox should be checked """
@@ -20,4 +20,3 @@ class ReconciledCheckbox(KaoTableCheckbox):
         """ Save Reconciled State to the database """
         self.transaction.reconciled = state == Qt.Checked
         Transactions.save()
-        self.table.updateTransactions()

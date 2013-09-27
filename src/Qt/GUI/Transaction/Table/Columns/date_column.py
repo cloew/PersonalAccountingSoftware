@@ -1,16 +1,13 @@
+from Qt.GUI.Core.kao_table_column import KaoTableColumn
 from Qt.GUI.Transaction.Table.TableWidgets.date_table_item import DateTableItem
 
-class DateColumn:
+class DateColumn(KaoTableColumn):
     """ Represents the Date Column """
     HEADER = "Date"
     
-    def __init__(self, table):
-        """ Initialize the Date Column """
-        self.table = table
-    
     def getItemForColumn(self, transaction):
         """  """
-        return DateTableItem(transaction, self.table)
+        return DateTableItem(transaction)
     
     def getWidgetForColumn(self, transaction):
         """  """

@@ -7,11 +7,6 @@ from PySide.QtCore import Qt
 
 class DateTableItem(TransactionTableItem):
     """ Represents a Table Widget Item for a Transaction Date """
-    
-    def __init__(self, transaction, table):
-        """ Initialize the Date Item """
-        self.table = table
-        TransactionTableItem.__init__(self, transaction)
         
     def getData(self):
         """ Get Data """
@@ -25,10 +20,10 @@ class DateTableItem(TransactionTableItem):
         try:
             self.transaction.date = StringToDate(value)
             TheBalanceHelper.setupBalancesForAccount(self.transaction.account)
-            self.table.updateTransactions()
+            Transactions.save()
+            return True
         except ValueError:
             pass # Expect it to happen if user enters a bad String for the date
-        Transactions.save()
         
     def shouldSetData(self, role):
         """ Returns if the Table Item should call the base classes set Data """

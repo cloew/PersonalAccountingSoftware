@@ -49,7 +49,10 @@ class TransactionAccountTableWidget(TransactionTableWidget):
     
     def getColumns(self):
         """ Return the columns for use in the table """
-        return [AmountColumn(self), DescriptionColumn(), TypeColumn(self), CategoryColumn(), DateColumn(self), BalanceColumn(self.account), ClearedColumn(self), ReconciledColumn(self)]
+        return [AmountColumn(callbacks=[self.updateBalanceColumn]), DescriptionColumn(), 
+                TypeColumn(self.account, callbacks=[self.updateBalanceColumn]), CategoryColumn(),
+                DateColumn(callbacks=[self.updateTransactions]), BalanceColumn(self.account),
+                ClearedColumn(callbacks=[self.updateTransactions]), ReconciledColumn(callbacks=[self.updateTransactions])]
         
     def getTransactions(self):
         """ Return the list of transactions with filters applied """

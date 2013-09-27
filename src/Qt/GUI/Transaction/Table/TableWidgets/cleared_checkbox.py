@@ -7,10 +7,10 @@ from Qt.GUI.Core.kao_table_checkbox import KaoTableCheckbox
 class ClearedCheckbox(KaoTableCheckbox):
     """ Represents a Checkbox to manage whether a transaction has been cleared """
     
-    def __init__(self, transaction, table):
+    def __init__(self, transaction):
         """ Initialize the Checkbox """
         self.transaction = transaction
-        KaoTableCheckbox.__init__(self, table)
+        KaoTableCheckbox.__init__(self)
         
     def isChecked(self):
         """ Return if the box should be checked """
@@ -20,4 +20,3 @@ class ClearedCheckbox(KaoTableCheckbox):
         """ Save Cleared State to the database """
         self.transaction.cleared = state == Qt.Checked
         Transactions.save()
-        self.table.updateTransactions()

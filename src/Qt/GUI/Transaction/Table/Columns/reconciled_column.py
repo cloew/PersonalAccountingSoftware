@@ -1,13 +1,10 @@
+from Qt.GUI.Core.kao_table_column import KaoTableColumn
 from Qt.GUI.Core.qt_helper import GetCenteredWidgetForTableCell
 from Qt.GUI.Transaction.Table.TableWidgets.reconciled_checkbox import ReconciledCheckbox
 
-class ReconciledColumn:
+class ReconciledColumn(KaoTableColumn):
     """ Represents the Reconciled Column """
     HEADER = "Reconciled"
-    
-    def __init__(self, table):
-        """ Initialize the Reconciled Column """
-        self.table = table
     
     def getItemForColumn(self, transaction):
         """  """
@@ -15,4 +12,4 @@ class ReconciledColumn:
     
     def getWidgetForColumn(self, transaction):
         """  """
-        return GetCenteredWidgetForTableCell(ReconciledCheckbox(transaction, self.table))
+        return GetCenteredWidgetForTableCell(ReconciledCheckbox(transaction))

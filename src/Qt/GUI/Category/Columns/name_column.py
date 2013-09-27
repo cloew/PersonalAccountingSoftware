@@ -1,6 +1,7 @@
+from Qt.GUI.Core.kao_table_column import KaoTableColumn
 from Qt.GUI.Category.TableWidgets.name_table_item import NameTableItem
 
-class NameColumn:
+class NameColumn(KaoTableColumn):
     """ Represents the Category Name Column """
     HEADER = "Name"
     

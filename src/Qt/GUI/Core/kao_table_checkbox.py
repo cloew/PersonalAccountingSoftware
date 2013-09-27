@@ -2,14 +2,14 @@ from PySide.QtCore import Qt
 from PySide.QtGui import QCheckBox
 
 class KaoTableCheckbox(QCheckBox):
-    """ Represents a Checkbox to manage whether a transaction has been cleared """
+    """ Represents a Checkbox in a Table """
     
-    def __init__(self, table):
+    def __init__(self):
         """ Initialize the Checkbox """
+        callbacks = []
         QCheckBox.__init__(self, "")
-        self.table = table
         self.setCheckState(self.getCheckedState())
-        self.stateChanged.connect(self.onCheckStateChanged)
+        self.stateChanged.connect(self.__on_check_state_changed__)
         
     def getCheckedState(self):
         """ Return the Checked State """
@@ -21,6 +21,11 @@ class KaoTableCheckbox(QCheckBox):
     def isChecked(self):
         """ Return if the box should be checked """
         return False
+        
+    def __on_check_state_changed__(self, state):
+        self.onCheckStateChanged(state)
+        for callback in self.callbacks:
+            callback()
             
     def onCheckStateChanged(self, state):
         """ Event called when the Checkbox state is changed """

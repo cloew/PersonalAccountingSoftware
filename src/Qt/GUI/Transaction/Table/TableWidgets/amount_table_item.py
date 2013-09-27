@@ -8,12 +8,6 @@ from decimal import InvalidOperation
 
 class AmountTableItem(TransactionTableItem):
     """ Represents a Table Widget Item for a Transaction Amount """
-    
-    def __init__(self, transaction, table):
-        """ Initialize the Amount Item """
-        self.table = table
-        TransactionTableItem.__init__(self, transaction)
-        #AddTransferActionsToWidgetContextMenu(self.tableWidget(), transaction)
         
     def getData(self):
         """ Return the item's data as a string """
@@ -25,6 +19,6 @@ class AmountTableItem(TransactionTableItem):
             self.transaction.amount = GetCentsFromDollarString(value)
             Transactions.save()
             TheBalanceHelper.setupBalancesForAccount(self.transaction.account)
-            self.table.updateBalanceColumn()
+            return True
         except InvalidOperation:
             pass # The cast from the string to a Decimal failed

@@ -6,6 +6,7 @@ class KaoTableItem(QTableWidgetItem):
     
     def __init__(self):
         """ Initialize the Kao Table Item """
+        callbacks = []
         QTableWidgetItem.__init__(self, self.getData())
         
     def getData(self):
@@ -15,7 +16,10 @@ class KaoTableItem(QTableWidgetItem):
     def setData(self, role, value):
         """ Set Data in Item """
         if role == Qt.EditRole:
-            self.saveData(value)
+            dataSaved = self.saveData(value)
+            if dataSaved:
+                for callback in self.callbacks:
+                    callback()
         if self.shouldSetData(role):
             return QTableWidgetItem.setData(self, role, self.getData())
         

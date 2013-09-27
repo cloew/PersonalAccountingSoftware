@@ -8,17 +8,14 @@ class TypeTableItem(TransactionTableItem):
                   False:"Expense",
                   None:"Expense"} 
     
-    def __init__(self, transaction, table):
+    def __init__(self, transaction, account=None):
         """ Initialize the Type Item """
-        self.table = table
+        self.account = account
         TransactionTableItem.__init__(self, transaction)
         
     def getData(self):
         """ Return data for the provided transaction """
-        if hasattr(self.table, "account"):
-            return TypeTableItem.label_text[self.transaction.isIncome(self.table.account)]
-        else:
-            return TypeTableItem.label_text[self.transaction.isIncome()]
+        return TypeTableItem.label_text[self.transaction.isIncome(account=self.account)]
         
     def saveData(self, value):
         """ Save Data in Item """
