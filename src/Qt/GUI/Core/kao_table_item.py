@@ -21,7 +21,10 @@ class KaoTableItem(QTableWidgetItem):
                 for callback in self.callbacks:
                     callback()
         if self.shouldSetData(role):
-            return QTableWidgetItem.setData(self, role, self.getData())
+            try:
+                return QTableWidgetItem.setData(self, role, self.getData())
+            except RuntimeError:
+                pass
         
     def updateData(self):
         """ Update the Table Item's text and data """
