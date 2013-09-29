@@ -22,21 +22,6 @@ class TransactionTableWidget(KaoTableWidget):
         transactions = self.getTransactions()
         self.setRowCount(len(transactions))
         self.populateTable(transactions)
-                    
-    def setColumnDelegates(self):
-        """ Set Column Delegates """
-        self.setCategoryDelegate()
-        self.setTypeDelegate()
-                    
-    def setCategoryDelegate(self):
-        """ Set the Category Delegate """
-        self.categoryDelegate = TransactionCategoryDelegate()
-        self.setDelegateForColumn(self.categoryDelegate, CategoryColumn)
-        
-    def setTypeDelegate(self):
-        """ Set the Type Delegate """
-        self.typeDelegate = TransactionTypeDelegate()
-        self.setDelegateForColumn(self.typeDelegate, TypeColumn)
         
     def tabSelected(self):
         """ Do Nothing when this tab is selected """

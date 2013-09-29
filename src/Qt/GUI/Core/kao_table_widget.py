@@ -12,6 +12,7 @@ class KaoTableWidget(QTableWidget):
         self.verticalHeader().hide()
         
         self.populateTable(dataList)
+        self.delegates = []
         self.setColumnDelegates()
         
         self.horizontalHeader().setResizeMode(QHeaderView.Stretch)
@@ -42,6 +43,7 @@ class KaoTableWidget(QTableWidget):
         for column in self.columns:
             if column.DELEGATE_CLASS is not None:
                 delegate = column.DELEGATE_CLASS()
+                self.delegates.append(delegate)
                 self.setDelegateForColumn(delegate, column.__class__)
         
     def setDelegateForColumn(self, delegate, columnClass):
