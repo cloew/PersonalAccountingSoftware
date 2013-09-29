@@ -3,6 +3,7 @@ from db.subtransactions import SubTransactions
 
 from Qt.GUI.Transaction.Table.transaction_table_widget import TransactionTableWidget
 
+from Qt.GUI.Transaction.Table.Columns.account_column import AccountColumn
 from Qt.GUI.Transaction.Table.Columns.amount_column import AmountColumn
 from Qt.GUI.Transaction.Table.Columns.category_column import CategoryColumn
 from Qt.GUI.Transaction.Table.Columns.date_column import DateColumn
@@ -20,7 +21,8 @@ class SubTransactionTableWidget(TransactionTableWidget):
     
     def getColumns(self):
         """ Return the columns for use in the table """
-        return [AmountColumn(callbacks=[self.updateCoreTransactionTable]),
+        return [AccountColumn(callbacks=[self.updateCoreTransactionTable]),
+                AmountColumn(callbacks=[self.updateCoreTransactionTable]),
                 DescriptionColumn(callbacks=[self.updateCoreTransactionTable]),
                 TypeColumn(callbacks=[self.updateCoreTransactionTable]),
                 CategoryColumn(callbacks=[self.updateCoreTransactionTable]),
