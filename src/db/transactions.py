@@ -18,6 +18,13 @@ class TransactionsWrapper(TableWrapper):
             return TableWrapper.all(self, order=desc(Transaction.date))
         else:
             return TableWrapper.all(self, order=order)
+            
+    def findById(self, id):
+        """ Return the Transaction with the given id """
+        transaction = None
+        with self.session() as session:
+            transaction = session.query(self.table_class).filter_by(id=id).first()
+        return transaction
         
     def allForAccount(self, account, order=None, filters={}, onOrAfter=None, before=None):
         """ Return all transactions for the given account with the applied filters """

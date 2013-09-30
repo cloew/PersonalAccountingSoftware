@@ -24,9 +24,6 @@ class Transaction(Base):
     category = relationship("Category", backref=backref('transactions'))
     subtransaction_set_id = Column(Integer, ForeignKey('subtransactions.id'))
     subtransaction_set = relationship("SubTransaction", backref=backref('transactions'))
-    # transferAccounts = relationship("Account",
-                                    # secondary=transfers_table,
-                                    # backref="transfers")
                                     
     def isIncome(self, account=None):
         """ Returns if the transaction is income for the given account """

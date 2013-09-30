@@ -1,6 +1,7 @@
 from db.transactions import Transactions
 from XML.account_element_factory import CreateAccountElements, LoadAccounts
 from XML.category_element_factory import CreateCategoryElements, LoadCategories
+from XML.subtransaction_element_factory import CreateSubTransactionElements, LoadSubTransactions
 from XML.transaction_element_factory import CreateTransactionElements, LoadTransactions
 
 from xml.dom.minidom import parseString
@@ -10,7 +11,7 @@ def Export():
     """ Export the PAS Database """
     pasElement = Element("pas")
     
-    elementGenerators = [CreateAccountElements, CreateCategoryElements, CreateTransactionElements]
+    elementGenerators = [CreateAccountElements, CreateCategoryElements, CreateTransactionElements, CreateSubTransactionElements]
     
     for elementGenerator in elementGenerators:
         element = elementGenerator()
@@ -23,7 +24,7 @@ def Import():
     xmlTree = parse("export.xml")
     root = xmlTree.getroot()
     
-    dataLoaders = [LoadAccounts, LoadCategories, LoadTransactions]
+    dataLoaders = [LoadAccounts, LoadCategories, LoadTransactions, LoadSubTransactions]
     
     for dataLoader in dataLoaders:
         dataLoader(root)

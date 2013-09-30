@@ -19,8 +19,11 @@ def CreateTransactionElements():
     return transactionsElement
 
 def CreateTransactionElement(transaction):
-    """ Create the Transaction XML Element for the given account """
+    """ Create the Transaction XML Element for the given transaction """
     transactionElement = Element("transaction")
+    
+    idElement = SubElement(transactionElement, "id")
+    idElement.text = str(transaction.id)
     
     amountElement = SubElement(transactionElement, "amount")
     amountElement.text = str(transaction.amount)
@@ -62,6 +65,7 @@ def LoadTransactions(parentElement):
     
 def LoadTransaction(transactionElement):
     """ Load a transaction from XML """
+    idText = transactionElement.findtext("id")
     amount = int(transactionElement.findtext("amount"))
     description = transactionElement.findtext("description")
     income = StringToBoolean(transactionElement.findtext("income"))
@@ -72,7 +76,10 @@ def LoadTransaction(transactionElement):
     categoryName = transactionElement.findtext("category")
     transferAccountName = transactionElement.findtext("transfer")
     
-    transaction = Transaction(amount=amount, description=description, date=date, income=income, cleared=cleared, reconciled=reconciled)
+    if idText is not None:
+        transaction = Transaction(id=int(idText), amount=amount, description=description, date=date, income=income, cleared=cleared, reconciled=reconciled)
+    else:
+        transaction = Transaction(amount=amount, description=description, date=date, income=income, cleared=cleared, reconciled=reconciled)
     
     if accountName:
         account = Accounts.accountWithName(accountName)
