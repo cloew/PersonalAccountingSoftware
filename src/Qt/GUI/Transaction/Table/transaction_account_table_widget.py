@@ -32,6 +32,9 @@ class TransactionAccountTableWidget(TransactionTableWidget):
         
         balanceColumn = self.getColumn(BalanceColumn)
         balanceColumn.account = self.account
+        
+        typeColumn = self.getColumn(TypeColumn)
+        typeColumn.account = self.account
             
         TransactionTableWidget.updateTransactions(self)
         
