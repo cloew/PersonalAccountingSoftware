@@ -5,7 +5,7 @@ from shutil import copy
 import os
 import sys
 
-version = ".14"
+version = ".15"
 
 def GetBackupDirectory():
     """ Returns the backup directory and creates it if it does not exist already """
