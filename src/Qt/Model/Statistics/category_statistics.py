@@ -41,10 +41,9 @@ class CategoryStatistics:
             categoryTotal = 0
             for transaction in self.categoryTransactions[category]:
                 if transaction.subtransaction_set is not None:
-                    amount = 0
-                    for subtransaction in transaction.subtransaction_set.transactions:
-                        amount -= subtransaction.getValue()
-                    categoryTotal += amount
+                    amount = transaction.subtransaction_set.getValue()
+                    if amount < 0:
+                        categoryTotal += -1*amount
                 else:
                     if transaction.amount is not None:
                         categoryTotal += transaction.amount

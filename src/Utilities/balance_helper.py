@@ -14,18 +14,6 @@ class BalanceHelper:
         
         self.setupTransactionsBeforeAccount(account)
         self.setupTransactionsAfterAccount(account)
-        
-        # balance = 0
-        # for transaction in Transactions.allForAccount(account, order=Transaction.date):
-            # if transaction.date > account.initial_balance_date:
-                # balance += account.initial_balance
-        
-            # if transaction.amount is not None:
-                # if transaction.isIncome(account):
-                    # balance += transaction.amount
-                # else:
-                    # balance -= transaction.amount
-            # self.balancesForAccounts[account][transaction] = balance
                     
     def setupTransactionsBeforeAccount(self, account):
         """ Setup Transactions before the account initial date """
