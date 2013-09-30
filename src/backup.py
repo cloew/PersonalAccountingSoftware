@@ -1,11 +1,11 @@
 from XML.pas_xml_generator import Export
 
+from version import VERSION
+
 from shutil import copy
 
 import os
 import sys
-
-version = ".15"
 
 def GetBackupDirectory():
     """ Returns the backup directory and creates it if it does not exist already """
@@ -33,7 +33,7 @@ def main(args):
     if len(args) > 0:
         backupName = args[0]
     else:
-        backupName = "version{0}".format(version.replace(".", ""))
+        backupName = "version{0}".format(str(VERSION).replace(".", ""))
     CopyDatabase(backupName)
     CopyExport(backupName)    
 
