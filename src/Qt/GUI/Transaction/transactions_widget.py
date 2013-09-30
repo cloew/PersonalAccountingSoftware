@@ -1,26 +1,18 @@
+from Qt.GUI.Core.kao_widget_with_menu import KaoWidgetWithMenu
 from Qt.GUI.Transaction.Table.transaction_account_table_widget import TransactionAccountTableWidget
 from Qt.GUI.Transaction.Menu.transaction_menu_widget import TransactionMenuWidget
 
-from PySide.QtCore import Qt
 from PySide.QtGui import QHBoxLayout, QFrame, QWidget
 
-class TransactionsWidget(QFrame):
+class TransactionsWidget(KaoWidgetWithMenu):
     """ Represents the Widget that holds the Transaction table and menu """
     
-    def __init__(self, parent):
-        """ Initialize the Transactions Widget """
-        QFrame.__init__(self)
-        self.parentWidget = parent
+    def setupWidgets(self):
+        """ Setup the Transactions Widget """
         self.transactionMenuWidget = TransactionMenuWidget(self)
         self.transactionTableWidget = TransactionAccountTableWidget(self.transactionMenuWidget)
         self.transactionMenuWidget.table = self.transactionTableWidget
-            
-        self.setPieceSizes()
-        
-        layout = QHBoxLayout(self)
-        layout.addWidget(self.transactionTableWidget)
-        layout.addWidget(self.transactionMenuWidget)
-        self.setLayout(layout)
+        return self.transactionTableWidget, self.transactionMenuWidget
         
     def setToolbar(self, toolbar):
         """ Set the  toolbar for the widget """
@@ -30,16 +22,3 @@ class TransactionsWidget(QFrame):
     def tabSelected(self):
         """ Do Nothing when this tab is selected """
         self.transactionMenuWidget.tabSelected()
-    
-    def resizeEvent(self, resizeEvent):
-        """ Called when window is resized """
-        self.setPieceSizes()
-        
-    def setPieceSizes(self):
-        """ Set the Piece Sizes """
-        size = self.parentWidget.size()
-        height = size.height()-100
-        smallWidth = size.width()/4
-        largeWidth = size.width() - smallWidth
-        self.transactionMenuWidget.setMaximumSize(smallWidth, height)
-        self.transactionTableWidget.setMaximumSize(largeWidth, height)

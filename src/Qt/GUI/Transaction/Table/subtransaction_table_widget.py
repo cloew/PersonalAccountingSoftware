@@ -25,7 +25,7 @@ class SubTransactionTableWidget(TransactionTableWidget):
                 AmountColumn(callbacks=[self.updateCoreTransactionTable]),
                 DescriptionColumn(callbacks=[self.updateCoreTransactionTable]),
                 TypeColumn(callbacks=[self.updateCoreTransactionTable]),
-                CategoryColumn(callbacks=[self.updateCoreTransactionTable]),
+                #CategoryColumn(callbacks=[self.updateCoreTransactionTable]),
                 DateColumn(callbacks=[self.updateCoreTransactionTable])]
         
     def getTransactions(self):
