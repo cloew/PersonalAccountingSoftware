@@ -24,8 +24,6 @@ class KaoTableCheckbox(QCheckBox):
         
     def __on_check_state_changed__(self, state):
         self.onCheckStateChanged(state)
-        for callback in self.callbacks:
-            callback()
             
     def onCheckStateChanged(self, state):
         """ Event called when the Checkbox state is changed """
