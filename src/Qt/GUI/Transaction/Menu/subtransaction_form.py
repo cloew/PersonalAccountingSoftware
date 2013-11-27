@@ -54,21 +54,11 @@ class SubtransactionForm:
         
     def updateOnTransactionChange(self):
         """ Update on a Transaction Change """
-        # for label in self.subtransactionLabels:
-            # self.formLayout.removeWidget(label)
-            # label.deleteLater()
-            
-        # self.addSubtransactionLabels()
         self.subtransactionTable.parent_transaction = self.transaction
         self.subtransactionTable.updateTransactions()
         
     def tabSelected(self):
-        """ Update the Account Tab when the tab is selected """
-        # text = self.accountComboBox.currentText()
-        # UpdateComboBoxWithAccounts(self.accountComboBox)
-        # index = self.accountComboBox.findText(text)
-        # if not (index == -1):
-            # self.accountComboBox.setCurrentIndex(index)
+        """ Do nothing when selected """
             
     def saveTransaction(self, checked=False):
         """ Save the current Transaction """
@@ -84,7 +74,7 @@ class SubtransactionForm:
                 Transactions.add(self.transaction)
             
             transaction.subtransaction_set = subtransaction_set
-            # account = Accounts.all()[self.accountComboBox.currentIndex()]
+            
             transaction.account = self.transaction.account
             Transactions.add(transaction)
             Transactions.save()

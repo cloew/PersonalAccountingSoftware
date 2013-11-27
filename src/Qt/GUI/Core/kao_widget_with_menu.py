@@ -27,7 +27,7 @@ class KaoWidgetWithMenu(QFrame):
         """ Set the Piece Sizes """
         size = self.parentWidget.size()
         height = size.height()-100
-        smallWidth = size.width()/4
+        smallWidth = size.width()/3.5
         largeWidth = size.width() - smallWidth
         self.__right_widget__.setMaximumSize(smallWidth, height)
         self.__left_widget__.setMaximumSize(largeWidth, height)
