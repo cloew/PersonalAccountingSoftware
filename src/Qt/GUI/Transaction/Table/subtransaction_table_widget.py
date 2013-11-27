@@ -8,6 +8,7 @@ from Qt.GUI.Transaction.Table.Columns.amount_column import AmountColumn
 from Qt.GUI.Transaction.Table.Columns.category_column import CategoryColumn
 from Qt.GUI.Transaction.Table.Columns.date_column import DateColumn
 from Qt.GUI.Transaction.Table.Columns.description_column import DescriptionColumn
+from Qt.GUI.Transaction.Table.Columns.remove_subtransaction_column import RemoveSubtransactionColumn
 from Qt.GUI.Transaction.Table.Columns.type_column import TypeColumn
 
 class SubTransactionTableWidget(TransactionTableWidget):
@@ -26,7 +27,8 @@ class SubTransactionTableWidget(TransactionTableWidget):
                 DescriptionColumn(callbacks=[self.updateCoreTransactionTable]),
                 TypeColumn(callbacks=[self.updateCoreTransactionTable]),
                 #CategoryColumn(callbacks=[self.updateCoreTransactionTable]),
-                DateColumn(callbacks=[self.updateCoreTransactionTable])]
+                DateColumn(callbacks=[self.updateCoreTransactionTable]),
+                RemoveSubtransactionColumn(self)]
         
     def getTransactions(self):
         """ Return the list of transactions with filters applied """
