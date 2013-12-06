@@ -1,9 +1,13 @@
 from db.accounts import Accounts
+from db.subtransaction_sets import SubtransactionSets
 from db.transactions import Transactions
+
 from ORM.transaction import Transaction
 from ORM.transaction_helper import CreateSubtransactionFromRelative, GetOrCreateSubtransactionSet
+
 from Qt.GUI.Transaction.Table.subtransaction_table_widget import SubTransactionTableWidget
 from Qt.GUI.Utilities.account_combobox_helper import UpdateComboBoxWithAccounts
+
 from Utilities.balance_helper import TheBalanceHelper
 from Utilities.dollar_amount_helper import GetCentsFromDollarString
 
@@ -29,7 +33,11 @@ class SubtransactionForm:
         self.horizontalLayout.addWidget(label)
         
         button = QPushButton("Add New Subtransaction")
-        button.clicked.connect(self.saveTransaction)
+        button.clicked.connect(self.addSubtransaction)
+        self.horizontalLayout.addWidget(button)
+        
+        button = QPushButton("Remove Subtransaction")
+        button.clicked.connect(self.removeSubtransaction)
         self.horizontalLayout.addWidget(button)
         
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -57,8 +65,8 @@ class SubtransactionForm:
     def tabSelected(self):
         """ Do nothing when selected """
             
-    def saveTransaction(self, checked=False):
-        """ Save the current Transaction """
+    def addSubtransaction(self, checked=False):
+        """ Add the new Subtransaction """
         if self.transaction is not None:
             transaction = CreateSubtransactionFromRelative(self.transaction)
             
@@ -66,6 +74,20 @@ class SubtransactionForm:
             self.subtransactionTable.updateTransactions()
             if transaction.account is self.table.account:
                 self.table.insertRow(transaction)
+                
+    def removeSubtransaction(self, checked=False):
+        """ Remove the current Subtransaction """
+        subtransaction = self.subtransactionTable.currentSubtransaction
+        if subtransaction is not None:
+            subtransactionSet = subtransaction.subtransaction_set
+            if len(subtransactionSet.transactions) == 2:
+                SubtransactionSets.delete(subtransactionSet)
+            else:
+                subtransactionSet.transactions.remove(subtransaction)
+                SubtransactionSets.save()
+            
+            row = self.subtransactionTable.currentRow()
+            self.subtransactionTable.removeRow(row)
     
     @property
     def layout(self):

@@ -14,6 +14,7 @@ class SubTransactionTableWidget(TransactionTableWidget):
     def __init__(self, transaction, parentForm, parent=None):
         """ Initialize the Transaction Table Widget """
         self.parent_transaction = transaction
+        self.currentSubtransaction = None
         self.parentForm = parentForm
         TransactionTableWidget.__init__(self, parent=parent)
     
@@ -24,8 +25,8 @@ class SubTransactionTableWidget(TransactionTableWidget):
                 DescriptionColumn(callbacks=[self.updateCoreTransactionTable]),
                 TypeColumn(callbacks=[self.updateCoreTransactionTable]),
                 #CategoryColumn(callbacks=[self.updateCoreTransactionTable]),
-                DateColumn(callbacks=[self.updateCoreTransactionTable]),
-                RemoveSubtransactionColumn(self)]
+                DateColumn(callbacks=[self.updateCoreTransactionTable])]
+                #RemoveSubtransactionColumn(self)]
         
     def getTransactions(self):
         """ Return the list of transactions with filters applied """
@@ -38,3 +39,6 @@ class SubTransactionTableWidget(TransactionTableWidget):
     def updateCoreTransactionTable(self):
         self.parentForm.table.updateTransactions()
         
+    def updateTransactionOnSelectionChange(self, transaction):
+        """ Update the Transactions Widget when a row is selected """
+        self.currentSubtransaction = transaction
