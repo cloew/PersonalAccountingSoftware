@@ -36,9 +36,10 @@ class SubtransactionForm:
         button.clicked.connect(self.addSubtransaction)
         self.horizontalLayout.addWidget(button)
         
-        button = QPushButton("Remove Subtransaction")
-        button.clicked.connect(self.removeSubtransaction)
-        self.horizontalLayout.addWidget(button)
+        self.removeButton = QPushButton("Remove Subtransaction")
+        self.removeButton.clicked.connect(self.removeSubtransaction)
+        self.horizontalLayout.addWidget(self.removeButton)
+        self.removeButton.setEnabled(False)
         
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.verticalLayout.addWidget(self.subtransactionTable)
@@ -88,6 +89,11 @@ class SubtransactionForm:
             
             row = self.subtransactionTable.currentRow()
             self.subtransactionTable.removeRow(row)
+            
+    def updateSubtransactionDetails(self):
+        """ Update the Form's Subtransaction Details """
+        subtransaction = self.subtransactionTable.currentSubtransaction
+        self.removeButton.setEnabled(subtransaction is not None)
     
     @property
     def layout(self):

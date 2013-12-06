@@ -42,3 +42,4 @@ class SubTransactionTableWidget(TransactionTableWidget):
     def updateTransactionOnSelectionChange(self, transaction):
         """ Update the Transactions Widget when a row is selected """
         self.currentSubtransaction = transaction
+        self.parentForm.updateSubtransactionDetails()
