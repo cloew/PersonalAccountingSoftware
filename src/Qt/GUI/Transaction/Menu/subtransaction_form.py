@@ -1,15 +1,13 @@
 from db.accounts import Accounts
 from db.transactions import Transactions
 from ORM.transaction import Transaction
-from ORM.transaction_helper import GetOrCreateSubtransactionSet
+from ORM.transaction_helper import CreateSubtransactionFromRelative, GetOrCreateSubtransactionSet
 from Qt.GUI.Transaction.Table.subtransaction_table_widget import SubTransactionTableWidget
 from Qt.GUI.Utilities.account_combobox_helper import UpdateComboBoxWithAccounts
 from Utilities.balance_helper import TheBalanceHelper
 from Utilities.dollar_amount_helper import GetCentsFromDollarString
 
 from PySide.QtGui import QComboBox, QFormLayout, QFrame, QLabel, QLineEdit, QPushButton, QHBoxLayout, QVBoxLayout
-
-import datetime
 
 class SubtransactionForm:
     """ Represents the SubTransaction Form """
@@ -62,22 +60,12 @@ class SubtransactionForm:
     def saveTransaction(self, checked=False):
         """ Save the current Transaction """
         if self.transaction is not None:
-            transaction = self.createSubtransaction(self.transaction)
+            transaction = CreateSubtransactionFromRelative(self.transaction)
             
             TheBalanceHelper.setupBalancesForAccount(transaction.account)
             self.subtransactionTable.updateTransactions()
             if transaction.account is self.table.account:
                 self.table.insertRow(transaction)
-                
-    def createSubtransaction(self, relative):
-        """ Create a Subtransaction from its relative """
-        transaction = Transaction(date=datetime.date.today())
-        transaction.subtransaction_set = GetOrCreateSubtransactionSet(relative)
-        transaction.account = relative.account
-        
-        Transactions.add(transaction)
-        Transactions.save()
-        return transaction
     
     @property
     def layout(self):
