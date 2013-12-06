@@ -1,4 +1,4 @@
-from db.subtransactions import SubTransactions
+from db.subtransaction_sets import SubtransactionSets
 
 from PySide.QtGui import QIcon, QPushButton
 

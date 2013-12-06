@@ -1,6 +1,6 @@
 import ORM.account
 import ORM.category
-import ORM.subtransaction
+import ORM.subtransaction_set
 import ORM.transaction
 import ORM.transfer
 from ORM.orm_base import Base

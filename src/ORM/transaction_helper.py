@@ -1,7 +1,7 @@
-from subtransaction import SubTransaction
+from subtransaction_set import SubtransactionSet
 from transaction import Transaction
 
-from db.subtransactions import SubTransactions
+from db.subtransaction_sets import SubtransactionSets
 from db.transactions import Transactions
 
 import datetime
@@ -10,9 +10,9 @@ def GetOrCreateSubtransactionSet(transaction):
     """ Get a Transaction's Subtransaction Set or create it if it doesn't exist """
     subtransaction_set = transaction.subtransaction_set
     if subtransaction_set is None:
-        subtransaction_set = SubTransaction()
-        SubTransactions.add(subtransaction_set)
-        SubTransactions.save()
+        subtransaction_set = SubtransactionSet()
+        SubtransactionSets.add(subtransaction_set)
+        SubtransactionSets.save()
         transaction.subtransaction_set = subtransaction_set
         Transactions.add(transaction)
     

@@ -1,6 +1,6 @@
 from account import Account
 from category import Category
-from subtransaction import SubTransaction
+from subtransaction_set import SubtransactionSet
 from orm_base import Base
 
 from sqlalchemy import Boolean, Column, Date, ForeignKey, Integer, String
@@ -23,8 +23,8 @@ class Transaction(Base):
     account = relationship("Account", backref=backref('transactions'))
     category_id = Column(Integer, ForeignKey('categories.id'))
     category = relationship("Category", backref=backref('transactions'))
-    subtransaction_set_id = Column(Integer, ForeignKey('subtransactions.id'))
-    subtransaction_set = relationship("SubTransaction", backref=backref('transactions'))
+    subtransaction_set_id = Column(Integer, ForeignKey('subtransaction_sets.id'))
+    subtransaction_set = relationship("SubtransactionSet", backref=backref('transactions'))
                                     
     def isIncome(self, account=None):
         """ Returns if the transaction is income for the given account """

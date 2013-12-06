@@ -1,6 +1,3 @@
-from db.transactions import Transactions
-from db.subtransactions import SubTransactions
-
 from Qt.GUI.Transaction.Table.transaction_table_widget import TransactionTableWidget
 
 from Qt.GUI.Transaction.Table.Columns.account_column import AccountColumn
