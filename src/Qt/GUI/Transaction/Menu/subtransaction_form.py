@@ -1,8 +1,7 @@
 from db.accounts import Accounts
-from db.subtransactions import SubTransactions
 from db.transactions import Transactions
-from ORM.subtransaction import SubTransaction
 from ORM.transaction import Transaction
+from ORM.transaction_helper import GetOrCreateSubtransactionSet
 from Qt.GUI.Transaction.Table.subtransaction_table_widget import SubTransactionTableWidget
 from Qt.GUI.Utilities.account_combobox_helper import UpdateComboBoxWithAccounts
 from Utilities.balance_helper import TheBalanceHelper
@@ -62,28 +61,23 @@ class SubtransactionForm:
             
     def saveTransaction(self, checked=False):
         """ Save the current Transaction """
-        transaction = Transaction(date=datetime.date.today())
-        
         if self.transaction is not None:
-            subtransaction_set = self.transaction.subtransaction_set
-            if subtransaction_set is None:
-                subtransaction_set = SubTransaction()
-                SubTransactions.add(subtransaction_set)
-                SubTransactions.save()
-                self.transaction.subtransaction_set = subtransaction_set
-                Transactions.add(self.transaction)
-            
-            transaction.subtransaction_set = subtransaction_set
-            
-            transaction.account = self.transaction.account
-            Transactions.add(transaction)
-            Transactions.save()
+            transaction = self.createSubtransaction(self.transaction)
             
             TheBalanceHelper.setupBalancesForAccount(transaction.account)
             self.subtransactionTable.updateTransactions()
             if transaction.account is self.table.account:
                 self.table.insertRow(transaction)
+                
+    def createSubtransaction(self, relative):
+        """ Create a Subtransaction from its relative """
+        transaction = Transaction(date=datetime.date.today())
+        transaction.subtransaction_set = GetOrCreateSubtransactionSet(relative)
+        transaction.account = relative.account
         
+        Transactions.add(transaction)
+        Transactions.save()
+        return transaction
     
     @property
     def layout(self):
