@@ -1,7 +1,6 @@
 from contextlib import contextmanager
 from database import Database
 
-
 class TableWrapper:
     """ Class to wrap interaction to tables in the database """
     table_class = None # Should be overridden by sub class

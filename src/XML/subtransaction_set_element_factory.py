@@ -8,7 +8,7 @@ def CreateSubtransactionSetElements():
     """ Create Subtransaction Set Elements to the parent element """
     subtransactionSetsElement = Element("subtransaction_sets")
     
-    for subtransaction_set in SubTransactions.all():
+    for subtransaction_set in SubtransactionSets.all():
         subtransactionSetElement = CreateSubtransactionSetElement(subtransaction_set)
         subtransactionSetsElement.append(subtransactionSetElement)
         
