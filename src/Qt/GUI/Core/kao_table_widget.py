@@ -1,4 +1,4 @@
-from PySide.QtGui import QHeaderView, QTableWidget
+from PySide.QtGui import QHeaderView, QTableWidget, QItemSelectionModel 
 
 class KaoTableWidget(QTableWidget):
     """ Base class for Kao Ttessur Qt Table Widgets """
@@ -67,6 +67,7 @@ class KaoTableWidget(QTableWidget):
         """ Insert a Row into the Kao Table with the given data """
         QTableWidget.insertRow(self, 0)
         self.populateRow(0, data)
+        self.setCurrentCell(0, 0, QItemSelectionModel.ClearAndSelect)
         self.resizeRowsToContents()
         
     
