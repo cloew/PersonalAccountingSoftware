@@ -63,11 +63,12 @@ class KaoTableWidget(QTableWidget):
         columnClasses = [column.__class__ for column in self.columns]
         return columnClasses.index(columnClass)
         
-    def insertRow(self, data):
+    def insertRow(self, data, selectRow=True):
         """ Insert a Row into the Kao Table with the given data """
         QTableWidget.insertRow(self, 0)
         self.populateRow(0, data)
-        self.setCurrentCell(0, 0, QItemSelectionModel.ClearAndSelect)
+        if selectRow:
+            self.setCurrentCell(0, 0, QItemSelectionModel.ClearAndSelect)
         self.resizeRowsToContents()
         
     

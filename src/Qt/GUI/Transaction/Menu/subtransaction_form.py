@@ -74,7 +74,7 @@ class SubtransactionForm:
             TheBalanceHelper.setupBalancesForAccount(transaction.account)
             self.subtransactionTable.updateTransactions()
             if transaction.account is self.table.account:
-                self.table.insertRow(transaction)
+                self.table.insertRow(transaction, selectRow=False)
                 
     def removeSubtransaction(self, checked=False):
         """ Remove the current Subtransaction """
