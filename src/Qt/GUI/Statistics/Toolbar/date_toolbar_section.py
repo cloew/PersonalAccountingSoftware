@@ -30,8 +30,11 @@ class DateToolbarSection:
         categoryStatistics.month = index+1
         self.panel.updatePanel()
     
-    def setYear(self):
+    def setYear(self, index):
         """ Set the year """
+        categoryStatistics = self.getCategoryStatistics()
+        categoryStatistics.year = int(self.yearComboBox.currentText())
+        self.panel.updatePanel()
         
     def getCategoryStatistics(self):
         """ Returns the Category Statistics """
