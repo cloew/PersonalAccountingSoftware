@@ -88,6 +88,15 @@ class TransactionsWrapper(TableWrapper):
         """ Return the query for the transactions of the given account """
         return session.query(self.table_class).filter_by(account=account)
         
+    def getAllYears(self):
+        """ Return all years with at least one transaction """
+        allTransactions = []
+        
+        with self.session() as session:
+            allTransactions = session.query(Transaction.date).distinct()
+            
+        return set([transaction.date.year for transaction in allTransactions])
+        
     def getMonthDateRange(self, month, year):
         """ Return the Month Date Range """
         num_days = calendar.monthrange(year, month)[1]

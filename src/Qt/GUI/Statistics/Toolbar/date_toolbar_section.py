@@ -1,3 +1,5 @@
+from db.transactions import Transactions
+
 from PySide.QtGui import QComboBox, QLabel
 
 class DateToolbarSection:
@@ -12,17 +14,30 @@ class DateToolbarSection:
         """ Add Date Section """
         self.dateLabel = QLabel("Month: ", self.toolbar)
         self.toolbar.addWidget(self.dateLabel)
+        self.setupMonthComboBox()
+        self.setupYearComboBox()
+        
+    def setupMonthComboBox(self):
+        """ Setup the month combo box """
         self.monthComboBox = QComboBox(self.toolbar)
         self.monthComboBox.addItems(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])
         self.monthComboBox.activated.connect(self.setMonth)
         self.monthComboBox.setCurrentIndex(self.getCategoryStatistics().month-1)
         self.toolbar.addWidget(self.monthComboBox)
         
-        
+    def setupYearComboBox(self):
+        """ Setup the year combo box """
         self.yearComboBox = QComboBox(self.toolbar)
-        self.yearComboBox.addItems(["2013"])
+        self.getTransactionYears()
+        self.yearComboBox.addItems([str(year) for year in self.transactionYears])
         self.yearComboBox.activated.connect(self.setYear)
+        self.yearComboBox.setCurrentIndex(self.transactionYears.index(self.getCategoryStatistics().year))
         self.toolbar.addWidget(self.yearComboBox)
+    
+    def getTransactionYears(self):
+        """ Get the possible transacttion years """
+        self.transactionYears = list(Transactions.getAllYears())
+        self.transactionYears.sort()
     
     def setMonth(self, index):
         """ Set the month """
