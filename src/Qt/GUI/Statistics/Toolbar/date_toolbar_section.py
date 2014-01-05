@@ -36,7 +36,9 @@ class DateToolbarSection:
     
     def getTransactionYears(self):
         """ Get the possible transacttion years """
-        self.transactionYears = list(Transactions.getAllYears())
+        self.transactionYearsSet = Transactions.getAllYears()
+        self.transactionYearsSet.add(self.getCategoryStatistics().year)
+        self.transactionYears = list(self.transactionYearsSet)
         self.transactionYears.sort()
     
     def setMonth(self, index):
