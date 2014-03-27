@@ -47,8 +47,9 @@ class CategoryStatistics:
                 else:
                     if transaction.amount is not None:
                         categoryTotal += transaction.amount
-            self.totalForCategory[category] = categoryTotal
-            self.total += categoryTotal
+            if categoryTotal > 0:
+                self.totalForCategory[category] = categoryTotal
+                self.total += categoryTotal
 
     def getLabels(self):
         """ Return a list of the labels for the Categories """
