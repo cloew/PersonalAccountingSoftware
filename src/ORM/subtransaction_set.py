@@ -1,4 +1,4 @@
-from orm_base import Base
+from .orm_base import Base
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship, backref
 

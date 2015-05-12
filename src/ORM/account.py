@@ -1,4 +1,4 @@
-from orm_base import Base
+from .orm_base import Base
 from Utilities.date_helper import DateToString
 from Utilities.dollar_amount_helper import GetDollarString
 

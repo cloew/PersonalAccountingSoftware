@@ -1,4 +1,4 @@
-from table_wrapper import TableWrapper
+from .table_wrapper import TableWrapper
 from ORM.account import Account
 
 class AccountsWrapper(TableWrapper):

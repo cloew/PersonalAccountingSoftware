@@ -1,4 +1,4 @@
-from generate_db import GenerateDatabase
+from .generate_db import GenerateDatabase
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker

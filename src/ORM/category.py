@@ -1,4 +1,4 @@
-from orm_base import Base
+from .orm_base import Base
 from sqlalchemy import Column, Integer, String
 
 class Category(Base):

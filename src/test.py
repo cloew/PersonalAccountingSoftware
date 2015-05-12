@@ -1,4 +1,4 @@
-from reset_db import ResetDatabase
+from .reset_db import ResetDatabase
 
 from db.Test.suite import suite as db_suite
 from Qt.Test.suite import suite as qt_suite

@@ -1,4 +1,4 @@
-from table_wrapper import TableWrapper
+from .table_wrapper import TableWrapper
 from ORM.subtransaction_set import SubtransactionSet
 
 class SubtransactionSetsWrapper(TableWrapper):

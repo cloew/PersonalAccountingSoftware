@@ -1,5 +1,5 @@
-from transaction import Transaction
-from orm_base import Base
+from .transaction import Transaction
+from .orm_base import Base
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship, backref
 

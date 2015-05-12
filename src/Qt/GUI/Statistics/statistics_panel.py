@@ -1,8 +1,8 @@
-from PySide.QtGui import QApplication, QHBoxLayout, QPushButton, QWidget
+from .category_list import CategoryList
+from .category_pie_chart import CategoryPieChart
 from Qt.Model.Statistics.category_statistics import CategoryStatistics
 
-from category_list import CategoryList
-from category_pie_chart import CategoryPieChart
+from PySide.QtGui import QApplication, QHBoxLayout, QPushButton, QWidget
 
 class StatisticsPanel(QWidget):
     """ Represents the Statistics Panel """

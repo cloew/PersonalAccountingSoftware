@@ -1,4 +1,4 @@
-from table_wrapper import TableWrapper
+from .table_wrapper import TableWrapper
 from ORM.category import Category
 
 from sqlalchemy import asc

@@ -1,7 +1,7 @@
-from account import Account
-from category import Category
-from subtransaction_set import SubtransactionSet
-from orm_base import Base
+from .account import Account
+from .category import Category
+from .subtransaction_set import SubtransactionSet
+from .orm_base import Base
 
 from sqlalchemy import Boolean, Column, Date, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship, backref

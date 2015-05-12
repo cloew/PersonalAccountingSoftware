@@ -1,4 +1,4 @@
-from table_wrapper import TableWrapper
+from .table_wrapper import TableWrapper
 from db.transfers import Transfers
 from ORM.account import Account
 from ORM.transaction import Transaction
