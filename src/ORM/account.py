@@ -16,4 +16,4 @@ class Account(Base):
     initial_balance_date = Column(Date)
 
     def __repr__(self):
-        return "<Account('{0}', '{1}' as of {2})>".format(self.name, GetDollarString(self.initial_balance), DateToString(initial_balance_date))
+        return "<Account('{0}', '{1}' as of {2})>".format(self.name, GetDollarString(self.initial_balance), DateToString(self.initial_balance_date))
