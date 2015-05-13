@@ -1,11 +1,13 @@
-from db.database import Database
-from Qt.GUI.main_window_controller import MainWindowController
+from kao_resources import ResourceDirectory
+from knot import KnotApplication
 
-def main():
-    """ Generate the Database """
-    controller = MainWindowController()
-    controller.run()
-    Database.clearSession()
+import sys
+
+def main(args):
+    """ Run the main file """
+    localResources = ResourceDirectory(__file__)
+    app = KnotApplication.load(localResources.getProperPath('app.knot-app'))
+    app.run()
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])

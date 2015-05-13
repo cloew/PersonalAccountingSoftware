@@ -1,0 +1,10 @@
+{
+    "widgets":[{"name":"accounts-table",
+                "controller":"View.account.accounts_table_controller.AccountsTableController",
+                "template":"account/accounts_table.knot"}],
+    "mods":[],
+    "positioning":[],
+    "sizing":[],
+    "services":[{"name":"accounts",
+                 "class":"db.accounts.AccountsWrapper"}]
+}

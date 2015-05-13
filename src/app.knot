@@ -1,0 +1,4 @@
+import View
+
+accounts-table:
+    @size stretch

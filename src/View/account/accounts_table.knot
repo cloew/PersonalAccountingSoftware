@@ -1,0 +1,9 @@
+import knot.table
+
+table($.accounts):
+    @size stretch
+    column:
+        header:
+            Name
+        cell:
+            $record.name
