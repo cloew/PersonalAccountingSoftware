@@ -7,3 +7,13 @@ table($.accounts):
             Name
         cell:
             $record.name
+    column:
+        header:
+            Initial Balance
+        cell:
+            $record.initialBalanceInDollars
+    column:
+        header:
+            as of
+        cell:
+            $record.initialBalanceDateString
